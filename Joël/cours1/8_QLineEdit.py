@@ -34,6 +34,7 @@ questionnaire.addRow(input3)
 # exercice : crée un meilleur filtre
 
 # comment remplacer la virgule par un point
+# la virgule marche toujours
 input4 = QLineEdit()
 validator = QDoubleValidator(0.1, 10, 2)
 
@@ -45,8 +46,7 @@ validator.setNotation(QDoubleValidator.StandardNotation)
 input4.setValidator(validator)
 questionnaire.addRow(input4)
 
-input4.textChanged.connect(print) # option permettant d'afficher dans la console le texte tapé
-
+input4.textChanged.connect(print)  # option permettant d'afficher dans la console le texte tapé
 
 ### PASSWORD ####
 
@@ -63,7 +63,7 @@ input6.setReadOnly(True)
 
 ## astuce : lire le texte dans la console
 print(input6.text())
-questionnaire.addRow((input6))
+questionnaire.addRow(input6)
 
 ### Changer les fonts et la taille ####
 
@@ -78,12 +78,11 @@ input7.setAlignment(Qt.AlignCenter)
 
 questionnaire.addRow(input7)
 
-# exercice 2 : changer la couleur du texte et du fond sans utiliser le CSS
-
 # remarque, il est possible d'utiliser la syntaxe du CSS pour le style des widgets
 
 input7.setStyleSheet("""QLineEdit { background-color:grey; color: white }""")
 
+# exercice 2 : changer la couleur du texte et du fond sans utiliser le CSS
 
 window.setLayout(questionnaire)
 

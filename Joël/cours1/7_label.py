@@ -14,7 +14,7 @@ label1 = QLabel(window)
 label1.setText("label1")
 
 # 2/
-label2 = QLabel("label 2", window)
+label2 = QLabel("label2", window)
 label2.move(0, 20)
 
 # Avec une vbox

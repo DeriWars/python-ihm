@@ -28,7 +28,7 @@ verticalBoxLayout.addWidget(bouton2)
 
 window.setLayout(verticalBoxLayout)"""
 
-"""Etape 3
+"""Etape 3                                                                                                    
 bouton3 = QPushButton("Troisième")
 bouton4 = QPushButton("Quatrième")
 
