@@ -40,7 +40,22 @@ horizontalBoxLayout.addWidget(bouton4)
 
 window.setLayout(horizontalBoxLayout)"""
 
-"""Etape 4 : """
+"""Etape 4 : QGridLayout"""
+bouton1 = QPushButton("Premier")
+bouton2 = QPushButton("Deuxième")
+bouton3 = QPushButton("Troisième")
+bouton4 = QPushButton("Quatrième")
+
+grille = QGridLayout()
+
+grille.addWidget(bouton1, 1, 1)
+grille.addWidget(bouton2, 1, 2)
+grille.addWidget(bouton3, 2, 1)
+grille.addWidget(bouton4, 2, 2)
+
+window.setLayout(grille)
+window.setGeometry(300, 200, 100, 100)  # setGeometry est compatible avec les layout
+
 
 window.show()
 sys.exit(app.exec())
