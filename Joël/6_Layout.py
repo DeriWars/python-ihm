@@ -82,6 +82,20 @@ boite.addWidget(input3_2)
 
 questionnaire.addRow(label3, boite)
 
+# Ajout d'une boite horizontale :
+
+label4 = QLabel("Catégorie")
+
+boite_hozizontale = QHBoxLayout()
+boite_hozizontale.addWidget(QRadioButton("Catégorie 1"))
+boite_hozizontale.addWidget(QRadioButton("Catégorie 2"))
+
+boite_hozizontale.addStretch()
+
+questionnaire.addRow(label4, boite_hozizontale)
+
+
+window.setLayout(questionnaire)
 
 window.show()
 sys.exit(app.exec())
