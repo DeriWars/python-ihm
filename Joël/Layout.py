@@ -40,7 +40,7 @@ horizontalBoxLayout.addWidget(bouton4)
 
 window.setLayout(horizontalBoxLayout)"""
 
-"""Etape 4 : QGridLayout"""
+""" Etape 4 : QGridLayout
 bouton1 = QPushButton("Premier")
 bouton2 = QPushButton("Deuxième")
 bouton3 = QPushButton("Troisième")
@@ -55,7 +55,32 @@ grille.addWidget(bouton4, 2, 2)
 
 window.setLayout(grille)
 window.setGeometry(300, 200, 100, 100)  # setGeometry est compatible avec les layout
+"""
 
+""" Etape 5 : QFormLayout """
+
+label1 = QLabel("Prénom")
+input1 = QLineEdit()
+
+label2 = QLabel("Nom")
+input2 = QLineEdit()
+
+questionnaire = QFormLayout()
+
+questionnaire.addRow(label1, input1)
+questionnaire.addRow(label2, input2)
+
+# Si on veut créer un champ de saisie sur plusieurs lignes
+
+label3 = QLabel("Adresse")
+input3_1 = QLineEdit()
+input3_2 = QLineEdit()
+
+boite = QVBoxLayout()
+boite.addWidget(input3_1)
+boite.addWidget(input3_2)
+
+questionnaire.addRow(label3, boite)
 
 window.show()
 sys.exit(app.exec())
