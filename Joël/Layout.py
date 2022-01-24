@@ -82,5 +82,6 @@ boite.addWidget(input3_2)
 
 questionnaire.addRow(label3, boite)
 
+
 window.show()
 sys.exit(app.exec())
