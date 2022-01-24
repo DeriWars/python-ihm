@@ -5,13 +5,22 @@ Segmenter en Case
 -> Case chance / commu = Case + Bonus / malus
 
 === Pour stocker des cartes ===
-Format JSON comme suit:
+Format JSON comme suit (pour les cases achetables):
+
 {
     "name": "Avenue de la République",
     "size": "200x300",
     "pawn": "100x150",
-    
+
+    "price": 100,
+    "royalties": [10, 20, 40, 80, 160],
+    "color": "#C00"
 }
+
+Toutes autres cases sera stockées "en dur" dans le code.
+
+=== Dés ===
+Mettre les deux dés en statique au milieu du plateau
 
 === Pour notre bien ===
 -> UN SEUL joueur par case, si un joueur tombre sur la même case, il va sur la case d'après
