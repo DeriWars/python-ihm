@@ -2,12 +2,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 
 CSS = """
-QFormLayout
-{
-    height: 100%;
-    font-size: 30px;
-}
-
 QLabel
 {
     font-size: 30px;
@@ -23,11 +17,6 @@ QLineEdit
 QPushButton
 {
     font-size: 35px;
-}
-
-QHBoxLayout
-{
-    height: 10%;
 }
 """
 # create a class for our main window
