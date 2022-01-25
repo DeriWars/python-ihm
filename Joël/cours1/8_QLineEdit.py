@@ -22,16 +22,16 @@ questionnaire.addRow(input2)
 
 # encore plus de controle
 input3 = QLineEdit()
-input3.setValidator((QDoubleValidator(-5, 12, 5)))
+input3.setValidator(QDoubleValidator(-5, 12, 5))
 
 # fonctionne très bizarement
 # piège 1 : accepte la notation scientique
 
-input3.setValidator((QDoubleValidator(-5, 12, 5, notation=QDoubleValidator.StandardNotation)))
+input3.setValidator(QDoubleValidator(-5, 12, 5, notation=QDoubleValidator.StandardNotation))
 
 questionnaire.addRow(input3)
 
-# exercice : crée un meilleur filtre
+# exercice1 : crée un meilleur filtre
 
 # comment remplacer la virgule par un point
 # la virgule marche toujours
@@ -80,9 +80,14 @@ questionnaire.addRow(input7)
 
 # remarque, il est possible d'utiliser la syntaxe du CSS pour le style des widgets
 
-input7.setStyleSheet("""QLineEdit { background-color:grey; color: white }""")
+# input7.setStyleSheet("""QLineEdit { background-color:grey; color: white }""")
 
 # exercice 2 : changer la couleur du texte et du fond sans utiliser le CSS
+palette = input7.palette()
+palette.setColor(QPalette.Text, QColor("yellow"))
+palette.setColor(QPalette.Base, QColor("blue"))
+input7.setPalette(palette)
+
 
 window.setLayout(questionnaire)
 

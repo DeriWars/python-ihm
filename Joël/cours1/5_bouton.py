@@ -32,6 +32,7 @@ def bouton2_clique():
 
 
 bouton1.clicked.connect(bouton1_clique)
+bouton2.clicked.connect(bouton2_clique)
 
 window.show()
 sys.exit(app.exec())
