@@ -14,7 +14,7 @@ class PasswordGenerator(QWidget):
     def create_window(self):
         self.setWindowTitle("Generator (Password manager - by Pékul)")
         width, height = 500, 120
-        self.setGeometry(100, 100, width, height)
+        self.resize(width, height)
         self.setMinimumSize(width, height)
         self.setMaximumSize(width, height)
         self.setStyleSheet("font-size: 16px;")

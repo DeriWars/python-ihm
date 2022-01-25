@@ -13,8 +13,8 @@ class LoginPage(QWidget):
 
     def create_window(self):
         self.setWindowTitle("Login (Password manager - by Pékul)")
-        width, height = 450, 180
-        self.setGeometry(100, 100, width, height)
+        width, height = 450, 220
+        self.resize(width, height)
         self.setMinimumSize(width, height)
         self.setMaximumSize(width, height)
         self.setStyleSheet("font-size: 16px;")
@@ -34,10 +34,14 @@ class LoginPage(QWidget):
         submit = QPushButton("Connexion")
         submit.clicked.connect(self.submit_clicked)
         
+        signup = QPushButton("Créer un compte")
+        signup.clicked.connect(self.signup_clicked)
+        
         layout.addRow(title)
         layout.addRow(self.error)
         layout.addRow("Nom d'utilisateur", self.user)
         layout.addRow("Mot de passe", self.password)
+        layout.addRow(signup)
         layout.addRow(submit)
         
         layout.setSpacing(10)
@@ -53,6 +57,11 @@ class LoginPage(QWidget):
                 error_box("Erreur", "Aucune fenêtre de destination", details="Il n'y a pas de fenêtre de destination pour la connexion. Ce qui signifie que vous ne pouvez pas être rédirigé vers la page suivante.")
         else:
             self.error.setText("Nom d'utilisateur ou mot de passe incorrect")
+    
+    def signup_clicked(self):
+        error_box("Erreur", "Fonctionnalité non implémentée", details="La fonctionnalité de création de compte n'est pas encore implémentée.")
+        # self.hide()
+        # Signup().show()
 
 
 def main():
