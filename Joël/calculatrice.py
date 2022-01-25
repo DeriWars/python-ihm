@@ -9,7 +9,7 @@ REP = "0"
 
 # création de l'application
 app = QApplication(sys.argv)
-app.setApplicationName("Calculatrice")
+app.setApplicationName("Calculatrice-Graph35FX92")
 
 # création de la fenêtre
 window = QWidget()
