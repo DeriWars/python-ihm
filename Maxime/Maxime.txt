@@ -1,0 +1,7 @@
+pseudo du joueur pour afficher à la fin tableau des scores
+afficher date pour savoir à quelle date le joueur l'a fait
+score en fonction de mot, durée, nombre d'essais restants
+le tout dans une base de données qui ne s'efface pas (regarder du côté de json)
+pseudo special pour admins lol
+peut etre definir timer avec un temps maximal (en fonction de la len du mot)
+faire dessins du pendu (peut etre canvas ou manim communioty edition pour le faire en full python)
