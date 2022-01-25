@@ -7,10 +7,13 @@ from math import *
 TEXT = ""
 REP = "0"
 
+# création de l'application
 app = QApplication(sys.argv)
+app.setApplicationName("Calculatrice")
 
 # création de la fenêtre
 window = QWidget()
+window.setWindowIcon(QIcon("D:\Images\Bots_Images\gideon.jpg"))
 window.setGeometry(250, 250, 300, 300)
 
 # création de la zone d'écriture de la calculatrice
@@ -31,7 +34,7 @@ bouton6 = QPushButton("6")
 bouton7 = QPushButton("7")
 bouton8 = QPushButton("8")
 bouton9 = QPushButton("9")
-bouton_point = QPushButton("cours1")
+bouton_point = QPushButton(".")
 bouton_entrer = QPushButton("=")
 bouton_plus = QPushButton("+")
 bouton_moins = QPushButton("-")
