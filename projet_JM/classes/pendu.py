@@ -1,7 +1,9 @@
 from bouton import *
 from pictures import *
+from string import *
 
 WORDFILE = "../data/mots.txt"
+TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüýÿž', 'aaaaaceeeeiiiinooooosuuuuyyz')
 
 
 def read_file(filename):
@@ -9,10 +11,8 @@ def read_file(filename):
     with open(filename, "r", encoding="utf8") as file:
         words = file.read().split()
 
-        for word in words:
-            if "âîéèçàùïäü" not in word:
-                words_list.append(word)
-
+    for word in words:
+        words_list.append(word.lower().translate(TRANSTABLE).replace(' ', ''))
     return words_list
 
 
@@ -118,7 +118,7 @@ class Pendu:
 
         liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                         "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
-                        "pendu_9.png", "pendu_10.png", "pendu_11.png", ]
+                        "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
         picture = Pictures(liste_images, self.errors)
         picture.affichage(top_grid_layout)
@@ -138,7 +138,6 @@ def main():
     errors = 0
     pendu = Pendu(errors)
     pendu.layout()
-
 
 
 if __name__ == main():
