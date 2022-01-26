@@ -10,8 +10,9 @@ def read_file(filename):
         words = file.read().split()
 
         for word in words:
-            if "âîéèçàùïäü" not in word:
-                words_list.append(word)
+            for letter in word:
+                if letter not in "âîéèçàùïäü":
+                    words_list.append(word)
 
     return words_list
 
