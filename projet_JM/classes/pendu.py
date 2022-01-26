@@ -10,7 +10,6 @@ class Pendu:
         bouton.setEnabled(False)
         print(bouton.text(), "est cliqué")
 
-
     def layout(self):
         app = QApplication(sys.argv)
         window = QWidget()
