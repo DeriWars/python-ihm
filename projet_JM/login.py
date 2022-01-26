@@ -3,7 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import json
-FILENAME = "database.json"
+FILENAME = "../projet_JM/database.json"
 data = None
 
 class Login:
@@ -35,24 +35,28 @@ class Login:
         bouton_connect = QPushButton(window)
         bouton_connect.setText("Se connecter")
         bouton_connect.move(150, 100)
+
         bouton_connect.setGeometry(120, 120, 115, 40)
 
         window.setLayout(login_layout)
 
+        """
         def readfile(filename, username):
             with open(filename, mode='r', encoding='utf8') as file:
-                data = json.load(file)
-            data[username] = 0
-            with open(filename, mode='w', encoding='utf8') as file:
-                json.dump(data, file, indent=4)
+                pass
 
+        def loadfile(filename, username):
+            with open(filename, mode='w', encoding='utf8') as file:
+                data = json.load(file)
+                data[username] = 0
+                json.dump(data, file, indent=4)
         def bouton_connect_clicked():
             login_name = input_user.text()
-            readfile(FILENAME, login_name)
-
+            loadfile(FILENAME, login_name)
 
 
         bouton_connect.clicked.connect(bouton_connect_clicked)
+        """
         window.show()
         sys.exit(app.exec())
 
