@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import *
 
 
 class Bouton:
-
     def __init__(self, bouton_name):
         self.bouton = QPushButton(bouton_name)
 

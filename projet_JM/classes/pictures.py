@@ -2,8 +2,8 @@ from projet_JM.all_imports import *
 
 #["p1", "p2", "p3", "p4"]
 
-class Pictures:
 
+class Pictures:
     def __init__(self, liste, index):
         self.liste = liste
         self.index = index
