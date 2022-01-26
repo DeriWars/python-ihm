@@ -13,19 +13,22 @@ class Login:
         app = QApplication(sys.argv)
         window = QWidget()
         window.setWindowTitle("Login || By Personne73 // maxgiant_")
-        window.resize(350, 200)
+        window.resize(450, 200)
 
         label_text = QLabel(window)
-        label_text.setText("essai ozjeg z gpzg pg zpj zpgzrg z")
+        label_text.setText("Essai d'affichage du texte")
+        label_text.setAlignment(Qt.AlignCenter)
 
         label_user = QLabel("Pseudo")
         input_user = QLineEdit()
+        input_user.setMaximumSize(250, 50)
+
+        label_space = QLabel()
 
         login_layout = QFormLayout()
         login_layout.addRow(label_text)
+        login_layout.addRow(label_space)
         login_layout.addRow(label_user, input_user)
-        #login_layout.addWidget(label_tex)
-        #login_layout.addWidget(label_user).addWidget(input_user)
 
         bouton_connect = QPushButton(window)
         bouton_connect.setText("Se connecter")
