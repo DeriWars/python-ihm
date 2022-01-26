@@ -5,6 +5,7 @@ le tout dans une base de données qui ne s'efface pas (regarder du côté de jso
 pseudo special pour admins lol
 peut etre definir timer avec un temps maximal (en fonction de la len du mot)
 faire dessins du pendu (peut etre canvas ou manim communioty edition pour le faire en full python)
+radio button pour choisir si on veut jouer tout seul ou a deux (message box)
 
 
 
