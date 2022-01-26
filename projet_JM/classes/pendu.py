@@ -8,11 +8,6 @@ class Pendu:
         self.errors = errors
 
 
-    def bouton_clique(self, bouton):
-        bouton.setEnabled(False)
-        print(bouton.text(), "est cliqué")
-
-
     def layout(self):
         app = QApplication(sys.argv)
         window = QWidget()
@@ -109,8 +104,8 @@ class Pendu:
         bottom_grid_layout.addWidget(bouton_b, 3, 7)
         bottom_grid_layout.addWidget(bouton_n, 3, 8)
         """
-        #bouton_maj.add_widget(bottom_grid_layout, 3, 9)
-        #bouton_maj.connect_bouton()
+        # bouton_maj.add_widget(bottom_grid_layout, 3, 9)
+        # bouton_maj.connect_bouton()
 
         bouton_a = Bouton('a')
         bouton_b = Bouton('b')
@@ -230,7 +225,7 @@ class Pendu:
         labelImage.setPixmap(pixmap)
         top_grid_layout.addWidget(labelImage, 1, 1)
         """
-        liste_images = ["pendu_0.png", "pendu_1.png", "pendu_3.png",
+        liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                         "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                         "pendu_9.png", "pendu_10.png", "pendu_11.png", ]
 
@@ -249,7 +244,6 @@ def main():
     errors = 0
     pendu = Pendu(errors)
     pendu.layout()
-
 
 
 main()

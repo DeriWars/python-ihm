@@ -13,4 +13,4 @@ class Pictures:
         pixmap = QPixmap(f"../images/{name}")
         label_image = QLabel()
         label_image.setPixmap(pixmap)
-        widget.addWidget(label_image, 1, 2)
+        widget.addWidget(label_image, 1, 1)
