@@ -1,14 +1,24 @@
-from projet_JM.classes.bouton import *
-from projet_JM.classes.pictures import *
+from bouton import *
+from pictures import *
+
+WORDFILE = "../data/mots.txt"
+
+
+def read_file(filename):
+    words_list = []
+    with open(filename, "r", encoding="utf8") as file:
+        words = file.read().split()
+
+        for word in words:
+            if "âîéèçàùïäü" not in word:
+                words_list.append(word)
+
+    return words_list
 
 
 class Pendu:
     def __init__(self, errors=0):
         self.errors = errors
-
-    def bouton_clique(self, bouton):
-        bouton.setEnabled(False)
-        print(bouton.text(), "est cliqué")
 
     def layout(self):
         app = QApplication(sys.argv)
@@ -106,12 +116,6 @@ class Pendu:
         bouton_b.connect_bouton()
         bouton_n.connect_bouton()
 
-        """
-        pixmap = QPixmap("../images/img.png")
-        labelImage = QLabel()
-        labelImage.setPixmap(pixmap)
-        top_grid_layout.addWidget(labelImage, 1, 1)
-        """
         liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                         "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                         "pendu_9.png", "pendu_10.png", "pendu_11.png", ]
@@ -129,9 +133,12 @@ class Pendu:
 
 
 def main():
+    words_list = read_file(WORDFILE)
+    print(words_list)
     errors = 0
     pendu = Pendu(errors)
     pendu.layout()
+
 
 
 if __name__ == main():

@@ -25,7 +25,7 @@ class Login:
 
         label_user = QLabel("Pseudo")
         input_user = QLineEdit()
-        input_user.setMaximumSize(250, 50)
+        # input_user.setMaximumSize(250, 50)
 
         label_space = QLabel()
 
@@ -38,7 +38,7 @@ class Login:
         bouton_connect.setText("Se connecter")
         bouton_connect.move(150, 100)
 
-        bouton_connect.setGeometry(120, 120, 115, 40)
+        # bouton_connect.setGeometry(120, 120, 115, 40)
 
         window.setLayout(login_layout)
 
