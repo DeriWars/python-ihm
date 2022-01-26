@@ -7,6 +7,7 @@ import json
 FILENAME = "../projet_JM/database.json"
 data = None
 
+
 class Login:
     def __init__(self, username, score=0):
         self.username = username
@@ -65,4 +66,5 @@ def main():
     user.layout()
 
 
-main()
+if __name__ == main():
+    main()
