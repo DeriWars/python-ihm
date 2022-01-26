@@ -5,3 +5,9 @@ le tout dans une base de données qui ne s'efface pas (regarder du côté de jso
 pseudo special pour admins lol
 peut etre definir timer avec un temps maximal (en fonction de la len du mot)
 faire dessins du pendu (peut etre canvas ou manim communioty edition pour le faire en full python)
+
+
+
+    def score(self, temps, mot, essais_restants):
+        score = temps + len(mot) + essais_restants
+        return score
