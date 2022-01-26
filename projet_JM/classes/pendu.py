@@ -136,6 +136,7 @@ class Pendu:
         bouton_y = Bouton('y')
         bouton_z = Bouton('z')
 
+
         pixmap = QPixmap("img.png")
         labelImage = QLabel()
         labelImage.setPixmap(pixmap)
