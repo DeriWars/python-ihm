@@ -2,18 +2,18 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 
 def box(icon, name, description, details=None, callback=None):
-    box = QMessageBox()  # create an instance of it
+    box = QMessageBox()
     
-    box.setIcon(icon)  # set icon
-    box.setWindowTitle("Password manager - by Pékul") # set title
-    box.setText(name) # set text
-    box.setInformativeText(description) # set information under the main text
-    box.setStandardButtons(QMessageBox.Ok)  # type of buttons associated
+    box.setIcon(icon)
+    box.setWindowTitle("Password manager - by Pékul")
+    box.setText(name)
+    box.setInformativeText(description)
+    box.setStandardButtons(QMessageBox.Ok)
     
-    if details is not None: box.setDetailedText(details) # a button for more details will add in
-    if callback is not None: box.buttonClicked.connect(callback)  # connect clicked signal
+    if details is not None: box.setDetailedText(details)
+    if callback is not None: box.buttonClicked.connect(callback)
     
-    box.exec_()  # get the return value
+    box.exec_()
 
 def info_box(name, description, callback=None):
     box(QMessageBox.Information, name, description, callback=callback)
