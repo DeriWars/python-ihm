@@ -222,7 +222,7 @@ class Pendu:
         bouton_c.connect_bouton()
         bouton_v.connect_bouton()
         bouton_b.connect_bouton()
-        bouton_h.connect_bouton()
+        bouton_n.connect_bouton()
 
         """
         pixmap = QPixmap("../images/img.png")
