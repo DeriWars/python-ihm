@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import json
 
-FILENAME = "../projet_JM/database.json"
+FILENAME = "../data/database.json"
 data = None
 
 
