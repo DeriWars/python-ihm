@@ -37,6 +37,17 @@ class Login:
 
         window.setLayout(login_layout)
 
+        def readfile(filename, username):
+            with open(filename, mode='a', encoding='utf8') as file:
+                file.write(f"{username}\n")
+
+        def bouton_connect_clicked():
+            login_name = input_user.text()
+            readfile("/Users/maxime/Desktop/test.txt", login_name)
+
+
+
+        bouton_connect.clicked.connect(bouton_connect_clicked)
         window.show()
         sys.exit(app.exec())
 
