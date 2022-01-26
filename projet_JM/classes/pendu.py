@@ -1,8 +1,4 @@
-import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from bouton import *
+from projet_JM.classes.bouton import *
 
 
 class Pendu:
@@ -24,6 +20,7 @@ class Pendu:
         top_grid_layout = QGridLayout()
         bottom_grid_layout = QGridLayout()
 
+        """
         bouton_a = QPushButton("a")
         bouton_b = QPushButton("b")
         bouton_c = QPushButton("c")
@@ -108,9 +105,36 @@ class Pendu:
         bottom_grid_layout.addWidget(bouton_v, 3, 6)
         bottom_grid_layout.addWidget(bouton_b, 3, 7)
         bottom_grid_layout.addWidget(bouton_n, 3, 8)
+        """
+        #bouton_maj.add_widget(bottom_grid_layout, 3, 9)
+        #bouton_maj.connect_bouton()
 
-        bouton_maj.add_widget(bottom_grid_layout, 3, 9)
-        bouton_maj.connect_bouton()
+        bouton_a = Bouton('a')
+        bouton_b = Bouton('b')
+        bouton_c = Bouton('c')
+        bouton_d = Bouton('d')
+        bouton_e = Bouton('e')
+        bouton_f = Bouton('f')
+        bouton_g = Bouton('g')
+        bouton_h = Bouton('h')
+        bouton_j = Bouton('i')
+        bouton_j = Bouton('j')
+        bouton_k = Bouton('k')
+        bouton_l = Bouton('l')
+        bouton_m = Bouton('m')
+        bouton_n = Bouton('n')
+        bouton_o = Bouton('o')
+        bouton_p = Bouton('p')
+        bouton_q = Bouton('q')
+        bouton_r = Bouton('r')
+        bouton_s = Bouton('s')
+        bouton_t = Bouton('t')
+        bouton_u = Bouton('u')
+        bouton_v = Bouton('v')
+        bouton_w = Bouton('w')
+        bouton_x = Bouton('x')
+        bouton_y = Bouton('y')
+        bouton_z = Bouton('z')
 
         pixmap = QPixmap("img.png")
         labelImage = QLabel()
