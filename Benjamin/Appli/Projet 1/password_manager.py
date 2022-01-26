@@ -8,12 +8,13 @@ from login_page import LoginPage
 from signup_page import SignupPage
 
 # create a class for our main window
-class PasswordManager(QWidget):
+class PasswordManager(QMainWindow):
     def __init__(self, login=None, generator=None):
         super().__init__()
         self.login = login
         self.generator = generator
         self.create_window()
+        self.create_menu()
         self.update()
 
     def create_window(self):
@@ -22,6 +23,9 @@ class PasswordManager(QWidget):
         self.resize(width, height)
         self.setMinimumSize(width, height)
         self.setStyleSheet("font-size: 16px;")
+        
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
         
         layout = QFormLayout()
         layout.setSpacing(10)
@@ -45,29 +49,38 @@ class PasswordManager(QWidget):
         
         layout.addRow(h_layout)
         
-        self.scrollBar = QScrollArea()
-        self.scrollAreaWidget = QWidget()
-        self.scrollArea = QFormLayout()
+        self.scroll_bar = QScrollArea()
+        self.scroll_area_widget = QWidget()
+        self.scroll_area = QFormLayout()
         
-        self.scrollBar.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scrollBar.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scrollBar.setWidgetResizable(True)
-        layout.addRow(self.scrollBar)
+        self.scroll_bar.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scroll_bar.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll_bar.setWidgetResizable(True)
+        layout.addRow(self.scroll_bar)
         
-        self.scrollArea.setSpacing(30)
+        self.scroll_area.setSpacing(30)
         
-        self.scrollAreaWidget.setLayout(self.scrollArea)    
-        self.scrollBar.setWidget(self.scrollAreaWidget)
+        self.scroll_area_widget.setLayout(self.scroll_area)
+        self.scroll_bar.setWidget(self.scroll_area_widget)
         
-        self.setLayout(layout)
+        self.central_widget.setLayout(layout)
     
+    def create_menu(self):
+        menu = self.menuBar()
+        file_menu = menu.addMenu("&Fichier")
+        file_menu.addAction("&Générer", self.generate_password)
+        file_menu.addAction("&Enregistrer", self.register_password)
+        file_menu.addSeparator()
+        file_menu.addAction("&Déconnexion", self.disconnect)
+        file_menu.addAction("&Quitter", self.close)
+ 
     def update(self):
         with open("passwords.json", "r", encoding="utf8") as f:
             passwords = json.load(f)
-            self.clear_layout(self.scrollArea)
+            self.clear_layout(self.scroll_area)
             
             for password in passwords:
-                self.scrollArea.addRow(self.create_password_item(password["identifier"], password["username"], password["password"]))
+                self.scroll_area.addRow(self.create_password_item(password["identifier"], password["username"], password["password"]))
     
     def clear_layout(self, layout):
         while layout.count():
