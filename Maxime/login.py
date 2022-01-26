@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+FILENAME = "../Maxime/test.txt"
 
 
 class Login:
@@ -43,7 +44,7 @@ class Login:
 
         def bouton_connect_clicked():
             login_name = input_user.text()
-            readfile("/Users/maxime/Desktop/test.txt", login_name)
+            readfile(FILENAME, login_name)
 
 
 
