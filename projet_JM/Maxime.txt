@@ -11,3 +11,7 @@ faire dessins du pendu (peut etre canvas ou manim communioty edition pour le fai
     def score(self, temps, mot, essais_restants):
         score = temps + len(mot) + essais_restants
         return score
+
+
+lire : json.load(file)
+ecrire : json.dump(data, file, indent=4)

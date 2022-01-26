@@ -2,8 +2,9 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-FILENAME = "../Maxime/test.txt"
-
+import json
+FILENAME = "database.json"
+data = None
 
 class Login:
     def __init__(self, username, score=0):
@@ -39,8 +40,11 @@ class Login:
         window.setLayout(login_layout)
 
         def readfile(filename, username):
-            with open(filename, mode='a', encoding='utf8') as file:
-                file.write(f"{username}\n")
+            with open(filename, mode='r', encoding='utf8') as file:
+                data = json.load(file)
+            data[username] = 0
+            with open(filename, mode='w', encoding='utf8') as file:
+                json.dump(data, file, indent=4)
 
         def bouton_connect_clicked():
             login_name = input_user.text()
