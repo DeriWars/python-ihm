@@ -44,7 +44,6 @@ class Login:
         def readfile(filename, username):
             with open(filename, mode='r', encoding='utf8') as file:
                 pass
-
         def loadfile(filename, username):
             with open(filename, mode='w', encoding='utf8') as file:
                 data = json.load(file)
@@ -53,8 +52,6 @@ class Login:
         def bouton_connect_clicked():
             login_name = input_user.text()
             loadfile(FILENAME, login_name)
-
-
         bouton_connect.clicked.connect(bouton_connect_clicked)
         """
         window.show()
