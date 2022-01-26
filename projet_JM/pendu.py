@@ -2,7 +2,6 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from bouton import *
 
 
 class Pendu:
@@ -12,6 +11,7 @@ class Pendu:
     def bouton_clique(self, bouton):
         bouton.setEnabled(False)
         print(bouton.text(), "est cliqué")
+
 
     def layout(self):
         app = QApplication(sys.argv)
@@ -49,7 +49,6 @@ class Pendu:
         bouton_x = QPushButton("x")
         bouton_y = QPushButton("y")
         bouton_z = QPushButton("z")
-        bouton_maj = Bouton("Maj")
 
         bouton_a.clicked.connect(lambda: self.bouton_clique(bouton_a))
         bouton_b.clicked.connect(lambda: self.bouton_clique(bouton_b))
@@ -107,9 +106,6 @@ class Pendu:
         bottom_grid_layout.addWidget(bouton_v, 3, 6)
         bottom_grid_layout.addWidget(bouton_b, 3, 7)
         bottom_grid_layout.addWidget(bouton_n, 3, 8)
-
-        bouton_maj.add_widget(bottom_grid_layout, 3, 9)
-        bouton_maj.connect_bouton()
 
         pixmap = QPixmap("img.png")
         labelImage = QLabel()
