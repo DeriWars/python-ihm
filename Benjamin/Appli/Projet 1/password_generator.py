@@ -8,12 +8,14 @@ class PasswordGenerator(QWidget):
         self.create_window()
         self.create_widgets()
         
+        self.manager = None
+        
         self.password_length = 16
         self.generate_password_clicked()
     
     def create_window(self):
         self.setWindowTitle("Generator (Password manager - by Pékul)")
-        width, height = 500, 120
+        width, height = 500, 150
         self.resize(width, height)
         self.setMinimumSize(width, height)
         self.setMaximumSize(width, height)
@@ -50,6 +52,10 @@ class PasswordGenerator(QWidget):
         h_layout.addWidget(copy_password)
         layout.addRow(h_layout)
         
+        back_button = QPushButton("Retour")
+        back_button.clicked.connect(self.back)
+        layout.addRow(back_button)
+        
         self.setLayout(layout)
     
     def generate_password_clicked(self):
@@ -67,5 +73,9 @@ class PasswordGenerator(QWidget):
         self.password_length = self.change_length.value()
         self.length.setText(str(self.password_length))
     
-    def test_btn(self):
-        self.test.setText(self.test_text_2 if self.test.text() == self.test_text_1 else self.test_text_1)
+    def back(self):
+        if self.manager is not None:
+            self.hide()
+            self.manager.show()
+        else:
+            error_box("Erreur", "Aucune fenêtre de gestion n'est disponible.")

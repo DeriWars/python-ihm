@@ -2,12 +2,17 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from message_box import info_box, warn_box, error_box
 from password_generator import PasswordGenerator
+from signup_page import SignupPage
+from sql import UserDatabase
+
+USERS = UserDatabase("users.db")
 
 # create a class for our main window
 class LoginPage(QWidget):
-    def __init__(self, next_window=None):
+    def __init__(self, next_window=None, signup_page=None):
         super().__init__()
         self.next_window = next_window
+        self.signup_page = signup_page
         self.create_window()
         self.create_widgets()
 
@@ -48,8 +53,7 @@ class LoginPage(QWidget):
         self.setLayout(layout)
     
     def submit_clicked(self):
-        if self.user.text() == "admin" and self.password.text() == "admin":
-            
+        if USERS.is_valid_user(self.user.text(), self.password.text()):
             if self.next_window != None:
                 self.hide()
                 self.next_window.show()
@@ -59,16 +63,17 @@ class LoginPage(QWidget):
             self.error.setText("Nom d'utilisateur ou mot de passe incorrect")
     
     def signup_clicked(self):
-        error_box("Erreur", "Fonctionnalité non implémentée", details="La fonctionnalité de création de compte n'est pas encore implémentée.")
-        # self.hide()
-        # Signup().show()
+        self.hide()
+        self.signup_page.show()
 
 
-def main():
-    app = QApplication([])
-    password_generator = PasswordGenerator()
-    login = LoginPage(password_generator)
-    login.show()
-    app.exec_()
+# def main():
+    # app = QApplication([])
+    # password_generator = PasswordGenerator()
+    # login = LoginPage(password_generator)
+    # signup = SignupPage(login)
+    # login.signup_page = signup
+    # login.show()
+    # app.exec_()
 
-main()
+# main()
