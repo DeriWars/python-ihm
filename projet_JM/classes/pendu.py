@@ -10,6 +10,7 @@ class Pendu:
         bouton.setEnabled(False)
         print(bouton.text(), "est cliqué")
 
+
     def layout(self):
         app = QApplication(sys.argv)
         window = QWidget()
@@ -112,7 +113,7 @@ class Pendu:
         labelImage.setPixmap(pixmap)
         top_grid_layout.addWidget(labelImage, 1, 1)
         """
-        liste_images = ["pendu_0.png", "pendu_1.png", "pendu_3.png",
+        liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                         "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                         "pendu_9.png", "pendu_10.png", "pendu_11.png", ]
 
