@@ -21,6 +21,9 @@ boite.addWidget(spin)
 
 spin.valueChanged.connect(valeur_actuelle)
 
+#valeur par défaut:
+spin.setSpecialValueText('Par défaut')
+
 window.setLayout(boite)
 window.show()
 
