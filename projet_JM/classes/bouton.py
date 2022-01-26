@@ -18,5 +18,3 @@ class Bouton:
 
     def add_widget(self, widget, pos_x, pos_y):
         widget.addWidget(self.bouton, pos_x, pos_y)
-
-
