@@ -1,8 +1,4 @@
-import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-
+from all_imports import *
 
 class Pendu:
     def __init__(self):
