@@ -1,10 +1,11 @@
 from bouton import *
 from pictures import *
-from string import *
+from projet_JM.all_imports import *
+from random import *
 
 WORDFILE = "../data/mots.txt"
 TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüýÿž', 'aaaaaceeeeiiiinooooosuuuuyyz')
-
+bouton_liste = []
 
 def read_file(filename):
     words_list = []
@@ -16,20 +17,49 @@ def read_file(filename):
     return words_list
 
 
+def affichage(taille: int):
+    return [" _ " for i in range(taille)]
+    #return " _ " * taille
+
+
+def random_word(data):
+    word = data[randint(0, len(data) - 1)]
+    if 4 > len(word) > 15:
+        random_word(data)
+    return word
+
+
 class Pendu:
-    def __init__(self, errors=0):
+    def __init__(self, word, errors=0):
         self.errors = errors
+        self.word = word
+
+    def game(self, word_to_guess):
+
+        plateau = affichage(len(word_to_guess))
+        while "".join(plateau) != word_to_guess:
+            for bouton in bouton_liste:
+                if bouton.is_checked() and bouton.text() in word_to_guess:
+                    for index, lettre in enumerate(word_to_guess):
+                        if lettre == bouton.text():
+                            plateau[index] = bouton.text()
+                elif bouton.is_checked() and bouton.text() not in word_to_guess:
+                    self.errors += 1
 
     def layout(self):
         app = QApplication(sys.argv)
         window = QWidget()
         window.resize(1200, 700)
-        window.setWindowTitle("Le jeu du pendu")
+        window.setWindowTitle("Le jeu du Pendu")
 
         pendu_layout = QFormLayout()
         label_space = QLabel()
+        label_word = QLabel(" _ _ _ _ a _ _ _ _ a _ _ _ _ _ ")
         top_grid_layout = QGridLayout()
         bottom_grid_layout = QGridLayout()
+
+        label_word.setFont(QFont("Times", 50, QFont.Bold))
+        label_word.setAlignment(Qt.AlignCenter)
 
         bouton_a = Bouton('a')
         bouton_b = Bouton('b')
@@ -57,6 +87,12 @@ class Pendu:
         bouton_x = Bouton('x')
         bouton_y = Bouton('y')
         bouton_z = Bouton('z')
+
+        global bouton_liste
+        bouton_liste = [bouton_a, bouton_b, bouton_c, bouton_d, bouton_e, bouton_f, bouton_g, bouton_h,
+                        bouton_i, bouton_j, bouton_k, bouton_l, bouton_m, bouton_n, bouton_o, bouton_p,
+                        bouton_q, bouton_r, bouton_s, bouton_t, bouton_u, bouton_v, bouton_w, bouton_x,
+                        bouton_y, bouton_z]
 
         bouton_a.add_widget(bottom_grid_layout, 1, 1)
         bouton_z.add_widget(bottom_grid_layout, 1, 2)
@@ -122,6 +158,7 @@ class Pendu:
 
         picture = Pictures(liste_images, self.errors)
         picture.affichage(top_grid_layout)
+        top_grid_layout.addWidget(label_word, 1, 2)
 
         pendu_layout.addRow(top_grid_layout)
         pendu_layout.addRow(label_space)
@@ -134,10 +171,12 @@ class Pendu:
 
 def main():
     words_list = read_file(WORDFILE)
-    print(words_list)
+    word = random_word(words_list)
     errors = 0
-    pendu = Pendu(errors)
+    pendu = Pendu(word, errors)
     pendu.layout()
+    pendu.game(word)
+    print(word)
 
 
 if __name__ == main():
