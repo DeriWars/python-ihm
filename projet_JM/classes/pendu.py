@@ -18,8 +18,8 @@ def read_file(filename):
 
 
 def affichage(taille: int):
-    return [" _ " for i in range(taille)]
-    # return " _ " * taille
+    # return [" _ " for i in range(taille)]
+    return " _ " * taille
 
 
 def random_word(data):

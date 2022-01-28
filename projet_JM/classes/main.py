@@ -8,7 +8,7 @@ liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
 
-class UserInterface:
+"""class UserInterface:
     def __init__(self, label_word):
         self.label_word = label_word
         pass
@@ -28,7 +28,7 @@ class UserInterface:
         self.label_word.setFont(QFont("Times", 50, QFont.Bold))
         self.label_word.setAlignment(Qt.AlignCenter)
 
-        """bouton_a = Bouton('a')
+        bouton_a = Bouton('a')
         bouton_b = Bouton('b')
         bouton_c = Bouton('c')
         bouton_d = Bouton('d')
@@ -53,20 +53,19 @@ class UserInterface:
         bouton_w = Bouton('w')
         bouton_x = Bouton('x')
         bouton_y = Bouton('y')
-        bouton_z = Bouton('z')"""
+        bouton_z = Bouton('z')
 
         for i in string.ascii_lowercase:
             boutons_liste.append(Bouton(i))
 
-        for i in range(9):
+        for i in range(24):
             bottom_grid_layout.addWidget(boutons_liste[i], i // 3, i % 3)
 
-        """bouton_liste = [bouton_a, bouton_b, bouton_c, bouton_d, bouton_e, bouton_f, bouton_g, bouton_h,
+        bouton_liste = [bouton_a, bouton_b, bouton_c, bouton_d, bouton_e, bouton_f, bouton_g, bouton_h,
                         bouton_i, bouton_j, bouton_k, bouton_l, bouton_m, bouton_n, bouton_o, bouton_p,
                         bouton_q, bouton_r, bouton_s, bouton_t, bouton_u, bouton_v, bouton_w, bouton_x,
                         bouton_y, bouton_z]
-        """
-        """
+        
         bouton_a.add_widget(bottom_grid_layout, 1, 1)
         bouton_z.add_widget(bottom_grid_layout, 1, 2)
         bouton_e.add_widget(bottom_grid_layout, 1, 3)
@@ -124,11 +123,11 @@ class UserInterface:
         bouton_v.connect_bouton()
         bouton_b.connect_bouton()
         bouton_n.connect_bouton()
-        """
+        
 
-        """picture = Pictures(liste_images, self.errors)
+        picture = Pictures(liste_images, self.errors)
         picture.affichage(top_grid_layout)
-        top_grid_layout.addWidget(self.label_word, 1, 2)"""
+        top_grid_layout.addWidget(self.label_word, 1, 2)
 
         pendu_layout.addRow(top_grid_layout)
         pendu_layout.addRow(label_space)
@@ -136,19 +135,74 @@ class UserInterface:
         window.setLayout(pendu_layout)
 
         window.show()
-        sys.exit(app.exec())
+        sys.exit(app.exec())"""
 
 
 def main():
     words_list = read_file(WORDFILE)
     word = random_word(words_list)
     errors = 0
-    # pendu = Pendu(word, errors)
+    pendu = Pendu(word, errors)
     plateau = affichage(len(word))
+
+    app = QApplication(sys.argv)
+    window = QWidget()
+    window.resize(1200, 600)
+    window.setWindowTitle("Le jeu du Pendu")
+
+    pendu_layout = QFormLayout()
+    label_space = QLabel()
     label_word = QLabel()
     label_word.setText(plateau)
-    interface = UserInterface(label_word)
-    interface.layout()
+    top_grid_layout = QGridLayout()
+    bottom_grid_layout = QGridLayout()
+
+    label_word.setFont(QFont("Times", 50, QFont.Bold))
+    label_word.setAlignment(Qt.AlignCenter)
+
+    for i in string.ascii_lowercase:
+        boutons_liste.append(Bouton(i))
+
+    bottom_grid_layout.addWidget(boutons_liste[0], 1, 1)
+    bottom_grid_layout.addWidget(boutons_liste[25], 1, 2)
+    bottom_grid_layout.addWidget(boutons_liste[4], 1, 3)
+    bottom_grid_layout.addWidget(boutons_liste[17], 1, 4)
+    bottom_grid_layout.addWidget(boutons_liste[19], 1, 5)
+    bottom_grid_layout.addWidget(boutons_liste[24], 1, 6)
+    bottom_grid_layout.addWidget(boutons_liste[20], 1, 7)
+    bottom_grid_layout.addWidget(boutons_liste[8], 1, 8)
+    bottom_grid_layout.addWidget(boutons_liste[14], 1, 9)
+    bottom_grid_layout.addWidget(boutons_liste[15], 1, 10)
+
+    bottom_grid_layout.addWidget(boutons_liste[16], 2, 1)
+    bottom_grid_layout.addWidget(boutons_liste[18], 2, 2)
+    bottom_grid_layout.addWidget(boutons_liste[3], 2, 3)
+    bottom_grid_layout.addWidget(boutons_liste[5], 2, 4)
+    bottom_grid_layout.addWidget(boutons_liste[6], 2, 5)
+    bottom_grid_layout.addWidget(boutons_liste[7], 2, 6)
+    bottom_grid_layout.addWidget(boutons_liste[9], 2, 7)
+    bottom_grid_layout.addWidget(boutons_liste[10], 2, 8)
+    bottom_grid_layout.addWidget(boutons_liste[11], 2, 9)
+    bottom_grid_layout.addWidget(boutons_liste[12], 2, 10)
+
+    bottom_grid_layout.addWidget(boutons_liste[22], 3, 3)
+    bottom_grid_layout.addWidget(boutons_liste[23], 3, 4)
+    bottom_grid_layout.addWidget(boutons_liste[2], 3, 5)
+    bottom_grid_layout.addWidget(boutons_liste[21], 3, 6)
+    bottom_grid_layout.addWidget(boutons_liste[1], 3, 7)
+    bottom_grid_layout.addWidget(boutons_liste[13], 3, 8)
+
+    picture = Pictures(liste_images, pendu.errors)
+    picture.affichage(top_grid_layout)
+    top_grid_layout.addWidget(label_word, 1, 2)
+
+    pendu_layout.addRow(top_grid_layout)
+    pendu_layout.addRow(label_space)
+    pendu_layout.addRow(bottom_grid_layout)
+    window.setLayout(pendu_layout)
+
+    window.show()
+    sys.exit(app.exec())
 
 
 if __name__ == main():
