@@ -21,7 +21,6 @@ class UserDatabase():
                             name TEXT,
                             password TEXT)""")
         self.conn.commit()
-        print("User table created!")
     
     def add_user(self, username: str, password: str):
         """

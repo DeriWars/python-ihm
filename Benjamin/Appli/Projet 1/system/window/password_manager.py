@@ -2,52 +2,25 @@ import json
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-from message_box import info_box, warn_box, error_box
-from password_generator import PasswordGenerator
-from login_page import LoginPage
-from signup_page import SignupPage
+
+from system.window.window import Window
+from system.message_box import info_box
+
+from system.window.style import Style
 
 # create a class for our main window
-class PasswordManager(QMainWindow):
-    def __init__(self, login=None, generator=None):
-        super().__init__()
-        self.login = login
-        self.generator = generator
-        self.create_window()
-        self.create_menu()
+class PasswordManager(Window):
+    def __init__(self):
+        super().__init__("Password manager - by Pékul", 700, 350)
+        self.create_widget()
         self.update()
 
-    def create_window(self):
-        self.setWindowTitle("Password manager - by Pékul")
-        width, height = 700, 350
-        self.resize(width, height)
-        self.setMinimumSize(width, height)
-        self.setStyleSheet("font-size: 16px;")
-        
-        self.central_widget = QWidget()
-        self.setCentralWidget(self.central_widget)
-        
+    def create_widget(self):
         layout = QFormLayout()
         layout.setSpacing(10)
         
-        h_layout = QHBoxLayout()
         title = QLabel("Gestionnaire de mots de passe")
-        
-        generator_button = QPushButton("Générer")
-        generator_button.clicked.connect(self.generate_password)
-        
-        register_button = QPushButton("Enregistrer")
-        register_button.clicked.connect(self.register_password)
-        
-        disconnect_button = QPushButton("Déconnexion")
-        disconnect_button.clicked.connect(self.disconnect)
-        
-        h_layout.addWidget(title)
-        h_layout.addWidget(generator_button)
-        h_layout.addWidget(register_button)
-        h_layout.addWidget(disconnect_button)
-        
-        layout.addRow(h_layout)
+        layout.addRow(title)
         
         self.scroll_bar = QScrollArea()
         self.scroll_area_widget = QWidget()
@@ -64,23 +37,17 @@ class PasswordManager(QMainWindow):
         self.scroll_bar.setWidget(self.scroll_area_widget)
         
         self.central_widget.setLayout(layout)
-    
-    def create_menu(self):
-        menu = self.menuBar()
-        file_menu = menu.addMenu("&Fichier")
-        file_menu.addAction("&Générer", self.generate_password)
-        file_menu.addAction("&Enregistrer", self.register_password)
-        file_menu.addSeparator()
-        file_menu.addAction("&Déconnexion", self.disconnect)
-        file_menu.addAction("&Quitter", self.close)
  
     def update(self):
-        with open("passwords.json", "r", encoding="utf8") as f:
-            passwords = json.load(f)
+        with open("./data/passwords.json", "r", encoding="utf8") as f:
+            data = json.load(f)
+            passwords = data.get(self.username, [])
             self.clear_layout(self.scroll_area)
             
             for password in passwords:
-                self.scroll_area.addRow(self.create_password_item(password["identifier"], password["username"], password["password"]))
+                row = self.create_password_item(password["origin"], password["username"], password["password"])
+                row.setStyleSheet(Style.QRadioButton + Style.QLineEdit + Style.QLabel)
+                self.scroll_area.addRow(row)
     
     def clear_layout(self, layout):
         while layout.count():
@@ -93,6 +60,7 @@ class PasswordManager(QMainWindow):
                 self.clear_layout(child.layout())
     
     def create_password_item(self, identifier, username, password):
+        widget = QWidget()
         layout = QFormLayout()
         
         identifier_field = QLineEdit()
@@ -138,7 +106,9 @@ class PasswordManager(QMainWindow):
         
         layout.setVerticalSpacing(2)
         layout.setHorizontalSpacing(10)
-        return layout
+        
+        widget.setLayout(layout)
+        return widget
     
     def copy_username(self, password):
         from pyperclip import copy
@@ -153,62 +123,13 @@ class PasswordManager(QMainWindow):
     def show_password(self, button, password_field):
         password_field.setEchoMode(QLineEdit.Normal if password_field.echoMode() == QLineEdit.Password else QLineEdit.Password)
     
-    def register_password(self):
-        pass
-    
-    def generate_password(self):
-        if self.generator is not None:
-            self.hide()
-            self.generator.show()
-        else:
-            error_box("Erreur", "Aucune fenêtre de génération n'est disponible.")
-    
-    def disconnect(self):
-        if self.login is not None:
-            self.hide()
-            self.login.show()
-        else:
-            error_box("Erreur", "Aucune fenêtre de connexion n'est disponible.")
-    
-    # def create_password(self):
-        # if self.generator == None:
-            # self.generator = PasswordGenerator()
-        # self.generator.show()
-        # self.generator.generate_password.connect(self.add_password)
-    
-    # def add_password(self, password):
-        # with open("passwords.json", "r", encoding="utf8") as f:
-            # passwords = json.load(f)
-        # passwords.append(password)
-        # with open("passwords.json", "w", encoding="utf8") as f:
-            # json.dump(passwords, f, indent=4)
-        # self.update()
-    
     def delete_password(self, identifier, username, password):
-        with open("passwords.json", "r", encoding="utf8") as f:
+        with open("./data/passwords.json", "r", encoding="utf8") as f:
             passwords = json.load(f)
             
-        del passwords[passwords.index({"identifier": identifier, "username": username, "password": password})]
+        del passwords[self.username][passwords[self.username].index({"origin": identifier, "username": username, "password": password})]
         
-        with open("passwords.json", "w", encoding="utf8") as f:
+        with open("./data/passwords.json", "w", encoding="utf8") as f:
             json.dump(passwords, f, indent=4)
         
         self.update()
-
-
-def main():
-    app = QApplication([])
-    login = LoginPage()
-    signup = SignupPage()
-    pg = PasswordGenerator()
-    pm = PasswordManager(login, pg)
-    
-    signup.login = login
-    login.signup = signup
-    login.next_window = pm
-    pg.manager = pm
-    
-    pm.show()
-    app.exec_()
-
-main()

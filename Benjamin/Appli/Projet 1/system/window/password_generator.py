@@ -1,25 +1,17 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 
+from system.window.window import Window
+from system.message_box import error_box
+
 # create a class for our main window
-class PasswordGenerator(QWidget):
+class PasswordGenerator(Window):
     def __init__(self):
-        super().__init__()
-        self.create_window()
+        super().__init__("Générateur (by Pékul)", 500, 180)
         self.create_widgets()
-        
-        self.manager = None
         
         self.password_length = 16
         self.generate_password_clicked()
-    
-    def create_window(self):
-        self.setWindowTitle("Generator (Password manager - by Pékul)")
-        width, height = 500, 150
-        self.resize(width, height)
-        self.setMinimumSize(width, height)
-        self.setMaximumSize(width, height)
-        self.setStyleSheet("font-size: 16px;")
     
     def create_widgets(self):
         layout = QFormLayout()
@@ -56,7 +48,7 @@ class PasswordGenerator(QWidget):
         back_button.clicked.connect(self.back)
         layout.addRow(back_button)
         
-        self.setLayout(layout)
+        self.central_widget.setLayout(layout)
     
     def generate_password_clicked(self):
         from random import choices
