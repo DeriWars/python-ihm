@@ -52,13 +52,13 @@ def egal(resultat):
     resultat.setText(str(resultat.pile))
     resultat.precedent_op = '='
 
-
-def ombre(widget, color=None, radius=10):
+def ombre(widget,color=None,radius=10):
     shadow = QGraphicsDropShadowEffect()
 
     # réglage du flou
     shadow.setBlurRadius(radius)
-    if color is not None:
+
+    if color != None:
         shadow.setColor(QColor(color))
 
     # ajout de l'ombre au widget

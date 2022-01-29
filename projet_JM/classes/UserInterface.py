@@ -23,12 +23,12 @@ def ombre(widget, color=None, radius=10):
     widget.setGraphicsEffect(shadow)
 
 
-def bouton_clique(bouton, label_word):
+def bouton_clique(bouton, label_word, top_grid_layout):
     bouton.setEnabled(False)
-    game(bouton, label_word)
+    game(bouton, label_word, top_grid_layout)
 
 
-def game(bouton, label_word):
+def game(bouton, label_word, top_grid_layout):
     global errors, plateau
     """if bouton.text() in word:
         for index, lettre in enumerate(word):
@@ -38,28 +38,37 @@ def game(bouton, label_word):
         errors += 1
         print(errors)
     label_word.setText(plateau)"""
-    while "_" in plateau:
-        if errors == 12:
-            print("perdu")
-            label_word.setFont(QFont("Times", 40))
-            label_word.setText("\n---- GAME OVER ---- \n"
-                               f"Le bon mot était : {word}")
-            desactive_boutons()
-            break
-        if bouton.text() in word:
-            for index, lettre in enumerate(word):
-                if lettre == bouton.text():
-                    plateau = plateau[:index * 2] + lettre + plateau[index * 2 + 1:]
-        elif bouton.text() not in word:
-            errors += 1
-            print("les erreurs :",errors)
-        label_word.setText(plateau)
-        break
+    # while "_" in plateau:
+
+    if bouton.text() in word:
+        for index, lettre in enumerate(word):
+            if lettre == bouton.text():
+                plateau = plateau[:index * 2] + lettre + plateau[index * 2 + 1:]
+    elif bouton.text() not in word:
+        errors += 1
+        print("les erreurs :", errors)
+    label_word.setText(plateau)
+    error_state(top_grid_layout)
+    # break
+    if errors == len(liste_images) - 1:
+        print("perdu")
+        label_word.setFont(QFont("Times", 40))
+        label_word.setText("\n---- GAME OVER ---- \n"
+                           f"Le bon mot était : {word}")
+        desactive_boutons()
+        # break
 
     if "_" not in plateau:
         label_word.setFont(QFont("Times", 40))
-        label_word.setText("\n---- Victoire du joueur français ----")
+        label_word.setText("\n---- Victoire du joueur français ----\n"
+                           f"Le bon mot était : {word}")
         desactive_boutons()
+        # break
+
+
+def error_state(top_grid_layout):
+    picture = Pictures(liste_images, errors)
+    picture.affichage(top_grid_layout)
 
 
 def desactive_boutons():
@@ -68,10 +77,11 @@ def desactive_boutons():
 
 
 class Bouton(QPushButton):
-    def __init__(self, label, label_word):
+    def __init__(self, label, label_word, top_grid_layout):
         super().__init__(label)
         self.label_word = label_word
-        self.clicked.connect(lambda: bouton_clique(self, label_word))
+        self.top_grid_layout = top_grid_layout
+        self.clicked.connect(lambda: bouton_clique(self, self.label_word, self.top_grid_layout))
         ombre(self)
 
 
@@ -98,7 +108,7 @@ class UserInterface:
         label_word.setAlignment(Qt.AlignCenter)
 
         for i in string.ascii_lowercase:
-            boutons_liste.append(Bouton(i, label_word))
+            boutons_liste.append(Bouton(i, label_word, top_grid_layout))
 
         bottom_grid_layout.addWidget(boutons_liste[0], 1, 1)
         bottom_grid_layout.addWidget(boutons_liste[25], 1, 2)
