@@ -3,7 +3,6 @@ from pictures import *
 from projet_JM.all_imports import *
 from random import *
 
-WORDFILE = "../data/mots.txt"
 TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüýÿž', 'aaaaaceeeeiiiinooooosuuuuyyz')
 
 
@@ -18,8 +17,8 @@ def read_file(filename):
 
 
 def affichage(taille: int):
-    # return [" _ " for i in range(taille)]
-    return " _ " * taille
+    return [" _ " for i in range(taille)]
+    # return " _ " * taille
 
 
 def random_word(data):
@@ -29,17 +28,18 @@ def random_word(data):
     return word
 
 
-class Pendu:
+"""class Pendu:
     def __init__(self, word, errors=0):
         self.errors = errors
         self.word = word
 
     def game(self, plateau, word_to_guess, boutons_liste):
         for bouton in boutons_liste:
-            if bouton.is_checked() and bouton.text() in word_to_guess:
+            if bouton.isChecked() and bouton.text() in word_to_guess:
                 for index, lettre in enumerate(word_to_guess):
                     if lettre == bouton.text():
                         plateau[index] = bouton.text()
-            elif bouton.is_checked() and bouton.text() not in word_to_guess:
+            elif bouton.isChecked() and bouton.text() not in word_to_guess:
                 self.errors += 1
         return plateau
+"""
