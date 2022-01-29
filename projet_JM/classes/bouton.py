@@ -1,7 +1,4 @@
-import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from projet_JM.all_imports import *
 
 
 def ombre(widget, color=None, radius=10):
@@ -16,16 +13,8 @@ def ombre(widget, color=None, radius=10):
     widget.setGraphicsEffect(shadow)
 
 
-def bouton_clique(bouton, plateau, word_to_guess, label_word):
+def bouton_clique(bouton):
     bouton.setEnabled(False)
-    if bouton.text() in word_to_guess:
-        for index, lettre in enumerate(word_to_guess):
-            if lettre == bouton.text():
-                plateau[index] = bouton.text()
-            else:
-                errors += 1
-    label_word.setText(plateau)
-
 
 
 class Bouton(QPushButton):

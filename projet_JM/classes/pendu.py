@@ -1,4 +1,3 @@
-from bouton import *
 from pictures import *
 from projet_JM.all_imports import *
 from random import *
@@ -17,8 +16,8 @@ def read_file(filename):
 
 
 def affichage(taille: int):
-    return [" _ " for i in range(taille)]
-    # return " _ " * taille
+    # return [" _ " for i in range(taille)]
+    return "_ " * taille
 
 
 def random_word(data):
@@ -33,13 +32,12 @@ def random_word(data):
         self.errors = errors
         self.word = word
 
-    def game(self, plateau, word_to_guess, boutons_liste):
+    def game(self, plateau, boutons_liste):
         for bouton in boutons_liste:
-            if bouton.isChecked() and bouton.text() in word_to_guess:
-                for index, lettre in enumerate(word_to_guess):
+            if bouton.isChecked() and bouton.text() in self.word:
+                for index, lettre in enumerate(self.word):
                     if lettre == bouton.text():
                         plateau[index] = bouton.text()
-            elif bouton.isChecked() and bouton.text() not in word_to_guess:
+            elif bouton.isChecked() and bouton.text() not in self.word:
                 self.errors += 1
-        return plateau
-"""
+        return plateau, self.errors"""

@@ -1,6 +1,7 @@
 import string
 from projet_JM.all_imports import *
 from pendu import *
+# from bouton import *
 
 WORDFILE = "../data/mots.txt"
 errors = 0
@@ -8,7 +9,6 @@ boutons_liste = []
 liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                 "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
-
 
 """class UserInterface:
     def __init__(self, label_word):
@@ -140,6 +140,43 @@ liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
         sys.exit(app.exec())"""
 
 
+def ombre(widget, color=None, radius=10):
+    shadow = QGraphicsDropShadowEffect()
+
+    # réglage du flou
+    shadow.setBlurRadius(radius)
+    if color is not None:
+        shadow.setColor(QColor(color))
+
+    # ajout de l'ombre au widget
+    widget.setGraphicsEffect(shadow)
+
+
+def bouton_clique(bouton, plateau, label_word):
+    bouton.setEnabled(False)
+    game(bouton, label_word)
+
+
+def game(bouton, label_word):
+    global errors, plateau
+    if bouton.text() in word:
+        for index, lettre in enumerate(word):
+            if lettre == bouton.text():
+                plateau = plateau[:index * 2] + lettre + plateau[index * 2 + 1:]
+    elif bouton.text() not in word:
+        errors += 1
+        print(errors)
+    label_word.setText(plateau)
+
+
+class Bouton(QPushButton):
+    def __init__(self, label, label_word):
+        super().__init__(label)
+        self.label_word = label_word
+        self.clicked.connect(lambda: bouton_clique(self, plateau, label_word))
+        ombre(self)
+
+
 class UserInterface:
     def __init__(self, word, plateau):
         self.word = word
@@ -151,7 +188,7 @@ class UserInterface:
         # errors = 0
         # pendu = Pendu(word, errors)
         # plateau = "".join(affichage(len(word)))
-
+        global errors, label_word
         app = QApplication(sys.argv)
         window = QWidget()
         window.resize(1200, 600)
@@ -168,7 +205,7 @@ class UserInterface:
         label_word.setAlignment(Qt.AlignCenter)
 
         for i in string.ascii_lowercase:
-            boutons_liste.append(Bouton(i))
+            boutons_liste.append(Bouton(i, label_word))
 
         bottom_grid_layout.addWidget(boutons_liste[0], 1, 1)
         bottom_grid_layout.addWidget(boutons_liste[25], 1, 2)
@@ -208,23 +245,30 @@ class UserInterface:
         pendu_layout.addRow(bottom_grid_layout)
         window.setLayout(pendu_layout)
 
-        # plateau = pendu.game(plateau, word, boutons_liste)
+        # plateau = self.game(self.plateau, boutons_liste)
         # label_word.setText(plateau)
-        if errors == len(liste_images):
+        if errors == 12:
             label_word.setFont(QFont("Times", 40))
             label_word.setText("\n---- GAME OVER ---- \n"
                                f"Le bon mot était : {self.word}")
+        if "_" not in self.plateau:
+            label_word.setFont(QFont("Times", 40))
+            label_word.setText("\n---- Victoire du joueur français ----")
 
         window.show()
         sys.exit(app.exec())
 
 
+words_list = read_file(WORDFILE)
+word = random_word(words_list)
+print(word)
+plateau = affichage(len(word))
+ihm = UserInterface(word, plateau)
+
+
 def main():
-    words_list = read_file(WORDFILE)
-    word = random_word(words_list)
-    plateau = "".join(affichage(len(word)))
-    ihm = UserInterface(word, plateau)
     ihm.layout()
+
 
 """    words_list = read_file(WORDFILE)
     word = random_word(words_list)
@@ -297,7 +341,6 @@ def main():
 
     window.show()
     sys.exit(app.exec())"""
-
 
 if __name__ == main():
     main()
