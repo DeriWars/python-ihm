@@ -152,7 +152,7 @@ def ombre(widget, color=None, radius=10):
     widget.setGraphicsEffect(shadow)
 
 
-def bouton_clique(bouton, plateau, label_word):
+def bouton_clique(bouton, label_word):
     bouton.setEnabled(False)
     game(bouton, label_word)
 
@@ -173,6 +173,7 @@ def game(bouton, label_word):
             label_word.setFont(QFont("Times", 40))
             label_word.setText("\n---- GAME OVER ---- \n"
                                f"Le bon mot était : {word}")
+            desactive_boutons()
             break
         if bouton.text() in word:
             for index, lettre in enumerate(word):
@@ -184,13 +185,22 @@ def game(bouton, label_word):
         label_word.setText(plateau)
         break
 
+    if "_" not in plateau:
+        label_word.setFont(QFont("Times", 40))
+        label_word.setText("\n---- Victoire du joueur français ----")
+        desactive_boutons()
+
+
+def desactive_boutons():
+    for bouton in boutons_liste:
+        bouton.setEnabled(False)
 
 
 class Bouton(QPushButton):
     def __init__(self, label, label_word):
         super().__init__(label)
         self.label_word = label_word
-        self.clicked.connect(lambda: bouton_clique(self, plateau, label_word))
+        self.clicked.connect(lambda: bouton_clique(self, label_word))
         ombre(self)
 
 
@@ -257,6 +267,12 @@ class UserInterface:
         picture.affichage(top_grid_layout)
         top_grid_layout.addWidget(label_word, 1, 2)
 
+        pendu_layout.addRow(top_grid_layout)
+        pendu_layout.addRow(label_space)
+        pendu_layout.addRow(bottom_grid_layout)
+        window.setLayout(pendu_layout)
+
+        # plateau = self.game(self.plateau, boutons_liste)
         # label_word.setText(plateau)
         """if errors == 12:
             label_word.setFont(QFont("Times", 40))
