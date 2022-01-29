@@ -159,14 +159,31 @@ def bouton_clique(bouton, plateau, label_word):
 
 def game(bouton, label_word):
     global errors, plateau
-    if bouton.text() in word:
+    """if bouton.text() in word:
         for index, lettre in enumerate(word):
             if lettre == bouton.text():
                 plateau = plateau[:index * 2] + lettre + plateau[index * 2 + 1:]
     elif bouton.text() not in word:
         errors += 1
         print(errors)
-    label_word.setText(plateau)
+    label_word.setText(plateau)"""
+    while "_" in plateau:
+        if errors == 12:
+            print("perdu")
+            label_word.setFont(QFont("Times", 40))
+            label_word.setText("\n---- GAME OVER ---- \n"
+                               f"Le bon mot était : {word}")
+            break
+        if bouton.text() in word:
+            for index, lettre in enumerate(word):
+                if lettre == bouton.text():
+                    plateau = plateau[:index * 2] + lettre + plateau[index * 2 + 1:]
+        elif bouton.text() not in word:
+            errors += 1
+            print("les erreurs :",errors)
+        label_word.setText(plateau)
+        break
+
 
 
 class Bouton(QPushButton):
@@ -240,20 +257,22 @@ class UserInterface:
         picture.affichage(top_grid_layout)
         top_grid_layout.addWidget(label_word, 1, 2)
 
+        # label_word.setText(plateau)
+        """if errors == 12:
+            label_word.setFont(QFont("Times", 40))
+            label_word.setText("\n---- GAME OVER ---- \n"
+                               f"Le bon mot était : {self.word}")
+        if "_" not in self.plateau:
+            label_word.setFont(QFont("Times", 40))
+            label_word.setText("\n---- Victoire du joueur français ----")"""
+
         pendu_layout.addRow(top_grid_layout)
         pendu_layout.addRow(label_space)
         pendu_layout.addRow(bottom_grid_layout)
         window.setLayout(pendu_layout)
 
         # plateau = self.game(self.plateau, boutons_liste)
-        # label_word.setText(plateau)
-        if errors == 12:
-            label_word.setFont(QFont("Times", 40))
-            label_word.setText("\n---- GAME OVER ---- \n"
-                               f"Le bon mot était : {self.word}")
-        if "_" not in self.plateau:
-            label_word.setFont(QFont("Times", 40))
-            label_word.setText("\n---- Victoire du joueur français ----")
+
 
         window.show()
         sys.exit(app.exec())

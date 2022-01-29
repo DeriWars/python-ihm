@@ -1,3 +1,4 @@
+import string
 import sys
 from typing import Callable
 
@@ -155,7 +156,6 @@ boutontan_clique = lambda : input1.insert("tan(")
 boutonsqrt_clique = lambda : input1.insert("sqrt(")
 boutonpow_clique = lambda : input1.insert("**")
 
-
 def boutonequal_clique():
     try:
         from math import log, log10, sqrt, exp, cos, sin, tan
@@ -195,6 +195,8 @@ boutonsin.clicked.connect(boutonsin_clique)
 boutontan.clicked.connect(boutontan_clique)
 boutonsqrt.clicked.connect(boutonsqrt_clique)
 boutonpow.clicked.connect(boutonpow_clique)
+
+print(string.ascii_lowercase)
 
 window.show()
 sys.exit(app.exec())
