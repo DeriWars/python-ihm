@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
+
 """
 DURATION_INT = 3
 
@@ -63,10 +64,11 @@ main_window.show()
 sys.exit(app.exec_())"""
 
 
-def calculo():
+"""def calculo():
     global time
     time = time.addSecs(1)
     print(time.toString("hh:mm:ss"))
+
 
 app = QtCore.QCoreApplication(sys.argv)
 
@@ -76,5 +78,15 @@ timer0.setInterval(1000)
 timer0.timeout.connect(calculo)
 timer0.start()
 
-
 sys.exit(app.exec_())
+"""
+
+def word(mot):
+    plateau = "_" * len(mot)
+    for index, char in enumerate(mot):
+        if char == '-':
+            plateau = plateau.replace(plateau[index], char)
+            #plateau = plateau[:index * 2] + char + plateau[index * 2 + 1:]
+    return plateau
+
+print(word("jean-pierre"))
