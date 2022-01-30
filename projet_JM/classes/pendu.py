@@ -11,7 +11,9 @@ def read_file(filename):
         words = file.read().split()
 
     for word in words:
-        words_list.append(word.lower().translate(TRANSTABLE).replace(' ', ''))
+        for i in word:
+            if i != "-":
+                words_list.append(word.lower().translate(TRANSTABLE).replace(' ', ''))
     return words_list
 
 
@@ -41,3 +43,6 @@ def random_word(data):
             elif bouton.isChecked() and bouton.text() not in self.word:
                 self.errors += 1
         return plateau, self.errors"""
+
+
+#print(read_file("../data/mots.txt"))
