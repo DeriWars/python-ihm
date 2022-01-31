@@ -79,9 +79,18 @@ class UserInterface:
     def timer(self, label_time, label_word, input):
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
-        if self.time.toString("hh:mm:ss") == "00:00:05":
+        if self.time.toString("hh:mm:ss") == "00:01:00":
             lose_label(label_word, input)
             self.time = self.time.addSecs(-1)
+            # self.time.stop()
+            print(self.time.toString("hh:mm:ss"))
+        elif label_word.text() == f"\n---- Victoire du joueur français ----\nLe bon mot était : {word}":
+            # self.time.stop()
+            self.time.addSecs(-1)
+            print(self.time.toString("hh:mm:ss"))
+
+    def getTimer(self):
+        pass
 
     def layout(self):
         global errors
