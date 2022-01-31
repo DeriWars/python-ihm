@@ -5,6 +5,7 @@ from system.window.signup_page import SignupPage
 from system.window.password_manager import PasswordManager
 from system.window.password_generator import PasswordGenerator
 from system.window.register import Register
+from system.window.tray import Tray
 
 def main():
     app = QApplication([])
@@ -14,12 +15,13 @@ def main():
     pm = PasswordManager()
     pg = PasswordGenerator()
     register = Register()
+    tray = Tray(login, pm, pg, register)
 
-    login.set_app_windows(login, signup, pm, pg, register)
-    signup.set_app_windows(login, signup, pm, pg, register)
-    pm.set_app_windows(login, signup, pm, pg, register)
-    pg.set_app_windows(login, signup, pm, pg, register)
-    register.set_app_windows(login, signup, pm, pg, register)
+    login.set_app_windows(login, signup, pm, pg, register, tray)
+    signup.set_app_windows(login, signup, pm, pg, register, tray)
+    pm.set_app_windows(login, signup, pm, pg, register, tray)
+    pg.set_app_windows(login, signup, pm, pg, register, tray)
+    register.set_app_windows(login, signup, pm, pg, register, tray)
     
     login.show()
     app.exec_()

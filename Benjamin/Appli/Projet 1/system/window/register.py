@@ -8,7 +8,7 @@ from system.window.style import Style
 
 class Register(Window):
     def __init__(self):
-        super().__init__("Enregister (by Pékul)", 550, 270)
+        super().__init__("Gandalf - Enregister (by Pékul)", 550, 270)
         self.create_widget()
     
     def create_widget(self):

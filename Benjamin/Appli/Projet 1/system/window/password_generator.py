@@ -7,7 +7,7 @@ from system.message_box import error_box
 # create a class for our main window
 class PasswordGenerator(Window):
     def __init__(self):
-        super().__init__("Générateur (by Pékul)", 500, 180)
+        super().__init__("Gandalf - Générateur (by Pékul)", 500, 180)
         self.create_widgets()
         
         self.password_length = 16

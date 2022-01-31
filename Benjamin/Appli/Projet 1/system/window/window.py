@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QMainWindow
+from PyQt5.QtWidgets import QWidget, QMainWindow, QApplication
 from PyQt5.QtGui import QIcon
 from system.message_box import error_box
 
@@ -21,18 +21,19 @@ class Window(QMainWindow):
         self.setStyleSheet("font-size: 16px;")
         self.setWindowIcon(QIcon('./images/icon.png'))
     
-    def set_app_windows(self, login, signup, manager, generator, register):
+    def set_app_windows(self, login, signup, manager, generator, register, tray=None):
         self.login = login
         self.signup = signup
         self.manager = manager
         self.generator = generator
         self.register = register
+        self.tray = tray
         
     def create_menu(self):
         menu = self.menuBar()
         file_menu = menu.addMenu("&Fichier")
         file_menu.addAction("&Déconnexion", self.disconnect)
-        file_menu.addAction("&Quitter", self.close)
+        file_menu.addAction("&Quitter", QApplication.quit)
         manager_menu = menu.addMenu("&Gestionnaire")
         manager_menu.addAction("&Gérer", self.show_manager)
         manager_menu.addAction("&Générer", self.generate_password)
@@ -40,6 +41,10 @@ class Window(QMainWindow):
     
     def disconnect(self):
         if self.login is not None:
+            self.manager.set_user_name(None)
+            self.register.set_user_name(None)
+            self.tray.set_user_name(None)
+            
             self.hide()
             self.login.show()
         else:
@@ -77,3 +82,12 @@ class Window(QMainWindow):
     
     def set_user_name(self, username):
         self.username = username
+    
+    def closeEvent(self, event):
+        if self.tray is not None:
+            self.hide()
+            self.tray.setVisible(True)
+            event.ignore()
+        else:
+            event.accept()
+            return super().closeEvent(event)
