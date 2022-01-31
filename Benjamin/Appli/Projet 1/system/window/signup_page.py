@@ -10,7 +10,7 @@ USERS = UserDatabase("./data/users.db")
 # create a class for our main window
 class SignupPage(Window):
     def __init__(self):
-        super().__init__("Signup (by Pékul)", 550, 220, False)
+        super().__init__("Gandalf - Création de compte (by Pékul)", 550, 220, False)
         self.create_widgets()
     
     def create_widgets(self):

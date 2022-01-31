@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
+from time import sleep
 
 """
 DURATION_INT = 3
@@ -68,6 +69,8 @@ def calculo():
     global time
     time = time.addSecs(1)
     print(time.toString("hh:mm:ss"))
+    if time.toString("hh:mm:ss") == "00:00:04":
+        print("eeee conar")
 
 
 app = QtCore.QCoreApplication(sys.argv)
@@ -79,3 +82,4 @@ timer0.timeout.connect(calculo)
 timer0.start()
 
 sys.exit(app.exec_())
+
