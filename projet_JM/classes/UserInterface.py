@@ -21,43 +21,24 @@ def game(button, label_word, top_grid_layout, input):
     global errors, plate
 
     if button.text() in word:
-        for index, letter in enumerate(word):
-            if letter == button.text():
-                plate = plate[:index * 2] + letter + plate[index * 2 + 1:]
+        plate = change_display(plate, word, button.text())
 
     elif button.text() not in word:
         errors += 1
-        print("les erreurs :", errors)
     label_word.setText(plate)
     error_state(top_grid_layout, pictures_list, errors)
 
     if errors == len(pictures_list) - 1:
-        lose_label(label_word, input)
+        lose_label(label_word, input, buttons_list, word, disable_input)
 
     if "_" not in plate:
-        win_label(label_word, input)
-
-
-def win_label(label_word, input):
-    label_word.setFont(QFont("Times", 40))
-    label_word.setText("\n---- Victoire du joueur ----\n"
-                       f"Le bon mot était : {word}")
-    disable_buttons(buttons_list)
-    disable_input(input)
-
-
-def lose_label(label_word, input):
-    label_word.setFont(QFont("Times", 40))
-    label_word.setText("\n---- GAME OVER ---- \n"
-                       f"Le bon mot était : {word}")
-    disable_buttons(buttons_list)
-    disable_input(input)
+        win_label(label_word, input, buttons_list, word, disable_input)
 
 
 def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input):
     global errors
     if answer.text() == word:
-        win_label(label_word, input)
+        win_label(label_word, input, buttons_list, word, disable_input)
     elif answer.text() != word:
         errors += 1
         print("les erreurs :", errors)
@@ -80,7 +61,7 @@ class UserInterface:
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
         if self.time.toString("hh:mm:ss") == "00:01:00":
-            lose_label(label_word, input)
+            lose_label(label_word, input, buttons_list, word, disable_input)
             self.time = self.time.addSecs(-1)
             # self.time.stop()
             print(self.time.toString("hh:mm:ss"))
