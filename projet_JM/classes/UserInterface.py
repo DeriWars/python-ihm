@@ -88,6 +88,10 @@ def disable_buttons():
         bouton.setEnabled(False)
 
 
+def disable_input(input):
+    input.setReadOnly(True)
+
+
 """class Bouton(QPushButton):
     def __init__(self, label, label_word, top_grid_layout):
         super().__init__(label)
@@ -102,7 +106,7 @@ class UserInterface:
         self.word = word
         self.plateau = plateau
 
-    def timer(self, label_time, label_word):
+    def timer(self, label_time, label_word, input):
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
         if self.time.toString("hh:mm:ss") == "00:00:05":
@@ -110,6 +114,7 @@ class UserInterface:
             label_word.setText("\n---- GAME OVER ---- \n"
                                f"Le bon mot était : {word}")
             disable_buttons()
+            disable_input(input)
             self.time = self.time.addSecs(-1)
 
     def layout(self):
@@ -133,9 +138,8 @@ class UserInterface:
         timer0 = QTimer()
         self.time = QTime(0, 0, 0)
         timer0.setInterval(1000)
-        timer0.timeout.connect(lambda: self.timer(label_time, label_word))
+        timer0.timeout.connect(lambda: self.timer(label_time, label_word, answer))
         timer0.start()
-
 
         label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
