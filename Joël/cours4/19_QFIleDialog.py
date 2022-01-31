@@ -39,9 +39,15 @@ boite.addWidget(label1)
 bouton2 = QPushButton("Choisissez votre image")
 bouton2.clicked.connect(ouvrir_image)
 label2 = QLabel("Mon label")
+
+
+label3 = QLabel()
+label3.setPixmap(QPixmap('/Users/vrabiet/Downloads/abacus-gd9668c8f1_1920.jpg'))
+
+
 boite.addWidget(bouton2)
 boite.addWidget(label2)
-
+boite.addWidget(label3)
 window.setLayout(boite)
 
 window.show()
