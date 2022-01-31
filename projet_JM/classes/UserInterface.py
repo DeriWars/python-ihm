@@ -1,6 +1,5 @@
 import string
 
-import PyQt5.QtCore
 
 from projet_JM.all_imports import *
 from pendu import *
