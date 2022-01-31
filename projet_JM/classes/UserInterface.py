@@ -1,10 +1,9 @@
 import string
-
-
 from projet_JM.all_imports import *
 from pendu import *
-
 # from bouton import *
+from PyQt5.QtCore import QTime
+
 
 WORDFILE = "../data/mots.txt"
 errors = 0
@@ -12,6 +11,8 @@ boutons_liste = []
 liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                 "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
+
+
 
 
 def ombre(widget, color=None, radius=10):
@@ -84,7 +85,6 @@ def desactive_boutons():
     for bouton in boutons_liste:
         bouton.setEnabled(False)
 
-
 class Bouton(QPushButton):
     def __init__(self, label, label_word, top_grid_layout):
         super().__init__(label)
@@ -98,6 +98,16 @@ class UserInterface:
     def __init__(self, word, plateau):
         self.word = word
         self.plateau = plateau
+
+    def timer(self, label_time, label_word):
+        self.time = self.time.addSecs(1)
+        label_time.setText(self.time.toString("hh:mm:ss"))
+        if self.time.toString("hh:mm:ss") == "00:00:05":
+            label_word.setFont(QFont("Times", 40))
+            label_word.setText("\n---- GAME OVER ---- \n"
+                               f"Le bon mot était : {word}")
+            desactive_boutons()
+            self.time = self.time.addSecs(-1)
 
     def layout(self):
         global errors, label_word
@@ -115,6 +125,14 @@ class UserInterface:
         bottom_grid_layout = QGridLayout()
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
+        label_time = QLabel()
+
+        timer0 = QTimer()
+        self.time = QTime(0, 0, 0)
+        timer0.setInterval(1000)
+        timer0.timeout.connect(lambda: self.timer(label_time, label_word))
+        timer0.start()
+
 
 
         label_word.setFont(QFont("Times", 50, QFont.Bold))
@@ -179,6 +197,7 @@ class UserInterface:
         pendu_layout.addRow(top_grid_layout)
         pendu_layout.addRow(label_space)
         pendu_layout.addRow(bottom_grid_layout)
+        pendu_layout.addRow(label_time)
         window.setLayout(pendu_layout)
 
         # plateau = self.game(self.plateau, boutons_liste)
