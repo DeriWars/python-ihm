@@ -101,6 +101,7 @@ def disable_input(input):
         ombre(self)"""
 
 
+
 class UserInterface:
     def __init__(self, word, plateau):
         self.word = word
