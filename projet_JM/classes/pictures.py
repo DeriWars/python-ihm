@@ -1,4 +1,7 @@
-from projet_JM.all_imports import *
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 
 class Pictures:
@@ -13,3 +16,7 @@ class Pictures:
         label_image.setAlignment(Qt.AlignCenter)
         label_image.setPixmap(pixmap)
         widget.addWidget(label_image, 1, 1)
+
+    """def error_state(self, top_grid_layout):
+        picture = Pictures(liste_images, errors)
+        picture.affichage(top_grid_layout)"""

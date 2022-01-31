@@ -1,10 +1,10 @@
 import string
-
-
-from projet_JM.all_imports import *
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from pendu import *
-
-# from bouton import *
+from bouton import Bouton
 
 WORDFILE = "../data/mots.txt"
 errors = 0
@@ -14,7 +14,7 @@ liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
 
-def ombre(widget, color=None, radius=10):
+"""def ombre(widget, color=None, radius=10):
     shadow = QGraphicsDropShadowEffect()
 
     # réglage du flou
@@ -28,7 +28,7 @@ def ombre(widget, color=None, radius=10):
 
 def bouton_clique(bouton, label_word, top_grid_layout):
     bouton.setEnabled(False)
-    game(bouton, label_word, top_grid_layout)
+    game(bouton, label_word, top_grid_layout)"""
 
 
 def game(bouton, label_word, top_grid_layout):
@@ -50,13 +50,13 @@ def game(bouton, label_word, top_grid_layout):
         label_word.setFont(QFont("Times", 40))
         label_word.setText("\n---- GAME OVER ---- \n"
                            f"Le bon mot était : {word}")
-        desactive_boutons()
+        disable_buttons()
 
     if "_" not in plateau:
         label_word.setFont(QFont("Times", 40))
         label_word.setText("\n---- Victoire du joueur français ----\n"
                            f"Le bon mot était : {word}")
-        desactive_boutons()
+        disable_buttons()
         # break
 
 
@@ -66,7 +66,7 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout):
         label_word.setFont(QFont("Times", 40))
         label_word.setText("\n---- Victoire du joueur français ----\n"
                            f"Le bon mot était : {word}")
-        desactive_boutons()
+        disable_buttons()
     elif answer.text() != word:
         errors += 1
         print("les erreurs :", errors)
@@ -80,18 +80,18 @@ def error_state(top_grid_layout):
     picture.affichage(top_grid_layout)
 
 
-def desactive_boutons():
+def disable_buttons():
     for bouton in boutons_liste:
         bouton.setEnabled(False)
 
 
-class Bouton(QPushButton):
+"""class Bouton(QPushButton):
     def __init__(self, label, label_word, top_grid_layout):
         super().__init__(label)
         self.label_word = label_word
         self.top_grid_layout = top_grid_layout
         self.clicked.connect(lambda: bouton_clique(self, self.label_word, self.top_grid_layout))
-        ombre(self)
+        ombre(self)"""
 
 
 class UserInterface:
@@ -116,12 +116,11 @@ class UserInterface:
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
 
-
-        label_word.setFont(QFont("Times", 50, QFont.Bold))
+        label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
 
         for i in string.ascii_lowercase:
-            boutons_liste.append(Bouton(i, label_word, top_grid_layout))
+            boutons_liste.append(Bouton(i, label_word, top_grid_layout, game))
 
         bottom_grid_layout.addWidget(boutons_liste[0], 1, 1)
         bottom_grid_layout.addWidget(boutons_liste[25], 1, 2)

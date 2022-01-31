@@ -1,4 +1,7 @@
-from projet_JM.all_imports import *
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 
 def ombre(widget, color=None, radius=10):
@@ -13,18 +16,15 @@ def ombre(widget, color=None, radius=10):
     widget.setGraphicsEffect(shadow)
 
 
-def bouton_clique(bouton):
+def bouton_clique(bouton, label_word, top_grid_layout, game):
     bouton.setEnabled(False)
+    game(bouton, label_word, top_grid_layout)
 
 
 class Bouton(QPushButton):
-    def __init__(self, label):
+    def __init__(self, label, label_word, top_grid_layout, game):
         super().__init__(label)
-        self.clicked.connect(lambda: bouton_clique(self))
+        self.clicked.connect(lambda: bouton_clique(self, label_word, top_grid_layout, game))
         ombre(self)
 
-    """
-    def add_widget(self, widget, pos_x, pos_y):
-        widget.addWidget(self.bouton, pos_x, pos_y)
-    """
 
