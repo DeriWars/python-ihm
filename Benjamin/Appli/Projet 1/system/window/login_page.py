@@ -51,6 +51,7 @@ class LoginPage(Window):
             self.set_user_name(self.user.text())
             self.manager.set_user_name(self.user.text())
             self.register.set_user_name(self.user.text())
+            self.tray.set_user_name(self.user.text())
             self.password.setText("")
             self.show_manager()
         else:
@@ -59,3 +60,9 @@ class LoginPage(Window):
     def signup_clicked(self):
         self.hide()
         self.signup.show()
+    
+    def showEvent(self, event):
+        self.manager.set_user_name(None)
+        self.register.set_user_name(None)
+        self.tray.set_user_name(None)
+        return super().showEvent(event)

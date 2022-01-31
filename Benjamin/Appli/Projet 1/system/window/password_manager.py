@@ -11,7 +11,7 @@ from system.window.style import Style
 # create a class for our main window
 class PasswordManager(Window):
     def __init__(self):
-        super().__init__("Password manager - by Pékul", 700, 350)
+        super().__init__("Gandalf (by Pékul)", 1000, 550)
         self.create_widget()
         self.update()
 
