@@ -7,8 +7,18 @@ peut etre definir timer avec un temps maximal (en fonction de la len du mot)
 faire dessins du pendu (peut etre canvas ou manim communioty edition pour le faire en full python)
 radio button pour choisir si on veut jouer tout seul ou a deux (message box)
 utiliser comboBox pour generer differentes langues
-
 tonInput.returnPressed.connect(submit_clicked)
+
+recuperer score : fixer limite, recup temps, calculer moyenne
+analyse frequentielle
+
+
+1er layout : tout seul ou a deux
+    si a deux, on ouvre le pendu
+    si tout seul, 2nd layout
+2eme layout : login + difficulté (choisir langue)
+3eme layout : pendu
+4eme layout : score
 
 
 
