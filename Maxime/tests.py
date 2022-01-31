@@ -64,7 +64,7 @@ main_window.show()
 sys.exit(app.exec_())"""
 
 
-"""def calculo():
+def calculo():
     global time
     time = time.addSecs(1)
     print(time.toString("hh:mm:ss"))
@@ -79,19 +79,3 @@ timer0.timeout.connect(calculo)
 timer0.start()
 
 sys.exit(app.exec_())
-"""
-
-def word(mot):
-    """plateau = "_" * len(mot)
-    for index, char in enumerate(mot):
-        if char == '-':
-            plateau = plateau.replace(plateau[index], char)
-            #plateau = plateau[:index * 2] + char + plateau[index * 2 + 1:]
-    return plateau"""
-    plateau = "_ " * len(mot)
-    if "-" in mot:
-        s = list(mot).index("-")
-        plateau = " ".join(["_" for i in range(s)]) + " - " + " ".join(["_" for i in range(s+1, len(mot))])
-    return plateau
-
-print(word("jean-pierre"), len("jeanpierre"))
