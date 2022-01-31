@@ -6,8 +6,7 @@ from PyQt5.QtWidgets import *
 from pendu import *
 from bouton import Bouton
 # from bouton import *
-from PyQt5.QtCore import QTime
-
+from PyQt5.QtCore import QTime, QTimer
 
 WORDFILE = "../data/mots.txt"
 errors = 0
@@ -15,7 +14,6 @@ boutons_liste = []
 liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                 "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
-
 
 """def ombre(widget, color=None, radius=10):
     shadow = QGraphicsDropShadowEffect()
@@ -57,7 +55,7 @@ def game(bouton, label_word, top_grid_layout):
 
     if "_" not in plateau:
         label_word.setFont(QFont("Times", 40))
-        label_word.setText("\n---- Victoire du joueur français ----\n"
+        label_word.setText("\n---- Victoire du joueur français ----\n" +
                            f"Le bon mot était : {word}")
         disable_buttons()
         # break
@@ -92,6 +90,14 @@ def disable_input(input):
     input.setReadOnly(True)
 
 
+def boutons_state():
+    for bouton in boutons_liste:
+        if bouton.isChecked():
+            return True
+        else:
+            return False
+
+
 """class Bouton(QPushButton):
     def __init__(self, label, label_word, top_grid_layout):
         super().__init__(label)
@@ -109,13 +115,22 @@ class UserInterface:
     def timer(self, label_time, label_word, input):
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
-        if self.time.toString("hh:mm:ss") == "00:00:05":
+        if self.time.toString("hh:mm:ss") == "00:01:00":
             label_word.setFont(QFont("Times", 40))
             label_word.setText("\n---- GAME OVER ---- \n"
                                f"Le bon mot était : {word}")
             disable_buttons()
             disable_input(input)
-            self.time = self.time.addSecs(-1)
+            self.time.addSecs(-1)
+            #self.time.stop()
+            print(self.time.toString("hh:mm:ss"))
+        elif label_word.text() == f"\n---- Victoire du joueur français ----\nLe bon mot était : {word}":
+            #self.time.stop()
+            self.time.addSecs(-1)
+            print(self.time.toString("hh:mm:ss"))
+
+    def getTimer(self):
+        pass
 
     def layout(self):
         global errors, label_word
