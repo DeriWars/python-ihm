@@ -82,11 +82,16 @@ sys.exit(app.exec_())
 """
 
 def word(mot):
-    plateau = "_" * len(mot)
+    """plateau = "_" * len(mot)
     for index, char in enumerate(mot):
         if char == '-':
             plateau = plateau.replace(plateau[index], char)
             #plateau = plateau[:index * 2] + char + plateau[index * 2 + 1:]
+    return plateau"""
+    plateau = "_ " * len(mot)
+    if "-" in mot:
+        s = list(mot).index("-")
+        plateau = " ".join(["_" for i in range(s)]) + " - " + " ".join(["_" for i in range(s+1, len(mot))])
     return plateau
 
-print(word("jean-pierre"))
+print(word("jean-pierre"), len("jeanpierre"))

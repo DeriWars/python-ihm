@@ -17,9 +17,14 @@ def read_file(filename):
     return words_list
 
 
-def affichage(taille: int):
+def affichage(taille: int, mot):
     # return [" _ " for i in range(taille)]
-    return "_ " * taille
+    # return "_ " * taille
+    plateau = "_ " * len(mot)
+    if "-" in mot:
+        s = list(mot).index("-")
+        plateau = " ".join(["_" for i in range(s)]) + " - " + " ".join(["_" for i in range(s+1, len(mot))])
+    return plateau
 
 
 def random_word(data):

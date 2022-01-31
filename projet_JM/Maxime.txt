@@ -8,6 +8,8 @@ faire dessins du pendu (peut etre canvas ou manim communioty edition pour le fai
 radio button pour choisir si on veut jouer tout seul ou a deux (message box)
 utiliser comboBox pour generer differentes langues
 
+tonInput.returnPressed.connect(submit_clicked)
+
 
 
     def score(self, temps, mot, essais_restants):

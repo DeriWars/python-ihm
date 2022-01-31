@@ -24,19 +24,19 @@ questionnaire.addRow(input2)
 
 input3 = QLineEdit()
 input3.setValidator(QDoubleValidator(-5, 12, 5))
-#ca fonctionne mal le QDoubleValidator
-#piège1 : accepte la notation scientifique
+# ca fonctionne mal le QDoubleValidator
+# piège1 : accepte la notation scientifique
 
-input3.setValidator(QDoubleValidator(-5,12,5,notation=QDoubleValidator.StandardNotation))
+input3.setValidator(QDoubleValidator(-5, 12, 5, notation=QDoubleValidator.StandardNotation))
 
 questionnaire.addRow(input3)
 
-#exercice : creer un meilleur filtre
+# exercice : creer un meilleur filtre
 
-#remplacer virgule par un point
+# remplacer virgule par un point
 input4 = QLineEdit()
 
-validator = QDoubleValidator(0.1,10,2)
+validator = QDoubleValidator(0.1, 10, 2)
 
 localite = QLocale(QLocale.English, QLocale.UnitedStates)
 
@@ -56,15 +56,15 @@ questionnaire.addRow(input5)
 input6 = QLineEdit()
 input6.setText("Tu peux pas m'effacer !")
 input6.setReadOnly(True)
-#pour print dans la console
+# pour print dans la console
 print(input6.text())
 questionnaire.addRow(input6)
 
-#changer le font et la taille
+# changer le font et la taille
 input7 = QLineEdit()
 input7.setText("Tu peux pas m'effacer ! ")
 input7.setReadOnly(True)
-input7.setFont(QFont("Times", 24, QFont.Bold, True)) #font, size, weight, italic mais seul font est obligatoire
+input7.setFont(QFont("Times", 24, QFont.Bold, True))  # font, size, weight, italic mais seul font est obligatoire
 input7.setMinimumSize(500, 50)
 input7.setStyleSheet("""QLineEdit { background-color:green; color:white}""")
 
@@ -73,4 +73,3 @@ window.setLayout(questionnaire)
 
 window.show()
 sys.exit(app.exec())
-
