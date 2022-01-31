@@ -101,7 +101,6 @@ def disable_input(input):
         ombre(self)"""
 
 
-
 class UserInterface:
     def __init__(self, word, plateau):
         self.word = word
@@ -124,6 +123,7 @@ class UserInterface:
         window = QWidget()
         window.resize(1200, 600)
         window.setWindowTitle("Le jeu du Pendu")
+        window.setWindowIcon(QIcon("../images/10.gif"))
 
         pendu_layout = QFormLayout()
         label_space = QLabel()
