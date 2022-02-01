@@ -65,7 +65,7 @@ class UserInterface:
             self.time = self.time.addSecs(-1)
             # self.time.stop()
             print(self.time.toString("hh:mm:ss"))
-        elif label_word.text() == f"\n---- Victoire du joueur français ----\nLe bon mot était : {self.word}":
+        elif label_word.text() == f"\n---- Victoire du joueur ----\nLe bon mot était : {self.word}":
             # self.time.stop()
             self.time.addSecs(-1)
             print(self.time.toString("hh:mm:ss"))
