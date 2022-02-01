@@ -1,4 +1,5 @@
 from UserInterface import *
+from login import *
 
 WORDFILE = "../data/mots.txt"
 
@@ -9,7 +10,9 @@ def main():
     print(word)
     plate = display(word)
     ihm = UserInterface(word, plate)
-    ihm.layout()
+    # ihm.layout()
+    user = Login("trésor", ihm)
+    user.layout()
 
 
 if __name__ == "__main__":
