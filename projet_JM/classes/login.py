@@ -9,18 +9,18 @@ FILENAME = "../data/database.json"
 data = None
 
 
-def connect_button_click(ihm):
+def connect_button_click(ihm: UserInterface):
     ihm.layout()
 
 
 class ConnectButton(QPushButton):
-    def __init__(self, label, ihm):
+    def __init__(self, label, ihm: UserInterface):
         super().__init__(label)
         self.clicked.connect(lambda: connect_button_click(ihm))
 
 
 class Login:
-    def __init__(self, username, ihm):
+    def __init__(self, username, ihm: UserInterface):
         self.username = username
         self.ihm = ihm
 
@@ -83,10 +83,11 @@ class Login:
         sys.exit(app.exec())
 
 
-def main():
+"""def main():
     user = Login("tresor")
     user.layout()
 
 
 if __name__ == "__main__":
     main()
+"""

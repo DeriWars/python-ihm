@@ -11,7 +11,7 @@ def main():
     plate = display(word)
     ihm = UserInterface(word, plate)
     # ihm.layout()
-    user = Login("trésor", ihm)
+    user = Login("Lancement", ihm)
     user.layout()
 
 
