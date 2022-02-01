@@ -1,3 +1,4 @@
+import string
 import sys
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
@@ -82,7 +83,7 @@ timer0.start()
 sys.exit(app.exec_())
 
 """
-
+"""
 import sys
 from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QListWidget, QGridLayout, QLabel
 from PyQt5.QtCore import QTimer, QDateTime
@@ -133,3 +134,14 @@ if __name__ == '__main__':
     form = WinForm()
     form.show()
     sys.exit(app.exec_())
+"""
+
+FRENCH = [8.173, 0.901, 3.345, 3.669, 16.734, 1.066, 0.866, 0.737, 7.579, 0.613, 0.049, 5.456, 2.968, 7.095, 5.819,
+          2.521, 1.362, 6.693, 7.948, 7.244, 6.429, 1.838, 0.074, 0.427, 0.128, 0.326]
+def dico(liste):
+    d = dict()
+    for index, letter in enumerate(string.ascii_lowercase):
+        d[letter] = liste[index]
+    return d
+
+print(dico(FRENCH))

@@ -11,6 +11,7 @@ tonInput.returnPressed.connect(submit_clicked)
 
 recuperer score : fixer limite, recup temps, calculer moyenne
 analyse frequentielle
+bouton restart
 
 
 1er layout : tout seul ou a deux

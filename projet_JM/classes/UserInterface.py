@@ -6,18 +6,25 @@ from PyQt5.QtWidgets import *
 from pendu import *
 from bouton import *
 from pictures import *
-from PyQt5.QtCore import QTime
-
+from PyQt5.QtCore import QTime, QTimer
 
 plate = ""
 errors = 0
 buttons_list = []
 pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
-                "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
-                "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
+                 "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
+                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
 
 def game(button, label_word, top_grid_layout, input, word):
+    """
+
+    :param button: the button clicked
+    :param label_word: the word generated with underscores
+    :param top_grid_layout: the layout where the label_word is generated
+    :param input: the line where the word can be inserted
+    :param word: the word generated thanks to the list of words. This one is known
+    """
     global errors, plate
 
     if button.text() in word:
@@ -36,6 +43,15 @@ def game(button, label_word, top_grid_layout, input, word):
 
 
 def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input):
+    """
+
+    :param label_word: the word generated with underscores
+    :param word: the word not hidden
+    :param answer: the input line
+    :param top_grid_layout:
+    :param input: the input line
+    :return:
+    """
     global errors
     if answer.text() == word:
         win_label(label_word, input, buttons_list, word, disable_input)
@@ -48,16 +64,29 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input):
 
 
 def disable_input(input):
+    """
+    :param input: the input line
+    """
     input.setReadOnly(True)
 
 
 class UserInterface:
     def __init__(self, word, plate):
+        """
+        :param word: the word generated
+        :param plate: the plate generated
+        """
         self.word = word
         self.plate = plate
         self.time = None
 
     def timer(self, label_time, label_word, input):
+        """
+        Function used to print the timer
+        :param label_time:
+        :param label_word:
+        :param input: 
+        """
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
         if self.time.toString("hh:mm:ss") == "00:01:00":
@@ -65,13 +94,10 @@ class UserInterface:
             self.time = self.time.addSecs(-1)
             # self.time.stop()
             print(self.time.toString("hh:mm:ss"))
-        elif label_word.text() == f"\n---- Victoire du joueur ----\nLe bon mot était : {self.word}":
+        elif label_word.text() == f"\n---- Victoire du joueur ----\nLe bon mot était : {self.word}" or label_word.text() == f"\n---- GAME OVER ---- \nLe bon mot était : {self.word}":
             # self.time.stop()
-            self.time.addSecs(-1)
+            self.time = self.time.addSecs(-1)
             print(self.time.toString("hh:mm:ss"))
-
-    def getTimer(self):
-        pass
 
     def layout(self):
         global errors

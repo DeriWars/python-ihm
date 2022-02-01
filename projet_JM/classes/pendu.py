@@ -12,11 +12,8 @@ def read_file(filename):
     words_list = []
     with open(filename, "r", encoding="utf8") as file:
         words = file.read().split()
-
     for word in words:
-        for i in word:
-            if i != "-":
-                words_list.append(word.lower().translate(TRANSTABLE).replace(' ', ''))
+        words_list.append(word.lower().translate(TRANSTABLE).replace(' ', ''))
     return words_list
 
 
