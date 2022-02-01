@@ -9,7 +9,7 @@ from pictures import *
 from PyQt5.QtCore import QTime
 
 
-WORDFILE = "../data/mots.txt"
+plate = ""
 errors = 0
 buttons_list = []
 pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
@@ -17,7 +17,7 @@ pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
 
-def game(button, label_word, top_grid_layout, input):
+def game(button, label_word, top_grid_layout, input, word):
     global errors, plate
 
     if button.text() in word:
@@ -61,11 +61,11 @@ class UserInterface:
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
         if self.time.toString("hh:mm:ss") == "00:01:00":
-            lose_label(label_word, input, buttons_list, word, disable_input)
+            lose_label(label_word, input, buttons_list, self.word, disable_input)
             self.time = self.time.addSecs(-1)
             # self.time.stop()
             print(self.time.toString("hh:mm:ss"))
-        elif label_word.text() == f"\n---- Victoire du joueur français ----\nLe bon mot était : {word}":
+        elif label_word.text() == f"\n---- Victoire du joueur français ----\nLe bon mot était : {self.word}":
             # self.time.stop()
             self.time.addSecs(-1)
             print(self.time.toString("hh:mm:ss"))
@@ -81,10 +81,13 @@ class UserInterface:
         window.setWindowTitle("Le jeu du Pendu")
         window.setWindowIcon(QIcon("../images/10.gif"))
 
+        global plate
+        plate = self.plate
+
         hangman_layout = QFormLayout()
         label_space = QLabel()
         label_word = QLabel()
-        label_word.setText(self.plate)
+        label_word.setText(plate)
         top_grid_layout = QGridLayout()
         top_layout_right = QVBoxLayout()
         bottom_grid_layout = QGridLayout()
@@ -102,7 +105,7 @@ class UserInterface:
         label_word.setAlignment(Qt.AlignCenter)
 
         for i in string.ascii_lowercase:
-            buttons_list.append(Button(i, label_word, top_grid_layout, game, answer))
+            buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word))
 
         bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
         bottom_grid_layout.addWidget(buttons_list[25], 1, 2)
@@ -155,18 +158,3 @@ class UserInterface:
 
         window.show()
         sys.exit(app.exec())
-
-
-words_list = read_file(WORDFILE)
-word = random_word(words_list)
-print(word)
-plate = display(word)
-ihm = UserInterface(word, plate)
-
-
-def main():
-    ihm.layout()
-
-
-if __name__ == main():
-    main()
