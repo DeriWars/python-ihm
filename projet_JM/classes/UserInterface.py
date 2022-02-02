@@ -96,7 +96,6 @@ class UserInterface:
             print(self.time.toString("hh:mm:ss"))
             # TODO: revoir le timer pour l'améliorer car la il fait pas bien les choses
 
-
     def layout(self):
         global errors
         self.window = QWidget()

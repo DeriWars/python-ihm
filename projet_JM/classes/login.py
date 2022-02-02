@@ -3,25 +3,20 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from UserInterface import *
-from io import StringIO
 import json
 
 file_json = "../data/database.json"
+data = {}
 
 
 def read_json_file():
+    global data
     with open(file_json, "r", encoding="utf8") as file:
-        text = file.read()
-        print(text)
-        data = json.load()
-        print(data)
-        return dict(data)
+        data = json.load(file)
 
 
-def load_file(filename, username):
-    with open(filename, "w", encoding="utf8") as file:
-        data = dict(read_json_file())
-        print(data)
+def load_file(username):
+    with open(file_json, "w", encoding="utf8") as file:
         data[username] = 0
         json.dump(data, file, indent=4)
 
@@ -29,32 +24,14 @@ def load_file(filename, username):
 def connect_button_click(ihm: UserInterface, window, username):
     ihm.layout()
     window.hide()
-    load_file(file_json, username)
+    read_json_file()
+    load_file(username)
 
 
 class ConnectButton(QPushButton):
     def __init__(self, label, ihm: UserInterface, window, input_user):
         super().__init__(label)
         self.clicked.connect(lambda: connect_button_click(ihm, window, input_user.text()))
-
-
-
-
-    """
-    revoir self
-    def readfile(filename, username):
-        with open(filename, mode='r', encoding='utf8') as file:
-            pass
-    def loadfile(filename, username):
-        with open(filename, mode='w', encoding='utf8') as file:
-            data = json.load(file)
-            data[self.username] = 0
-            json.dump(data, file, indent=4)
-    def bouton_connect_clicked():
-        login_name = input_user.text()
-        loadfile(FILENAME, login_name)
-    connect_button.clicked.connect(bouton_connect_clicked)
-    """
 
 
 class Login:
@@ -105,4 +82,3 @@ class Login:
 
         self.window.setLayout(login_layout)
         self.window.show()
-
