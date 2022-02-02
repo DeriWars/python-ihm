@@ -1,4 +1,5 @@
 import string
+from time import sleep
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -6,6 +7,7 @@ from PyQt5.QtWidgets import *
 from pendu import *
 from bouton import *
 from pictures import *
+from timer import *
 from PyQt5.QtCore import QTime, QTimer
 
 plate = ""
@@ -18,7 +20,6 @@ pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
 
 def game(button, label_word, top_grid_layout, input, word):
     """
-
     :param button: the button clicked
     :param label_word: the word generated with underscores
     :param top_grid_layout: the layout where the label_word is generated
@@ -81,12 +82,7 @@ class UserInterface:
         self.time = None
 
     def timer(self, label_time, label_word, input):
-        """
-        Function used to print the timer
-        :param label_time:
-        :param label_word:
-        :param input: 
-        """
+        
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
         if self.time.toString("hh:mm:ss") == "00:01:00":
@@ -98,6 +94,8 @@ class UserInterface:
             # self.time.stop()
             self.time = self.time.addSecs(-1)
             print(self.time.toString("hh:mm:ss"))
+            # TODO: revoir le timer pour l'améliorer car la il fait pas bien les choses
+
 
     def layout(self):
         global errors
@@ -118,6 +116,7 @@ class UserInterface:
         bottom_grid_layout = QGridLayout()
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
+        answer.setDisabled(False)
         label_time = QLabel()
 
         timer0 = QTimer()
@@ -125,6 +124,9 @@ class UserInterface:
         timer0.setInterval(1000)
         timer0.timeout.connect(lambda: self.timer(label_time, label_word, answer))
         timer0.start()
+        #sleep(5)
+        #timer0.stop()
+
 
         label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
