@@ -101,12 +101,11 @@ class UserInterface:
 
     def layout(self):
         global errors
-        app = QApplication(sys.argv)
-        window = QWidget()
-        window.resize(1200, 600)
-        window.setWindowTitle("Le jeu du Pendu")
-        window.setWindowIcon(QIcon("../images/10.gif"))
-
+        self.window = QWidget()
+        self.window.resize(1200, 600)
+        self.window.setWindowTitle("Le jeu du Pendu")
+        self.window.setWindowIcon(QIcon("../images/10.gif"))
+        self.window.setStyleSheet("background : #D2E1E1")
         global plate
         plate = self.plate
 
@@ -175,7 +174,6 @@ class UserInterface:
         hangman_layout.addRow(label_space)
         hangman_layout.addRow(bottom_grid_layout)
         hangman_layout.addRow(label_time)
-        window.setLayout(hangman_layout)
+        self.window.setLayout(hangman_layout)
 
-        window.show()
-        sys.exit(app.exec())
+        self.window.show()
