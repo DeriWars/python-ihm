@@ -176,11 +176,6 @@ class UserInterface:
         hangman_layout.addRow(label_space)
         hangman_layout.addRow(label_space)
         hangman_layout.addRow(bottom_grid_layout)
-        window.setLayout(hangman_layout)
-
-        hangman_layout.addRow(top_grid_layout)
-        hangman_layout.addRow(label_space)
-        hangman_layout.addRow(bottom_grid_layout)
         hangman_layout.addRow(label_time)
         window.setLayout(hangman_layout)
 
