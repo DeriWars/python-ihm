@@ -13,6 +13,8 @@ def read_json_file():
     global data
     with open(file_json, "r", encoding="utf8") as file:
         data = json.load(file)
+        if len(data) == 0:
+            data["DeriWars"] = 10000000
 
 
 def load_file(username):
