@@ -7,6 +7,9 @@ TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüý
 
 WORDFILE = "../projet_JM/data/mots.txt"
 
+STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
+LISTE_ACCENTS = list(STRING_ACCENTS)
+
 
 def dico(liste):
     d = dict()
@@ -14,29 +17,56 @@ def dico(liste):
         d[letter] = liste[index]
     return d
 
-def read_file_difficile(filename):
-    words_list = []
+
+def read_file(filename):
+    words_to_ban = []
     with open(filename, "r", encoding="utf8") as file:
         words = file.read().split()
     for word in words:
-        words_list.append(word.lower().translate(TRANSTABLE).replace(' ', ''))
-    return words_list
+        for char in word:
+            if char in LISTE_ACCENTS:
+                words_to_ban.append(word.lower().replace(' ', '').replace('-', ''))
+    set_words = set(words)
+    set_words_to_ban = set(words_to_ban)
+    words_set = set_words - set_words_to_ban
+    return list(words_set)
 
-def read_file_facile(filename):
+
+def read_file_facile(filename, difficulty: int):
+    dictionnaire = dico(FRENCH)
+    dictionnaire_tri = dict()
+    liste_facile = []
+    liste_intermediaire = []
+    liste_difficile = []
     words_list = []
-    with open(filename, 'r', encoding="utf8") as file:
-        words = file.read().split()
-    for word in words:
-        for i in word:
-            pass
+    max = 0
+    for word in read_file(filename):
+        somme = 0
+        for char in word:
+            somme += dictionnaire.get(char, 0)
+        somme /= len(word)
+        if somme > max:
+            max = somme
+        dictionnaire_tri[word] = round(somme)
+        if dictionnaire_tri[word] > 8:
+            liste_facile.append(word)
+        elif 8 > dictionnaire_tri[word] > 6:
+            liste_intermediaire.append(word)
+        elif 6 > dictionnaire_tri[word] > 0:
+            liste_difficile.append(word)
+    if difficulty == 1:
+        return liste_facile
+    elif difficulty == 2:
+        return liste_intermediaire
+    elif difficulty == 3:
+        return liste_difficile
 
 
-def analyse_frequentielle():
-    difficulte = str(input("Saisissez le niveau de difficulté : facile, intermediaire ou difficile"))
-    if difficulte == "difficile":
-        return read_file_difficile(WORDFILE)
+# words_list_easy.append(word)
+# return words_list_easy
 
 
-print(dico(FRENCH))
-#print(read_file(WORDFILE))
-#print(frequential_analys())
+# print(dico(FRENCH))
+# print(read_file(WORDFILE))
+# print(frequential_analys())
+print(read_file_facile(WORDFILE, 1), len(read_file_facile(WORDFILE, 1)))
