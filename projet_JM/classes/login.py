@@ -13,8 +13,6 @@ def read_json_file():
     global data
     with open(file_json, "r", encoding="utf8") as file:
         data = json.load(file)
-        if len(data) == 0:
-            data["DeriWars"] = 10000000
 
 
 def load_file(username):
@@ -70,12 +68,8 @@ class Login:
         level_box.addWidget(level2_button)
         level_box.addWidget(level3_button)
 
-        """connect_button = QPushButton(window)
-        connect_button.setText("Se connecter")
-        connect_button.move(175, 150)"""
         connect_button = ConnectButton("Se connecter", self.ihm, self.window, input_user)
 
-        # connect_button.setGeometry(120, 120, 115, 40)
         login_layout.addRow(label_text)
         login_layout.addRow(label_space)
         login_layout.addRow(label_user, input_user)
