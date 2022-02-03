@@ -126,7 +126,6 @@ class UserInterface:
         #sleep(5)
         #timer0.stop()
 
-
         label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
 

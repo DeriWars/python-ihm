@@ -54,11 +54,11 @@ def diffculty_analysis(filename, difficulty: int):
             liste_intermediaire.append(word)
         elif 6 > dictionnaire_tri[word] > 0:
             liste_difficile.append(word)
-    if difficulty == 1:
+    if difficulty == "Niveau 1":
         return liste_facile
-    elif difficulty == 2:
+    elif difficulty == "Niveau 2":
         return liste_intermediaire
-    elif difficulty == 3:
+    elif difficulty == "Niveau 3":
         return liste_difficile
 
 
