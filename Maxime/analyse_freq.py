@@ -32,7 +32,7 @@ def read_file(filename):
     return list(words_set)
 
 
-def read_file_facile(filename, difficulty: int):
+def diffculty_analysis(filename, difficulty: int):
     dictionnaire = dico(FRENCH)
     dictionnaire_tri = dict()
     liste_facile = []
@@ -66,7 +66,7 @@ def read_file_facile(filename, difficulty: int):
 # return words_list_easy
 
 
-# print(dico(FRENCH))
+#print(dico(FRENCH))
 # print(read_file(WORDFILE))
 # print(frequential_analys())
-print(read_file_facile(WORDFILE, 1), len(read_file_facile(WORDFILE, 1)))
+print(diffculty_analysis(WORDFILE, 1), len(diffculty_analysis(WORDFILE, 1)))
