@@ -86,31 +86,31 @@ def lose_label(label_word, input, buttons_list, word, disable_input):
 
 
 def diffculty_analysis(filename, difficulty: str):
-    dictionnaire = dico(FRENCH)
-    dictionnaire_tri = dict()
-    liste_facile = []
-    liste_intermediaire = []
-    liste_difficile = []
+    dictionnary = dico(FRENCH)
+    sort_dictionnary = dict()
+    easy_list = []
+    medium_list = []
+    hard_list = []
     max = 0
     for word in read_file(filename):
-        somme = 0
+        total = 0
         for char in word:
-            somme += dictionnaire.get(char, 0)
-        somme /= len(word)
-        if somme > max:
-            max = somme
-        dictionnaire_tri[word] = round(somme)
-        if dictionnaire_tri[word] > 8:
-            liste_facile.append(word)
-        elif 8 > dictionnaire_tri[word] > 6:
-            liste_intermediaire.append(word)
-        elif 6 > dictionnaire_tri[word] > 0:
-            liste_difficile.append(word)
+            total += dictionnary.get(char, 0)
+        total /= len(word)
+        if total > max:
+            max = total
+        sort_dictionnary[word] = round(total)
+        if sort_dictionnary[word] > 8:
+            easy_list.append(word)
+        elif 8 > sort_dictionnary[word] > 6:
+            medium_list.append(word)
+        elif 6 > sort_dictionnary[word] > 0:
+            hard_list.append(word)
 
     if difficulty == "Niveau 1":
-        return liste_facile
+        return easy_list
     elif difficulty == "Niveau 2":
-        return liste_intermediaire
+        return medium_list
     elif difficulty == "Niveau 3":
-        return liste_difficile
+        return hard_list
 
