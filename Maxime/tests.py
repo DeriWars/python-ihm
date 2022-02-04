@@ -4,6 +4,9 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from time import sleep
 
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QLabel, QApplication
+
 """DURATION_INT = 3
 
 
@@ -64,7 +67,7 @@ main_window = MyMainWindow()
 main_window.show()
 sys.exit(app.exec_())"""
 
-def calculo():
+"""def calculo():
     global time
     time = time.addSecs(1)
     print(time.toString("hh:mm:ss"))
@@ -81,7 +84,7 @@ timer0.timeout.connect(calculo)
 timer0.start()
 
 
-sys.exit(app.exec_())
+sys.exit(app.exec_())"""
 
 
 """
