@@ -43,7 +43,7 @@ class Login:
         self.window = QWidget()
         self.window.setWindowTitle("Login || By Personne73 // maxgiant_")
         self.window.resize(450, 200)
-        self.window.setStyleSheet("background : #8AE2D9")
+        self.window.setStyleSheet("background : #D2E1E1")
 
         label_text = QLabel(self.window)
         label_text.setText("Entrez un pseudo, \npuis choisissez la difficulté du pendu avant de vous connecter")

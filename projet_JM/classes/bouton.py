@@ -19,11 +19,18 @@ def shadow(widget, color=None, radius=10):
 def button_click(button, label_word, top_grid_layout, game, input, word):
     button.setEnabled(False)
     game(button, label_word, top_grid_layout, input, word)
+    if button.text() in word:
+        button.setStyleSheet("background-color : #7CF96F")
+    else:
+        button.setStyleSheet("background-color : #FB5952")
+
+
 
 
 def disable_buttons(buttons_list):
     for button in buttons_list:
         button.setEnabled(False)
+
 
 
 class Button(QPushButton):

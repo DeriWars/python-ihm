@@ -85,7 +85,7 @@ class UserInterface:
         
         self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
-        if self.time.toString("hh:mm:ss") == "00:01:00":
+        if self.time.toString("hh:mm:ss") == "00:00:05":
             lose_label(label_word, input, buttons_list, self.word, disable_input)
             self.time = self.time.addSecs(-1)
             # self.time.stop()
@@ -102,7 +102,7 @@ class UserInterface:
         self.window.resize(1200, 600)
         self.window.setWindowTitle("Le jeu du Pendu")
         self.window.setWindowIcon(QIcon("../images/10.gif"))
-        self.window.setStyleSheet("background : #8AE2D9")
+        self.window.setStyleSheet("background : #D2E1E1")
         global plate
         plate = self.plate
 

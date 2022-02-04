@@ -52,7 +52,7 @@ class Start:
         self.window = QTabWidget()
         self.window.setWindowTitle("Démarrage")
         self.window.resize(450, 200)
-        self.window.setStyleSheet("background : #8AE2D9")
+        self.window.setStyleSheet("background : #D2E1E1")
 
         ############### TAB POUR JOUER TOUT SEUL ##################
 
