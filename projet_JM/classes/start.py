@@ -19,29 +19,18 @@ def level_button_connect(button):
 
 def choose_word():
     global words_list, word
-    print(1)
     words_list = diffculty_analysis(WORDFILE, difficulty_level)
-    print(2)
     word = random_word(words_list)
     print(word)
 
 
 def solo_button_click(window):
-    try:
-        """print(1)
-        words_list = diffculty_analysis(WORDFILE, difficulty_level)
-        print(2)
-        word = random_word(words_list)
-        print(word)"""
-        choose_word()
-        plate = display(word)
-        ihm = UserInterface(word, plate)
-        # ihm.layout()
-        user = Login(ihm)
-        user.layout()
-        # window.hide()
-    except:
-        print("Je bloque")
+    choose_word()
+    plate = display(word)
+    ihm = UserInterface(word, plate)
+    user = Login(ihm)
+    user.layout()
+    window.hide()
 
 
 class Start:

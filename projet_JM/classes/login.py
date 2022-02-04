@@ -7,7 +7,6 @@ import json
 
 file_json = "../data/database.json"
 data = {}
-difficulty_level = "Niveau 1"
 
 
 def read_json_file():
@@ -27,11 +26,6 @@ def connect_button_click(ihm: UserInterface, window, username):
     window.hide()
     read_json_file()
     load_file(username)
-
-
-"""def level_button_connect(button):
-    global difficulty_level
-    difficulty_level = button.text()"""
 
 
 class ConnectButton(QPushButton):
@@ -63,27 +57,12 @@ class Login:
         label_space = QLabel()
 
         login_layout = QFormLayout()
-        """level_box = QHBoxLayout()
-        level_box.setAlignment(Qt.AlignCenter)
-        level1_button = QRadioButton("Niveau 1")
-        level1_button.setChecked(True)
-        level2_button = QRadioButton("Niveau 2")
-        level3_button = QRadioButton("Niveau 3")"""
 
-        """level_box.addWidget(level1_button)
-        level_box.addWidget(level2_button)
-        level_box.addWidget(level3_button)"""
-
-        """level1_button.clicked.connect(lambda: level_button_connect(level1_button))
-        level2_button.clicked.connect(lambda: level_button_connect(level2_button))
-        level3_button.clicked.connect(lambda: level_button_connect(level3_button))
-"""
         connect_button = ConnectButton("Se connecter", self.ihm, self.window, input_user)
 
         login_layout.addRow(label_text)
         login_layout.addRow(label_space)
         login_layout.addRow(label_user, input_user)
-        # login_layout.addRow(level_box)
         login_layout.addWidget(connect_button)
 
         self.window.setLayout(login_layout)
