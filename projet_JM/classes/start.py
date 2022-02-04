@@ -9,6 +9,8 @@ from login import *
 difficulty_level = "Niveau 1"
 word = ""
 
+liste_char = ['@', '#', '&', 'é', '(', '§', 'è', '!', 'ç', 'à', ')', '^', '¨', '*', '$']
+
 
 def level_button_connect(button):
     global difficulty_level

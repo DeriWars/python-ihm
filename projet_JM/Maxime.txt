@@ -30,3 +30,5 @@ bouton restart
 
 lire : json.load(file)
 ecrire : json.dump(data, file, indent=4)
+
+victoire ou défaite {pseudo du joueur}

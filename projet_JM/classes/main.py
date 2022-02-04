@@ -7,10 +7,8 @@ WORDFILE = "../data/mots.txt"
 
 def main():
     app = QApplication(sys.argv)
-
     starter = Start()
     starter.start_layout()
-
     sys.exit(app.exec())
 
 
