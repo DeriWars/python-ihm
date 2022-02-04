@@ -102,7 +102,7 @@ class UserInterface:
         self.window.resize(1200, 600)
         self.window.setWindowTitle("Le jeu du Pendu")
         self.window.setWindowIcon(QIcon("../images/10.gif"))
-        self.window.setStyleSheet("background : #D2E1E1")
+        self.window.setStyleSheet("background : #8AE2D9")
         global plate
         plate = self.plate
 

@@ -8,7 +8,6 @@ from login import *
 
 difficulty_level = "Niveau 1"
 word = ""
-words_list = []
 
 
 def level_button_connect(button):
@@ -18,10 +17,8 @@ def level_button_connect(button):
 
 
 def choose_word():
-    global words_list, word
-    print(1)
+    global word
     words_list = diffculty_analysis(WORDFILE, difficulty_level)
-    print(2)
     word = random_word(words_list)
     print(word)
 
@@ -35,6 +32,18 @@ def solo_button_click(window):
     window.hide()
 
 
+def duo_button_click(input, window):
+    global word
+    if isinstance(input.text(), str):
+        word = input.text()
+    else:
+        duo_button_click(input, window)
+    plate = display(word)
+    ihm = UserInterface(word, plate)
+    ihm.layout()
+    window.hide()
+
+
 class Start:
     def __init__(self):
         pass
@@ -43,7 +52,7 @@ class Start:
         self.window = QTabWidget()
         self.window.setWindowTitle("Démarrage")
         self.window.resize(450, 200)
-        self.window.setStyleSheet("background : #D2E1E1")
+        self.window.setStyleSheet("background : #8AE2D9")
 
         ############### TAB POUR JOUER TOUT SEUL ##################
 
@@ -86,6 +95,7 @@ class Start:
         duo_button_start = QPushButton("Jouer à deux")
         space_label1 = QLabel("\n")
 
+        duo_button_start.clicked.connect(lambda: duo_button_click(duo_input, self.window))
         duo_layout.addRow(space_label1)
         duo_layout.addRow(duo_label1, duo_input)
         duo_layout.addRow(space_label1)
