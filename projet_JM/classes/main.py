@@ -1,5 +1,6 @@
 from UserInterface import *
 from login import *
+from start import *
 
 WORDFILE = "../data/mots.txt"
 
@@ -7,14 +8,17 @@ WORDFILE = "../data/mots.txt"
 def main():
     app = QApplication(sys.argv)
 
-    words_list = diffculty_analysis(WORDFILE, difficulty_level)
+    starter = Start()
+    starter.start_layout()
+    """words_list = diffculty_analysis(WORDFILE, difficulty_level)
     word = random_word(words_list)
-    print(word)
+    print(word)"""
+    """print(word)
     plate = display(word)
     ihm = UserInterface(word, plate)
-    # ihm.layout()
+    #ihm.layout()
     user = Login(ihm)
-    user.layout()
+    user.layout()"""
 
     sys.exit(app.exec())
 

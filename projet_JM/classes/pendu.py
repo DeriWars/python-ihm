@@ -11,7 +11,7 @@ FRENCH = [8.173, 0.901, 3.345, 3.669, 16.734, 1.066, 0.866, 0.737, 7.579, 0.613,
 
 TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüýÿž', 'aaaaaceeeeiiiinooooosuuuuyyz')
 
-WORDFILE = "../projet_JM/data/mots.txt"
+WORDFILE = "../data/mots.txt"
 
 STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
 LISTE_ACCENTS = list(STRING_ACCENTS)
@@ -106,9 +106,11 @@ def diffculty_analysis(filename, difficulty: str):
             liste_intermediaire.append(word)
         elif 6 > dictionnaire_tri[word] > 0:
             liste_difficile.append(word)
+
     if difficulty == "Niveau 1":
         return liste_facile
     elif difficulty == "Niveau 2":
         return liste_intermediaire
     elif difficulty == "Niveau 3":
         return liste_difficile
+

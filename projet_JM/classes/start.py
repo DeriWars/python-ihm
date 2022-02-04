@@ -2,6 +2,46 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from pendu import *
+from UserInterface import *
+from login import *
+
+difficulty_level = "Niveau 1"
+word = ""
+words_list = []
+
+
+def level_button_connect(button):
+    global difficulty_level
+    difficulty_level = button.text()
+    print(difficulty_level)
+
+
+def choose_word():
+    global words_list, word
+    print(1)
+    words_list = diffculty_analysis(WORDFILE, difficulty_level)
+    print(2)
+    word = random_word(words_list)
+    print(word)
+
+
+def solo_button_click(window):
+    try:
+        """print(1)
+        words_list = diffculty_analysis(WORDFILE, difficulty_level)
+        print(2)
+        word = random_word(words_list)
+        print(word)"""
+        choose_word()
+        plate = display(word)
+        ihm = UserInterface(word, plate)
+        # ihm.layout()
+        user = Login(ihm)
+        user.layout()
+        # window.hide()
+    except:
+        print("Je bloque")
 
 
 class Start:
@@ -9,7 +49,6 @@ class Start:
         pass
 
     def start_layout(self):
-        app = QApplication(sys.argv)
         self.window = QTabWidget()
         self.window.setWindowTitle("Démarrage")
         self.window.resize(450, 200)
@@ -34,6 +73,10 @@ class Start:
         level_box.addWidget(level2_button)
         level_box.addWidget(level3_button)
 
+        level1_button.clicked.connect(lambda: level_button_connect(level1_button))
+        level2_button.clicked.connect(lambda: level_button_connect(level2_button))
+        level3_button.clicked.connect(lambda: level_button_connect(level3_button))
+        solo_button_start.clicked.connect(lambda: solo_button_click(self.window))
         solo_layout.addRow(solo_label1)
         solo_layout.addRow(space_label)
         solo_layout.addRow(level_box)
@@ -61,8 +104,4 @@ class Start:
         self.window.addTab(solo_tab, "Jouer seul")
         self.window.addTab(duo_tab, "Jouer à deux")
         self.window.show()
-        sys.exit(app.exec())
 
-
-start = Start()
-start.start_layout()
