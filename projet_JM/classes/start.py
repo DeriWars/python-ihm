@@ -39,7 +39,7 @@ def solo_button_click(window):
         # ihm.layout()
         user = Login(ihm)
         user.layout()
-        # window.hide()
+        window.hide()
     except:
         print("Je bloque")
 
