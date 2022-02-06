@@ -13,12 +13,21 @@ liste_char = ['@', '#', '&', 'é', '(', '§', 'è', '!', 'ç', 'à', ')', '^', '
 
 
 def level_button_connect(button):
+    """
+    Function that permit to set the difficulty level when a button is click
+
+    :param button: button click
+    """
+
     global difficulty_level
     difficulty_level = button.text()
-    print(difficulty_level)
 
 
 def choose_word():
+    """
+    Function which choose the word to guess
+    """
+
     global word
     words_list = difficulty_analysis(WORDFILE, difficulty_level)
     word = random_word(words_list)
@@ -26,6 +35,11 @@ def choose_word():
 
 
 def solo_button_click(window):
+    """
+    Function which indicate what to do when the solo connect button is pressed
+    :param window: the window to hide
+    """
+
     choose_word()
     plate = display(word)
     ihm = UserInterface(word, plate)
@@ -35,6 +49,11 @@ def solo_button_click(window):
 
 
 def duo_button_click(input, window):
+    """
+    Function which indicate what to do when the duo connect button is pressed
+    :param window: the window to hide
+    """
+
     global word
     if isinstance(input.text(), str):
         word = input.text()
@@ -47,6 +66,10 @@ def duo_button_click(input, window):
 
 
 class Start:
+    """
+    Class that manages the starting layout
+    """
+
     def __init__(self):
         pass
 
@@ -87,7 +110,7 @@ class Start:
 
         solo_tab.setLayout(solo_layout)
 
-        ######################### TAB POUR JOUER A DEUX ###################
+        ############### TAB POUR JOUER A DEUX ##################
 
         duo_tab = QWidget()
         duo_layout = QFormLayout()

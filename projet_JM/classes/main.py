@@ -4,6 +4,10 @@ from start import *
 
 
 def main():
+    """
+    The main function of the hangman game
+    """
+
     app = QApplication(sys.argv)
     starter = Start()
     starter.start_layout()

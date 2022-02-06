@@ -5,11 +5,22 @@ from PyQt5.QtWidgets import *
 
 
 def error_state(top_grid_layout, pictures_list, errors):
+    """
+    Function to change the pictures depending on the number of errors
+    :param top_grid_layout: the layout
+    :param pictures_list: the list of pictures
+    :param errors: the number of errors
+    """
+
     picture = Pictures(pictures_list, errors)
     picture.display(top_grid_layout)
 
 
 class Pictures:
+    """
+    Class that manages the hangman picture of the errors
+    """
+
     def __init__(self, liste, index):
         self.liste = liste
         self.index = index

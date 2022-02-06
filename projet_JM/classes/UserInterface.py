@@ -21,6 +21,7 @@ pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
 
 def game(button, label_word, top_grid_layout, input, word, score_button):
     """
+    Function that manages the hangman game
     :param score_button: score button
     :param button: the button clicked
     :param label_word: the word generated with underscores
@@ -28,6 +29,7 @@ def game(button, label_word, top_grid_layout, input, word, score_button):
     :param input: the line where the word can be inserted
     :param word: the word generated thanks to the list of words. This one is known
     """
+
     global errors, plate
 
     if button.text() in word:
@@ -47,6 +49,7 @@ def game(button, label_word, top_grid_layout, input, word, score_button):
 
 def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, score_button):
     """
+    Function that manages the input pressed
     :param score_button: score button
     :param label_word: the word generated with underscores
     :param word: the word not hidden
@@ -54,6 +57,7 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, sco
     :param top_grid_layout:
     :param input: the input line
     """
+
     global errors
     if answer.text() == word:
         win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
@@ -67,6 +71,7 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, sco
 
 def disable_input(input):
     """
+    Function ta disable the input
     :param input: the input line
     """
     input.setReadOnly(True)
@@ -74,17 +79,26 @@ def disable_input(input):
 
 def button_state(button, state: bool):
     """
+    Function to set enable or not a button
     :param state: the state of the button
     :param button: a button
     """
     button.setEnabled(state)
 
 
-def score_button_click(score):
+def score_button_click(score: Score):
+    """
+    Function which shows the scoreboard when the score button is pressed
+    :param score: a Score object
+    """
     score.score_layout()
 
 
 class UserInterface:
+    """
+    Class that manages the main interface of the hangman game
+    """
+
     def __init__(self, word, plate):
         """
         :param word: the word generated
@@ -195,6 +209,6 @@ class UserInterface:
         hangman_layout.addRow(label_space)
         hangman_layout.addRow(bottom_grid_layout)
         hangman_layout.addRow(label_time)
-        self.window.setLayout(hangman_layout)
 
+        self.window.setLayout(hangman_layout)
         self.window.show()

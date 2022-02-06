@@ -15,6 +15,10 @@ def get_username():
 
 
 class Score(QScrollArea):
+    """
+    CLass that manages the scoreboard layout
+    """
+
     def __init__(self):
         super(Score, self).__init__()
         self.window = None
