@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QListWidget, QGr
 from PyQt5.QtCore import QTimer, QDateTime
 
 
-
 class Timer(QTimer):
     def __init__(self, label_time, label_word, input):
         super().__init__()

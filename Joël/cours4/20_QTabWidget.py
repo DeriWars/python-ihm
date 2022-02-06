@@ -3,16 +3,18 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
+
 def tab1():
     questionnaire = QFormLayout()
     label1 = QLabel("Prénom")
-    ligne1 =  QLineEdit()
-    questionnaire.addRow(label1,ligne1)
+    ligne1 = QLineEdit()
+    questionnaire.addRow(label1, ligne1)
     label2 = QLabel("Nom")
-    ligne2 =  QLineEdit()
-    questionnaire.addRow(label2,ligne2)
+    ligne2 = QLineEdit()
+    questionnaire.addRow(label2, ligne2)
 
     t1.setLayout(questionnaire)
+
 
 def tab2():
     boite = QHBoxLayout()
@@ -25,6 +27,7 @@ def tab2():
     boite.addWidget(label3)
 
     t2.setLayout(boite)
+
 
 app = QApplication(sys.argv)
 
@@ -39,9 +42,6 @@ tab2()
 window.addTab(t1, "Tab 1")
 window.addTab(t2, "Tab 2")
 
-
-
 window.show()
-
 
 sys.exit(app.exec())

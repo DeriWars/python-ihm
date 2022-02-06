@@ -2,8 +2,6 @@ from UserInterface import *
 from login import *
 from start import *
 
-WORDFILE = "../data/mots.txt"
-
 
 def main():
     app = QApplication(sys.argv)

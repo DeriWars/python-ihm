@@ -24,15 +24,6 @@ def dico(liste):
     return d
 
 
-"""def read_file(filename):
-    words_list = []
-    with open(filename, "r", encoding="utf8") as file:
-        words = file.read().split()
-    for word in words:
-        words_list.append(word.lower().translate(TRANSTABLE).replace(' ', ''))
-    return words_list"""
-
-
 def read_file(filename):
     words_to_ban = []
     with open(filename, "r", encoding="utf8") as file:
@@ -69,23 +60,25 @@ def change_display(plate, word, user_letter):
     return plate
 
 
-def win_label(label_word, input, buttons_list, word, disable_input):
+def win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button):
     label_word.setFont(QFont("Times", 40))
     label_word.setText("\n---- Victoire du joueur ----\n"
                        f"Le bon mot était : {word}")
     disable_buttons(buttons_list)
     disable_input(input)
+    button_state(score_button, True)
 
 
-def lose_label(label_word, input, buttons_list, word, disable_input):
+def lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button):
     label_word.setFont(QFont("Times", 40))
     label_word.setText("\n---- GAME OVER ---- \n"
                        f"Le bon mot était : {word}")
     disable_buttons(buttons_list)
     disable_input(input)
+    button_state(score_button, True)
 
 
-def diffculty_analysis(filename, difficulty: str):
+def difficulty_analysis(filename, difficulty: str):
     dictionnary = dico(FRENCH)
     sort_dictionnary = dict()
     easy_list = []

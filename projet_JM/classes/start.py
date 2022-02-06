@@ -20,7 +20,7 @@ def level_button_connect(button):
 
 def choose_word():
     global word
-    words_list = diffculty_analysis(WORDFILE, difficulty_level)
+    words_list = difficulty_analysis(WORDFILE, difficulty_level)
     word = random_word(words_list)
     print(word)
 

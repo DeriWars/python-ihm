@@ -2,27 +2,26 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from login import *
+from json_data import read_json_file
 
-username_list = []
+database_dict = {}
 
 
 def get_username():
+    global database_dict
     read_json_file()
-    print(data)
-    for username, score in data:
-        username_list.append(username)
+    from json_data import data
+    database_dict = data
 
-    print(username_list)
 
-class Score:
+class Score(QScrollArea):
     def __init__(self):
-        pass
+        super(Score, self).__init__()
+        self.window = None
 
-    def score(self):
-        app = QApplication(sys.argv)
+    def score_layout(self):
         self.window = QWidget()
-        self.window.resize(600, 600)
+        self.resize(600, 600)
         self.window.setWindowTitle("Tableau des scores")
         self.window.setStyleSheet("background-color : #D2E1E1")
 
@@ -43,21 +42,30 @@ class Score:
 
         # TODO : vertical bar to separate username and score
 
-        label_pseudos = QLabel()
+        get_username()
+        label_pseudos_tab = QLabel()
+        label_scores_tab = QLabel()
+        pseudos, scores = "", ""
+        for username, score in database_dict.items():
+            pseudos += username + "\n"
+            scores += str(score) + "\n"
 
+        label_pseudos_tab.setText(pseudos)
+        label_pseudos_tab.setFont(QFont("Times", 12))
+        label_pseudos_tab.setAlignment(Qt.AlignCenter)
+
+        label_scores_tab.setText(scores)
+        label_scores_tab.setFont(QFont("Times", 12))
+        label_scores_tab.setAlignment(Qt.AlignCenter)
+
+        grid_layout.addWidget(label_username, 1, 1)
+        grid_layout.addWidget(label_pseudos_tab, 2, 1)
+        grid_layout.addWidget(label_score, 1, 2)
+        grid_layout.addWidget(label_scores_tab, 2, 2)
         form_layout.addRow(label_space)
         form_layout.addRow(grid_layout)
-        grid_layout.addWidget(label_username, 1, 1)
-        grid_layout.addWidget(label_score, 1, 2)
-
 
         self.window.setLayout(form_layout)
-
-
-
-        self.window.show()
-        sys.exit(app.exec())
-
-score = Score()
-get_username()
-score.score()
+        self.setWidget(self.window)
+        self.setWidgetResizable(True)
+        self.show()

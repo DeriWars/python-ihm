@@ -16,15 +16,13 @@ def shadow(widget, color=None, radius=10):
     widget.setGraphicsEffect(shade)
 
 
-def button_click(button, label_word, top_grid_layout, game, input, word):
+def button_click(button, label_word, top_grid_layout, game, input, word, score_button):
     button.setEnabled(False)
-    game(button, label_word, top_grid_layout, input, word)
+    game(button, label_word, top_grid_layout, input, word, score_button)
     if button.text() in word:
         button.setStyleSheet("background-color : #7CF96F")
     else:
         button.setStyleSheet("background-color : #FB5952")
-
-
 
 
 def disable_buttons(buttons_list):
@@ -32,9 +30,8 @@ def disable_buttons(buttons_list):
         button.setEnabled(False)
 
 
-
 class Button(QPushButton):
-    def __init__(self, label, label_word, top_grid_layout, game, input, word):
+    def __init__(self, label, label_word, top_grid_layout, game, input, word, score_button):
         super().__init__(label)
-        self.clicked.connect(lambda: button_click(self, label_word, top_grid_layout, game, input, word))
+        self.clicked.connect(lambda: button_click(self, label_word, top_grid_layout, game, input, word, score_button))
         shadow(self)

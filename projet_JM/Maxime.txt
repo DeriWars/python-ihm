@@ -1,6 +1,6 @@
 pseudo du joueur pour afficher à la fin tableau des scores
 afficher date pour savoir à quelle date le joueur l'a fait
-score en fonction de mot, durée, nombre d'essais restants
+score_layout en fonction de mot, durée, nombre d'essais restants
 le tout dans une base de données qui ne s'efface pas (regarder du côté de json)
 pseudo special pour admins lol
 peut etre definir timer avec un temps maximal (en fonction de la len du mot)
@@ -9,7 +9,7 @@ radio button pour choisir si on veut jouer tout seul ou a deux (message box)
 utiliser comboBox pour generer differentes langues
 tonInput.returnPressed.connect(submit_clicked)
 
-recuperer score : fixer limite, recup temps, calculer moyenne
+recuperer score_layout : fixer limite, recup temps, calculer moyenne
 analyse frequentielle
 bouton restart
 
@@ -19,13 +19,13 @@ bouton restart
     si tout seul, 2nd layout
 2eme layout : login + difficulté (choisir langue)
 3eme layout : pendu
-4eme layout : score
+4eme layout : score_layout
 
 
 
-    def score(self, temps, mot, essais_restants):
-        score = temps + len(mot) + essais_restants
-        return score
+    def score_layout(self, temps, mot, essais_restants):
+        score_layout = temps + len(mot) + essais_restants
+        return score_layout
 
 
 lire : json.load(file)

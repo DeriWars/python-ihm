@@ -3,22 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from UserInterface import *
-import json
-
-file_json = "../data/database.json"
-data = {}
-
-
-def read_json_file():
-    global data
-    with open(file_json, "r", encoding="utf8") as file:
-        data = json.load(file)
-
-
-def load_file(username):
-    with open(file_json, "w", encoding="utf8") as file:
-        data[username] = 0
-        json.dump(data, file, indent=4)
+from json_data import *
 
 
 def connect_button_click(ihm: UserInterface, window, username):
@@ -39,7 +24,6 @@ class Login:
         self.ihm = ihm
 
     def layout(self):
-        # app = QApplication(sys.argv)
         self.window = QWidget()
         self.window.setWindowTitle("Login || By Personne73 // maxgiant_")
         self.window.resize(450, 200)
