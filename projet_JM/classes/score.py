@@ -44,15 +44,18 @@ class Score(QScrollArea):
         label_score.setAlignment(Qt.AlignCenter)
 
         # TODO : vertical bar to separate username and score
-
         get_username()
         label_pseudos_tab = QLabel()
         label_scores_tab = QLabel()
         pseudos, scores = "", ""
-        for username, score in database_dict.items():
+        print(database_dict)
+        """for username, score in database_dict.items():
+            pseudos += username + "\n"
+            scores += str(score) + "\n" """
+        e = sorted(database_dict.items(), key = lambda x : x[1], reverse = True)
+        for username, score in dict(e).items():
             pseudos += username + "\n"
             scores += str(score) + "\n"
-
         label_pseudos_tab.setText(pseudos)
         label_pseudos_tab.setFont(QFont("Times", 12))
         label_pseudos_tab.setAlignment(Qt.AlignCenter)

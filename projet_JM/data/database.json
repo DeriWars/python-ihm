@@ -1,13 +1,14 @@
 {
     "DeriWars": 10000000,
     "Test": 200000000000,
-    "maxou": 0,
-    "Maxime": 0,
-    "Nat": 0,
-    "Mars": 0,
-    "Trey Thomas": 0,
-    "machine": 0,
-    "moi": 0,
-    "King": 0,
-    "jojo": 0
+    "maxou": 104,
+    "Maxime": 5,
+    "Nat": 4,
+    "Mars": 3,
+    "Trey Thomas": 2,
+    "machine": 1,
+    "moi": 10,
+    "King": 90,
+    "jojo": 32,
+    "test": 0
 }

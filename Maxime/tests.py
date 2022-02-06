@@ -139,3 +139,12 @@ if __name__ == '__main__':
     form.show()
     sys.exit(app.exec_())
 """
+
+d = {'DeriWars': 10000000, 'Test': 200000000000, 'maxou': 0, 'Maxime': 0, 'Nat': 0, 'Mars': 0, 'Trey Thomas': 0, 'machine': 0, 'moi': 0, 'King': 0, 'jojo': 0, 'a': 0, 'testttt': 0, 'teste': 0}
+e = sorted(d.items(), key=lambda x: x[1], reverse=True)
+print(dict(e))
+pseudos, scores = "", ""
+for username, score in dict(e):
+    pseudos += username + "\n"
+    scores += str(score) + "\n"
+print(pseudos, scores)
