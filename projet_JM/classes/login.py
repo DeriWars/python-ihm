@@ -13,7 +13,6 @@ def connect_button_click(ihm: UserInterface, window, username):
     :param window: the window to hide
     :param username: the username of the player
     """
-
     ihm.layout()
     window.hide()
     read_json_file()
@@ -24,7 +23,6 @@ class ConnectButton(QPushButton):
     """
     Class for create the connect button and which connects it to the good function
     """
-
     def __init__(self, label, ihm: UserInterface, window, input_user):
         super().__init__(label)
         self.clicked.connect(lambda: connect_button_click(ihm, window, input_user.text()))
@@ -34,8 +32,8 @@ class Login:
     """
     Class that manages the login layout
     """
-
     def __init__(self, ihm: UserInterface):
+        self.window = None
         self.ihm = ihm
 
     def layout(self):

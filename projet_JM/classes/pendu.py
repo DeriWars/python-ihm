@@ -36,7 +36,6 @@ def read_file(filename):
     :param filename: the file to read
     :return: a list of the word in the file
     """
-
     words_to_ban = []
 
     with open(filename, "r", encoding="utf8") as file:
@@ -59,7 +58,6 @@ def random_word(data):
     :param data: a list of words
     :return: one word among the data
     """
-
     word = data[randint(0, len(data) - 1)]
     if 4 > len(word) > 15:
         random_word(data)
@@ -72,7 +70,6 @@ def display(word):
     :param word: word to create a plate
     :return: the plate (mask word)
     """
-
     plate = "_ " * len(word)
     if "-" in word:
         s = list(word).index("-")
@@ -88,7 +85,6 @@ def change_display(plate, word, player_letter):
     :param player_letter: the letter of the player
     :return: a modified board
     """
-
     for index, letter in enumerate(word):
         if letter == player_letter:
             plate = plate[:index * 2] + letter + plate[index * 2 + 1:]
@@ -126,7 +122,6 @@ def lose_label(label_word, input, buttons_list, word, disable_input, button_stat
     :param button_state: a function
     :param score_button: a function
     """
-
     label_word.setFont(QFont("Times", 40))
     label_word.setText("\n---- GAME OVER ---- \n"
                        f"Le bon mot était : {word}")
@@ -142,7 +137,6 @@ def difficulty_analysis(filename, difficulty: str):
     :param difficulty: the difficulty choose
     :return: a list of word depending on the difficulty
     """
-
     dictionary = dico(FRENCH)
     sort_dictionary = dict()
     easy_list = []

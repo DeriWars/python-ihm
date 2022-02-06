@@ -8,17 +8,14 @@ from login import *
 
 difficulty_level = "Niveau 1"
 word = ""
-
 liste_char = ['@', '#', '&', 'é', '(', '§', 'è', '!', 'ç', 'à', ')', '^', '¨', '*', '$']
 
 
 def level_button_connect(button):
     """
     Function that permit to set the difficulty level when a button is click
-
     :param button: button click
     """
-
     global difficulty_level
     difficulty_level = button.text()
 
@@ -27,7 +24,6 @@ def choose_word():
     """
     Function which choose the word to guess
     """
-
     global word
     words_list = difficulty_analysis(WORDFILE, difficulty_level)
     word = random_word(words_list)
@@ -39,7 +35,6 @@ def solo_button_click(window):
     Function which indicate what to do when the solo connect button is pressed
     :param window: the window to hide
     """
-
     choose_word()
     plate = display(word)
     ihm = UserInterface(word, plate)
@@ -53,7 +48,6 @@ def duo_button_click(input, window):
     Function which indicate what to do when the duo connect button is pressed
     :param window: the window to hide
     """
-
     global word
     if isinstance(input.text(), str):
         word = input.text()
@@ -69,7 +63,6 @@ class Start:
     """
     Class that manages the starting layout
     """
-
     def __init__(self):
         pass
 
@@ -89,6 +82,7 @@ class Start:
 
         level_box = QHBoxLayout()
         level_box.setAlignment(Qt.AlignCenter)
+
         level1_button = QRadioButton("Niveau 1")
         level1_button.setChecked(True)
         level2_button = QRadioButton("Niveau 2")
@@ -101,6 +95,7 @@ class Start:
         level1_button.clicked.connect(lambda: level_button_connect(level1_button))
         level2_button.clicked.connect(lambda: level_button_connect(level2_button))
         level3_button.clicked.connect(lambda: level_button_connect(level3_button))
+
         solo_button_start.clicked.connect(lambda: solo_button_click(self.window))
         solo_layout.addRow(solo_label1)
         solo_layout.addRow(space_label)
@@ -125,6 +120,7 @@ class Start:
         duo_layout.addRow(duo_label1, duo_input)
         duo_layout.addRow(space_label1)
         duo_layout.addRow(duo_button_start)
+
         duo_tab.setLayout(duo_layout)
 
         self.window.addTab(solo_tab, "Jouer seul")

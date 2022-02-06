@@ -11,7 +11,6 @@ def shadow(widget, color=None, radius=10):
     :param color: the color of the shadow
     :param radius: the number use for set the blur
     """
-
     shade = QGraphicsDropShadowEffect()
 
     # réglage du flou
@@ -34,7 +33,6 @@ def button_click(button, label_word, top_grid_layout, game, input, word, score_b
     :param word: the word to guess
     :param score_button: the score button
     """
-
     button.setEnabled(False)
     game(button, label_word, top_grid_layout, input, word, score_button)
     if button.text() in word:
@@ -48,7 +46,6 @@ def disable_buttons(buttons_list):
     Function which disable all the buttons of the list
     :param buttons_list: list of buttons
     """
-
     for button in buttons_list:
         button.setEnabled(False)
 
@@ -57,7 +54,6 @@ class Button(QPushButton):
     """
     Class for create the alphabet buttons and which connects them to the right function
     """
-
     def __init__(self, label, label_word, top_grid_layout, game, input, word, score_button):
         super().__init__(label)
         self.clicked.connect(lambda: button_click(self, label_word, top_grid_layout, game, input, word, score_button))

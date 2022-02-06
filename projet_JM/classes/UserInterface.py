@@ -29,7 +29,6 @@ def game(button, label_word, top_grid_layout, input, word, score_button):
     :param input: the line where the word can be inserted
     :param word: the word generated thanks to the list of words. This one is known
     """
-
     global errors, plate
 
     if button.text() in word:
@@ -57,7 +56,6 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, sco
     :param top_grid_layout:
     :param input: the input line
     """
-
     global errors
     if answer.text() == word:
         win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
@@ -98,7 +96,6 @@ class UserInterface:
     """
     Class that manages the main interface of the hangman game
     """
-
     def __init__(self, word, plate):
         """
         :param word: the word generated

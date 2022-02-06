@@ -18,7 +18,6 @@ class Score(QScrollArea):
     """
     CLass that manages the scoreboard layout
     """
-
     def __init__(self):
         super(Score, self).__init__()
         self.window = None
@@ -66,6 +65,7 @@ class Score(QScrollArea):
         grid_layout.addWidget(label_pseudos_tab, 2, 1)
         grid_layout.addWidget(label_score, 1, 2)
         grid_layout.addWidget(label_scores_tab, 2, 2)
+
         form_layout.addRow(label_space)
         form_layout.addRow(grid_layout)
 
