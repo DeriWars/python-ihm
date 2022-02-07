@@ -3,7 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from json_data import read_json_file
-
+from login import *
 database_dict = {}
 
 
@@ -48,7 +48,6 @@ class Score(QScrollArea):
         label_pseudos_tab = QLabel()
         label_scores_tab = QLabel()
         pseudos, scores = "", ""
-        print(database_dict)
         """for username, score in database_dict.items():
             pseudos += username + "\n"
             scores += str(score) + "\n" """
