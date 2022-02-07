@@ -72,7 +72,6 @@ class Score(QScrollArea):
             else:
                 pseudos += username + "\n"
             scores += str(score) + "\n"
-
         label_pseudos_tab.setText(pseudos)
         label_pseudos_tab.setFont(QFont("Times", 12))
         label_pseudos_tab.setAlignment(Qt.AlignCenter)
