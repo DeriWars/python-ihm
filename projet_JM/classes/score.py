@@ -63,31 +63,34 @@ class Score(QScrollArea):
 
         # TODO : vertical bar to separate username and score
         get_users()
-        label_pseudos_tab = QLabel()
-        label_scores_tab = QLabel()
+        label_pseudos_tab = QWidget()
+        label_pseudos_layout = QFormLayout()
+        label_scores_tab = QWidget()
+        label_scores_layout = QFormLayout()
         pseudos, scores = "", ""
-        liste_1 = []
-        liste_2 = []
-        liste_3 = []
-        """for username, score in database_dict.items():
-            pseudos += username + "\n"
-            scores += str(score) + "\n" """
+
+        label_list = []
+        label_scores_list = []
+
         e = sorted(database_dict.items(), key=lambda x: x[1], reverse=True)
         for username, score in dict(e).items():
-            pseudos += username + "\n"
-            scores += str(score) + "\n"
-        label_pseudos_tab.setText(pseudos)
-        label_pseudos_tab.setFont(QFont("Times", 12))
-        label_pseudos_tab.setAlignment(Qt.AlignCenter)
-        liste = label_pseudos_tab.text().split("\n")
+            label_scores_list.append(QLabel(str(score)))
+            label_list.append(QLabel(username))
 
-        """for user in label_pseudos_tab.text():
-            if user == current_player:
-                """
+        for i in range(len(label_list)):
+            if current_player == label_list[i].text():
+                label_list[i].setStyleSheet("color: red")
 
-        label_scores_tab.setText(scores)
-        label_scores_tab.setFont(QFont("Times", 12))
-        label_scores_tab.setAlignment(Qt.AlignCenter)
+            label_list[i].setFont(QFont("Times", 12))
+            label_list[i].setAlignment(Qt.AlignCenter)
+            label_scores_list[i].setFont(QFont("Times", 12))
+            label_scores_list[i].setAlignment(Qt.AlignCenter)
+
+            label_scores_layout.addRow(label_scores_list[i])
+            label_pseudos_layout.addRow(label_list[i])
+
+        label_pseudos_tab.setLayout(label_pseudos_layout)
+        label_scores_tab.setLayout(label_scores_layout)
 
         grid_layout.addWidget(label_username, 1, 1)
         grid_layout.addWidget(label_pseudos_tab, 2, 1)

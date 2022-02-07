@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from UserInterface import *
 from json_data import *
-from timer import *
+#from timer import *
 
 user_pseudo = ""
 
