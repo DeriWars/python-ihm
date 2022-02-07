@@ -3,7 +3,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from json_data import read_json_file
-from login import *
 database_dict = {}
 
 
