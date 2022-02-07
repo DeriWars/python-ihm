@@ -87,6 +87,7 @@ class Score(QScrollArea):
                 label_list[i].setStyleSheet("color: red")
                 label_scores_list[i].setStyleSheet("color: red")
 
+            # label test
             label_list[i].setFont(QFont("Times", 12))
             label_list[i].setAlignment(Qt.AlignCenter)
             label_scores_list[i].setFont(QFont("Times", 12))
