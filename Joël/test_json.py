@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from termcolor import colored
 
 
 class Window(QScrollArea):
@@ -30,6 +31,7 @@ class Window(QScrollArea):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Window()
-    text = "banane"
+    text = colored("banane", "red")
+    print(text)
     sys.exit(app.exec_())
 
