@@ -4,18 +4,21 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from json_data import read_json_file
 
+
 database_dict = {}
 current_player = ""
 
-def get_score(difficulty_level:str, pseudo, word:str, errors: int):
+
+def get_score(difficulty_level: str, word: str, errors: int):
     score = 0
     if difficulty_level == "Niveau 1":
-        score = 100 + len(word)*10 - errors
-    elif difficulty_level == "Niveau 2" :
-        score = 200 + len(word)*10 - errors
-    elif difficulty_level == "Niveau 3" :
-        score = 300 + len(word)*10 - errors
+        score = 100 + len(word) * 10 - errors*10
+    elif difficulty_level == "Niveau 2":
+        score = 200 + len(word) * 10 - errors*10
+    elif difficulty_level == "Niveau 3":
+        score = 300 + len(word) * 10 - errors*10
     return score
+
 
 def get_users():
     global database_dict, current_player
@@ -24,6 +27,9 @@ def get_users():
     database_dict = data
     from login import user_pseudo
     current_player = user_pseudo
+    from start import difficulty_level, word
+    from UserInterface import errors
+    database_dict[current_player] = get_score(difficulty_level, word, errors)
     print(user_pseudo)
 
 
@@ -67,7 +73,6 @@ class Score(QScrollArea):
         label_pseudos_layout = QFormLayout()
         label_scores_tab = QWidget()
         label_scores_layout = QFormLayout()
-        pseudos, scores = "", ""
 
         label_list = []
         label_scores_list = []
@@ -80,6 +85,7 @@ class Score(QScrollArea):
         for i in range(len(label_list)):
             if current_player == label_list[i].text():
                 label_list[i].setStyleSheet("color: red")
+                label_scores_list[i].setStyleSheet("color: red")
 
             label_list[i].setFont(QFont("Times", 12))
             label_list[i].setAlignment(Qt.AlignCenter)
@@ -89,8 +95,8 @@ class Score(QScrollArea):
             label_scores_layout.addRow(label_scores_list[i])
             label_pseudos_layout.addRow(label_list[i])
 
-        label_pseudos_tab.setLayout(label_pseudos_layout)
         label_scores_tab.setLayout(label_scores_layout)
+        label_pseudos_tab.setLayout(label_pseudos_layout)
 
         grid_layout.addWidget(label_username, 1, 1)
         grid_layout.addWidget(label_pseudos_tab, 2, 1)
