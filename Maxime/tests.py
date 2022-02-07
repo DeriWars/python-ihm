@@ -7,7 +7,7 @@ from time import sleep
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QLabel, QApplication
 
-"""DURATION_INT = 3
+DURATION_INT = 15
 
 
 class MyMainWindow(QtWidgets.QMainWindow):
@@ -65,7 +65,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
 app = QtWidgets.QApplication(sys.argv)
 main_window = MyMainWindow()
 main_window.show()
-sys.exit(app.exec_())"""
+sys.exit(app.exec_())
 """
 def calculo():
     global time
@@ -139,6 +139,16 @@ if __name__ == '__main__':
     form.show()
     sys.exit(app.exec_())
 """
+
+"""d = dict()
+d["a"] = 5
+d["b"] = 2
+d["c"] = 10
+print(d)
+e = sorted(d.items(), key=lambda x: x[1], reverse=True)
+print(e)
+print(type(e))
+print(dict(e))"""
 
 """d = {'DeriWars': 10000000, 'Test': 200000000000, 'maxou': 0, 'Maxime': 0, 'Nat': 0, 'Mars': 0, 'Trey Thomas': 0, 'machine': 0, 'moi': 0, 'King': 0, 'jojo': 0, 'a': 0, 'testttt': 0, 'teste': 0}
 e = sorted(d.items(), key=lambda x: x[1], reverse=True)
