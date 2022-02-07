@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from UserInterface import *
 from json_data import *
-#from timer import *
 
 user_pseudo = ""
 
@@ -22,6 +21,7 @@ def connect_button_click(ihm, window, username):
     read_json_file()
     load_file(username)
     user_pseudo = username
+
 
 class ConnectButton(QPushButton):
     """
