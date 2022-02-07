@@ -21,6 +21,8 @@ def connect_button_click(ihm, window, username):
     read_json_file()
     load_file(username)
     user_pseudo = username
+    if len(user_pseudo) == 0:
+        user_pseudo = "unknow player"
 
 
 class ConnectButton(QPushButton):

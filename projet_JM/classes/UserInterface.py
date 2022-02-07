@@ -9,6 +9,8 @@ from bouton import *
 from pictures import *
 from score import *
 from PyQt5.QtCore import QTime, QTimer
+import time
+import datetime
 
 
 plate = ""
@@ -93,6 +95,8 @@ def score_button_click(score: Score):
     score.score_layout()
 
 
+
+
 class UserInterface:
     """
     Class that manages the main interface of the hangman game
@@ -105,8 +109,6 @@ class UserInterface:
         self.window = None
         self.word = word
         self.plate = plate
-        self.time = None
-
     def timer(self, label_time, label_word, input, score_button):
         
         """self.time = self.time.addSecs(1)
@@ -120,8 +122,6 @@ class UserInterface:
             # self.time.stop()
             self.time = self.time.addSecs(-1)
             print(self.time.toString("hh:mm:ss"))"""
-
-        # TODO: revoir le timer pour l'améliorer car la il fait pas bien les choses
 
     def layout(self):
         global errors
