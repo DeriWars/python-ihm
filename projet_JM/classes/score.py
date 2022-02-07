@@ -3,11 +3,19 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from json_data import read_json_file
-from termcolor import colored
 
 database_dict = {}
 current_player = ""
 
+def get_score(difficulty_level:str, pseudo, word:str, errors: int):
+    score = 0
+    if difficulty_level == "Niveau 1":
+        score = 100 + len(word)*10 - errors
+    elif difficulty_level == "Niveau 2" :
+        score = 200 + len(word)*10 - errors
+    elif difficulty_level == "Niveau 3" :
+        score = 300 + len(word)*10 - errors
+    return score
 
 def get_users():
     global database_dict, current_player
@@ -16,6 +24,7 @@ def get_users():
     database_dict = data
     from login import user_pseudo
     current_player = user_pseudo
+    print(user_pseudo)
 
 
 def score_calculator():
@@ -54,34 +63,31 @@ class Score(QScrollArea):
 
         # TODO : vertical bar to separate username and score
         get_users()
-        label_pseudos_tab = QWidget()
-        label_pseudos_layout = QFormLayout()
-        label_scores_tab = QWidget()
-        label_scores_layout = QFormLayout()
+        label_pseudos_tab = QLabel()
+        label_scores_tab = QLabel()
         pseudos, scores = "", ""
-
-        label_list = []
-        label_scores_list = []
-
+        liste_1 = []
+        liste_2 = []
+        liste_3 = []
+        """for username, score in database_dict.items():
+            pseudos += username + "\n"
+            scores += str(score) + "\n" """
         e = sorted(database_dict.items(), key=lambda x: x[1], reverse=True)
         for username, score in dict(e).items():
-            label_scores_list.append(QLabel(str(score)))
-            label_list.append(QLabel(username))
+            pseudos += username + "\n"
+            scores += str(score) + "\n"
+        label_pseudos_tab.setText(pseudos)
+        label_pseudos_tab.setFont(QFont("Times", 12))
+        label_pseudos_tab.setAlignment(Qt.AlignCenter)
+        liste = label_pseudos_tab.text().split("\n")
 
-        for i in range(len(label_list)):
-            if current_player == label_list[i].text():
-                label_list[i].setStyleSheet("color: red")
+        """for user in label_pseudos_tab.text():
+            if user == current_player:
+                """
 
-            label_list[i].setFont(QFont("Times", 12))
-            label_list[i].setAlignment(Qt.AlignCenter)
-            label_scores_list[i].setFont(QFont("Times", 12))
-            label_scores_list[i].setAlignment(Qt.AlignCenter)
-
-            label_scores_layout.addRow(label_scores_list[i])
-            label_pseudos_layout.addRow(label_list[i])
-
-        label_pseudos_tab.setLayout(label_pseudos_layout)
-        label_scores_tab.setLayout(label_scores_layout)
+        label_scores_tab.setText(scores)
+        label_scores_tab.setFont(QFont("Times", 12))
+        label_scores_tab.setAlignment(Qt.AlignCenter)
 
         grid_layout.addWidget(label_username, 1, 1)
         grid_layout.addWidget(label_pseudos_tab, 2, 1)

@@ -67,7 +67,7 @@ main_window = MyMainWindow()
 main_window.show()
 sys.exit(app.exec_())"""
 
-"""def calculo():
+def calculo():
     global time
     time = time.addSecs(1)
     print(time.toString("hh:mm:ss"))
@@ -84,7 +84,7 @@ timer0.timeout.connect(calculo)
 timer0.start()
 
 
-sys.exit(app.exec_())"""
+sys.exit(app.exec_())
 
 
 """
@@ -140,7 +140,7 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 """
 
-d = {'DeriWars': 10000000, 'Test': 200000000000, 'maxou': 0, 'Maxime': 0, 'Nat': 0, 'Mars': 0, 'Trey Thomas': 0, 'machine': 0, 'moi': 0, 'King': 0, 'jojo': 0, 'a': 0, 'testttt': 0, 'teste': 0}
+"""d = {'DeriWars': 10000000, 'Test': 200000000000, 'maxou': 0, 'Maxime': 0, 'Nat': 0, 'Mars': 0, 'Trey Thomas': 0, 'machine': 0, 'moi': 0, 'King': 0, 'jojo': 0, 'a': 0, 'testttt': 0, 'teste': 0}
 e = sorted(d.items(), key=lambda x: x[1], reverse=True)
 print(dict(e))
 pseudos, scores = "", ""
@@ -148,3 +148,4 @@ for username, score in dict(e):
     pseudos += username + "\n"
     scores += str(score) + "\n"
 print(pseudos, scores)
+"""

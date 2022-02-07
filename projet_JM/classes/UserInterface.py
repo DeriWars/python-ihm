@@ -7,9 +7,10 @@ from PyQt5.QtWidgets import *
 from pendu import *
 from bouton import *
 from pictures import *
-from timer import *
+#from timer import *
 from score import *
 from PyQt5.QtCore import QTime, QTimer
+
 
 plate = ""
 errors = 0
@@ -17,7 +18,7 @@ buttons_list = []
 pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                  "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                  "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
-
+DURATION_INT = 10
 
 def game(button, label_word, top_grid_layout, input, word, score_button):
     """
@@ -108,7 +109,7 @@ class UserInterface:
 
     def timer(self, label_time, label_word, input, score_button):
         
-        self.time = self.time.addSecs(1)
+        """self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
         if self.time.toString("hh:mm:ss") == "00:00:05":
             lose_label(label_word, input, buttons_list, self.word, disable_input, button_state, score_button)
@@ -118,8 +119,9 @@ class UserInterface:
         elif label_word.text() == f"\n---- Victoire du joueur ----\nLe bon mot était : {self.word}" or label_word.text() == f"\n---- GAME OVER ---- \nLe bon mot était : {self.word}":
             # self.time.stop()
             self.time = self.time.addSecs(-1)
-            print(self.time.toString("hh:mm:ss"))
-            # TODO: revoir le timer pour l'améliorer car la il fait pas bien les choses
+            print(self.time.toString("hh:mm:ss"))"""
+
+        # TODO: revoir le timer pour l'améliorer car la il fait pas bien les choses
 
     def layout(self):
         global errors
@@ -134,6 +136,7 @@ class UserInterface:
         hangman_layout = QFormLayout()
         label_space = QLabel()
         label_word = QLabel()
+        label_time = QLabel()
         label_word.setText(plate)
         top_grid_layout = QGridLayout()
         top_layout_right = QVBoxLayout()
@@ -141,16 +144,16 @@ class UserInterface:
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
         answer.setDisabled(False)
-        label_time = QLabel()
         score_button = QPushButton("Score")
+
 
         timer0 = QTimer()
         self.time = QTime(0, 0, 0)
         timer0.setInterval(1000)
         timer0.timeout.connect(lambda: self.timer(label_time, label_word, answer, score_button))
         timer0.start()
-        #sleep(5)
-        #timer0.stop()
+
+
 
         label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
@@ -194,6 +197,7 @@ class UserInterface:
 
         score_button.clicked.connect(lambda: score_button_click(score))
         answer.returnPressed.connect(lambda: input_enter(label_word, self.word, answer, top_grid_layout, answer, score_button))
+
 
         picture = Pictures(pictures_list, errors)
         picture.display(top_grid_layout)

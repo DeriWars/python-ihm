@@ -17,6 +17,7 @@ STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
 LISTE_ACCENTS = list(STRING_ACCENTS)
 
 
+
 def dico(liste):
     """
     Function which do a dictionary associating letter of alphabets to its frequency
@@ -43,7 +44,7 @@ def read_file(filename):
     for word in words:
         for char in word:
             if char in LISTE_ACCENTS:
-                words_to_ban.append(word.lower().replace(' ', '').replace('-', ''))
+                words_to_ban.append(word.lower().replace(' ', ''))
 
     set_words = set(words)
     set_words_to_ban = set(words_to_ban)
@@ -102,9 +103,9 @@ def win_label(label_word, input, buttons_list, word, disable_input, button_state
     :param button_state: a function
     :param score_button: a function
     """
-
+    from login import user_pseudo
     label_word.setFont(QFont("Times", 40))
-    label_word.setText("\n---- Victoire du joueur ----\n"
+    label_word.setText(f"\n---- Victoire de {user_pseudo} ----\n"
                        f"Le bon mot était : {word}")
     disable_buttons(buttons_list)
     disable_input(input)
