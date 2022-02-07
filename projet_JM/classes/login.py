@@ -5,25 +5,29 @@ from PyQt5.QtWidgets import *
 from UserInterface import *
 from json_data import *
 
+user_pseudo = ""
 
-def connect_button_click(ihm: UserInterface, window, username):
+
+def connect_button_click(ihm, window, username):
     """
     Function which control the click of the connect button
     :param ihm: a UserInterface object
     :param window: the window to hide
     :param username: the username of the player
     """
+    global user_pseudo
     ihm.layout()
     window.hide()
     read_json_file()
     load_file(username)
+    user_pseudo = username
 
 
 class ConnectButton(QPushButton):
     """
     Class for create the connect button and which connects it to the good function
     """
-    def __init__(self, label, ihm: UserInterface, window, input_user):
+    def __init__(self, label, ihm, window, input_user):
         super().__init__(label)
         self.clicked.connect(lambda: connect_button_click(ihm, window, input_user.text()))
 
@@ -32,7 +36,7 @@ class Login:
     """
     Class that manages the login layout
     """
-    def __init__(self, ihm: UserInterface):
+    def __init__(self, ihm):
         self.window = None
         self.ihm = ihm
 

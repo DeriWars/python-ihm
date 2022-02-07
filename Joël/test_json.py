@@ -30,5 +30,6 @@ class Window(QScrollArea):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Window()
+    text = "banane"
     sys.exit(app.exec_())
 
