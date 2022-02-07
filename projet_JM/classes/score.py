@@ -17,6 +17,8 @@ def get_score(difficulty_level: str, word: str, errors: int):
         score = 200 + len(word) * 10 - errors*10
     elif difficulty_level == "Niveau 3":
         score = 300 + len(word) * 10 - errors*10
+    if errors == 0:
+        score += 500
     return score
 
 
@@ -30,7 +32,8 @@ def get_users():
     current_player = user_pseudo
     from start import difficulty_level, word
     from UserInterface import errors
-    database_dict[current_player] = get_score(difficulty_level, word, errors)
+    data[current_player] = get_score(difficulty_level, word, errors)
+
     print(user_pseudo)
 
 
