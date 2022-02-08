@@ -15,7 +15,10 @@ class PasswordGenerator(Window):
     
     def create_widgets(self):
         layout = QFormLayout()
-         
+        
+        title = QLabel("GENERER UN MOT DE PASSE")
+        layout.addRow(title)
+        
         self.generated_password = QLineEdit("")
         self.generated_password.setReadOnly(True)
         layout.addRow("Mot de passe", self.generated_password)
@@ -48,7 +51,7 @@ class PasswordGenerator(Window):
         back_button.clicked.connect(self.back)
         layout.addRow(back_button)
         
-        self.central_widget.setLayout(layout)
+        self.setLayout(layout)
     
     def generate_password_clicked(self):
         from random import choices

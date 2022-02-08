@@ -1,4 +1,5 @@
 import json
+import webbrowser
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
@@ -6,12 +7,13 @@ from PyQt5.QtCore import Qt
 from system.window.window import Window
 from system.message_box import info_box
 
-from system.window.style import Style
+from system.encryption import Encryption
 
 # create a class for our main window
 class PasswordManager(Window):
     def __init__(self):
         super().__init__("Gandalf (by Pékul)", 1000, 550)
+        self.fernet = Encryption(6666666)
         self.create_widget()
         self.update()
 
@@ -19,7 +21,7 @@ class PasswordManager(Window):
         layout = QFormLayout()
         layout.setSpacing(10)
         
-        title = QLabel("Gestionnaire de mots de passe")
+        title = QLabel("GESTIONNAIRE DE MOT DE PASSE")
         layout.addRow(title)
         
         self.scroll_bar = QScrollArea()
@@ -36,7 +38,7 @@ class PasswordManager(Window):
         self.scroll_area_widget.setLayout(self.scroll_area)
         self.scroll_bar.setWidget(self.scroll_area_widget)
         
-        self.central_widget.setLayout(layout)
+        self.setLayout(layout)
  
     def update(self):
         with open("./data/passwords.json", "r", encoding="utf8") as f:
@@ -45,8 +47,7 @@ class PasswordManager(Window):
             self.clear_layout(self.scroll_area)
             
             for password in passwords:
-                row = self.create_password_item(password["origin"], password["username"], password["password"])
-                row.setStyleSheet(Style.QRadioButton + Style.QLineEdit + Style.QLabel)
+                row = self.create_password_item(password["origin"], password["username"], self.fernet.decrypt(password["password"]))
                 self.scroll_area.addRow(row)
     
     def clear_layout(self, layout):
@@ -63,10 +64,18 @@ class PasswordManager(Window):
         widget = QWidget()
         layout = QFormLayout()
         
+        h_layout = QHBoxLayout()
+        
         identifier_field = QLineEdit()
         identifier_field.setText(identifier)
         identifier_field.setReadOnly(True)
-        layout.addRow("Origine", identifier_field)
+        h_layout.addWidget(identifier_field)
+        
+        connect_button = QPushButton("Se connecter")
+        connect_button.clicked.connect(lambda: self.connect(identifier, username, password))
+        h_layout.addWidget(connect_button)
+        
+        layout.addRow("Origine", h_layout)
         
         h_layout = QHBoxLayout()
         
@@ -110,6 +119,9 @@ class PasswordManager(Window):
         widget.setLayout(layout)
         return widget
     
+    def connect(self, identifier, username, password):
+        webbrowser.open(f"http://{identifier}" if not 'http' in identifier else identifier)
+    
     def copy_username(self, password):
         from pyperclip import copy
         copy(password)
@@ -127,7 +139,7 @@ class PasswordManager(Window):
         with open("./data/passwords.json", "r", encoding="utf8") as f:
             passwords = json.load(f)
             
-        del passwords[self.username][passwords[self.username].index({"origin": identifier, "username": username, "password": password})]
+        del passwords[self.username][passwords[self.username].index({"origin": identifier, "username": username, "password": str(self.fernet.encrypt(password))})]
         
         with open("./data/passwords.json", "w", encoding="utf8") as f:
             json.dump(passwords, f, indent=4)
