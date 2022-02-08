@@ -24,7 +24,6 @@ def get_score(difficulty_level: str, word: str, errors: int):
     return score
 
 
-
 def get_users():
     global database_dict, current_player
     read_json_file()
