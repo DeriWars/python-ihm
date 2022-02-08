@@ -1,202 +1,224 @@
 import string
-
-
-from projet_JM.all_imports import *
+from time import sleep
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from pendu import *
+from bouton import *
+from pictures import *
+from score import *
+from PyQt5.QtCore import QTime, QTimer
+from PyQt5.QtWebEngineWidgets import *
+import time
+import datetime
+from web import *
 
-# from bouton import *
 
-WORDFILE = "../data/mots.txt"
+plate = ""
 errors = 0
-boutons_liste = []
-liste_images = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
-                "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
-                "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
+buttons_list = []
+pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
+                 "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
+                 "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
+DURATION_INT = 10
 
 
-def ombre(widget, color=None, radius=10):
-    shadow = QGraphicsDropShadowEffect()
+def game(button, label_word, top_grid_layout, input, word, score_button):
+    """
+    Function that manages the hangman game
+    :param score_button: score button
+    :param button: the button clicked
+    :param label_word: the word generated with underscores
+    :param top_grid_layout: the layout where the label_word is generated
+    :param input: the line where the word can be inserted
+    :param word: the word generated thanks to the list of words. This one is known
+    """
+    global errors, plate
 
-    # réglage du flou
-    shadow.setBlurRadius(radius)
-    if color is not None:
-        shadow.setColor(QColor(color))
+    if button.text() in word:
+        plate = change_display(plate, word, button.text())
 
-    # ajout de l'ombre au widget
-    widget.setGraphicsEffect(shadow)
-
-
-def bouton_clique(bouton, label_word, top_grid_layout):
-    bouton.setEnabled(False)
-    game(bouton, label_word, top_grid_layout)
-
-
-def game(bouton, label_word, top_grid_layout):
-    global errors, plateau
-
-    if bouton.text() in word:
-        for index, lettre in enumerate(word):
-            if lettre == bouton.text():
-                plateau = plateau[:index * 2] + lettre + plateau[index * 2 + 1:]
-
-    elif bouton.text() not in word:
+    elif button.text() not in word:
         errors += 1
-        print("les erreurs :", errors)
-    label_word.setText(plateau)
-    error_state(top_grid_layout)
+    label_word.setText(plate)
+    error_state(top_grid_layout, pictures_list, errors)
 
-    if errors == len(liste_images) - 1:
-        print("perdu")
-        label_word.setFont(QFont("Times", 40))
-        label_word.setText("\n---- GAME OVER ---- \n"
-                           f"Le bon mot était : {word}")
-        desactive_boutons()
+    if errors == len(pictures_list) - 1:
+        lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
 
-    if "_" not in plateau:
-        label_word.setFont(QFont("Times", 40))
-        label_word.setText("\n---- Victoire du joueur français ----\n"
-                           f"Le bon mot était : {word}")
-        desactive_boutons()
-        # break
+    if "_" not in plate:
+        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
 
 
-def input_enter(label_word, word, answer: QLineEdit, top_grid_layout):
+def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, score_button):
+    """
+    Function that manages the input pressed
+    :param score_button: score button
+    :param label_word: the word generated with underscores
+    :param word: the word not hidden
+    :param answer: the input line
+    :param top_grid_layout:
+    :param input: the input line
+    """
     global errors
     if answer.text() == word:
-        label_word.setFont(QFont("Times", 40))
-        label_word.setText("\n---- Victoire du joueur français ----\n"
-                           f"Le bon mot était : {word}")
-        desactive_boutons()
+        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
     elif answer.text() != word:
         errors += 1
         print("les erreurs :", errors)
         answer.clear()
-        label_word.setText(plateau)
-    error_state(top_grid_layout)
+        label_word.setText(plate)
+    error_state(top_grid_layout, pictures_list, errors)
 
 
-def error_state(top_grid_layout):
-    picture = Pictures(liste_images, errors)
-    picture.affichage(top_grid_layout)
+def disable_input(input):
+    """
+    Function ta disable the input
+    :param input: the input line
+    """
+    input.setReadOnly(True)
 
 
-def desactive_boutons():
-    for bouton in boutons_liste:
-        bouton.setEnabled(False)
+def button_state(button, state: bool):
+    """
+    Function to set enable or not a button
+    :param state: the state of the button
+    :param button: a button
+    """
+    button.setEnabled(state)
 
 
-class Bouton(QPushButton):
-    def __init__(self, label, label_word, top_grid_layout):
-        super().__init__(label)
-        self.label_word = label_word
-        self.top_grid_layout = top_grid_layout
-        self.clicked.connect(lambda: bouton_clique(self, self.label_word, self.top_grid_layout))
-        ombre(self)
+def score_button_click(score: Score):
+    """
+    Function which shows the scoreboard when the score button is pressed
+    :param score: a Score object
+    """
+    score.score_layout()
+
+
+def defintion_word_button_click(window: Window, word):
+    window.__init__()
+    window.get_definition(word)
+
+
+
 
 
 class UserInterface:
-    def __init__(self, word, plateau):
+    """
+    Class that manages the main interface of the hangman game
+    """
+    def __init__(self, word, plate):
+        """
+        :param word: the word generated
+        :param plate: the plate generated
+        """
+        self.window = None
         self.word = word
-        self.plateau = plateau
+        self.plate = plate
+    def timer(self, label_time, label_word, input, score_button):
+        
+        """self.time = self.time.addSecs(1)
+        label_time.setText(self.time.toString("hh:mm:ss"))
+        if self.time.toString("hh:mm:ss") == "00:00:05":
+            lose_label(label_word, input, buttons_list, self.word, disable_input, button_state, score_button)
+            self.time = self.time.addSecs(-1)
+            # self.time.stop()
+            print(self.time.toString("hh:mm:ss"))
+        elif label_word.text() == f"\n---- Victoire du joueur ----\nLe bon mot était : {self.word}" or label_word.text() == f"\n---- GAME OVER ---- \nLe bon mot était : {self.word}":
+            # self.time.stop()
+            self.time = self.time.addSecs(-1)
+            print(self.time.toString("hh:mm:ss"))"""
 
     def layout(self):
-        global errors, label_word
-        app = QApplication(sys.argv)
-        window = QWidget()
-        window.resize(1200, 600)
-        window.setWindowTitle("Le jeu du Pendu")
+        global errors
+        self.window = QWidget()
+        self.window.resize(1200, 600)
+        self.window.setWindowTitle("Le jeu du Pendu")
+        self.window.setWindowIcon(QIcon("../images/10.gif"))
+        self.window.setStyleSheet("background : #D2E1E1")
+        global plate
+        plate = self.plate
 
-        pendu_layout = QFormLayout()
+        hangman_layout = QFormLayout()
         label_space = QLabel()
         label_word = QLabel()
-        label_word.setText(self.plateau)
+        label_time = QLabel()
+        label_word.setText(plate)
         top_grid_layout = QGridLayout()
         top_layout_right = QVBoxLayout()
         bottom_grid_layout = QGridLayout()
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
+        answer.setDisabled(False)
+        score_button = QPushButton("Score")
+        definition_word_button = QPushButton("Definition")
 
+        timer0 = QTimer()
+        self.time = QTime(0, 0, 0)
+        timer0.setInterval(1000)
+        timer0.timeout.connect(lambda: self.timer(label_time, label_word, answer, score_button))
+        timer0.start()
 
-        label_word.setFont(QFont("Times", 50, QFont.Bold))
+        label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
 
         for i in string.ascii_lowercase:
-            boutons_liste.append(Bouton(i, label_word, top_grid_layout))
+            buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button))
 
-        bottom_grid_layout.addWidget(boutons_liste[0], 1, 1)
-        bottom_grid_layout.addWidget(boutons_liste[25], 1, 2)
-        bottom_grid_layout.addWidget(boutons_liste[4], 1, 3)
-        bottom_grid_layout.addWidget(boutons_liste[17], 1, 4)
-        bottom_grid_layout.addWidget(boutons_liste[19], 1, 5)
-        bottom_grid_layout.addWidget(boutons_liste[24], 1, 6)
-        bottom_grid_layout.addWidget(boutons_liste[20], 1, 7)
-        bottom_grid_layout.addWidget(boutons_liste[8], 1, 8)
-        bottom_grid_layout.addWidget(boutons_liste[14], 1, 9)
-        bottom_grid_layout.addWidget(boutons_liste[15], 1, 10)
+        bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
+        bottom_grid_layout.addWidget(buttons_list[25], 1, 2)
+        bottom_grid_layout.addWidget(buttons_list[4], 1, 3)
+        bottom_grid_layout.addWidget(buttons_list[17], 1, 4)
+        bottom_grid_layout.addWidget(buttons_list[19], 1, 5)
+        bottom_grid_layout.addWidget(buttons_list[24], 1, 6)
+        bottom_grid_layout.addWidget(buttons_list[20], 1, 7)
+        bottom_grid_layout.addWidget(buttons_list[8], 1, 8)
+        bottom_grid_layout.addWidget(buttons_list[14], 1, 9)
+        bottom_grid_layout.addWidget(buttons_list[15], 1, 10)
 
-        bottom_grid_layout.addWidget(boutons_liste[16], 2, 1)
-        bottom_grid_layout.addWidget(boutons_liste[18], 2, 2)
-        bottom_grid_layout.addWidget(boutons_liste[3], 2, 3)
-        bottom_grid_layout.addWidget(boutons_liste[5], 2, 4)
-        bottom_grid_layout.addWidget(boutons_liste[6], 2, 5)
-        bottom_grid_layout.addWidget(boutons_liste[7], 2, 6)
-        bottom_grid_layout.addWidget(boutons_liste[9], 2, 7)
-        bottom_grid_layout.addWidget(boutons_liste[10], 2, 8)
-        bottom_grid_layout.addWidget(boutons_liste[11], 2, 9)
-        bottom_grid_layout.addWidget(boutons_liste[12], 2, 10)
+        bottom_grid_layout.addWidget(buttons_list[16], 2, 1)
+        bottom_grid_layout.addWidget(buttons_list[18], 2, 2)
+        bottom_grid_layout.addWidget(buttons_list[3], 2, 3)
+        bottom_grid_layout.addWidget(buttons_list[5], 2, 4)
+        bottom_grid_layout.addWidget(buttons_list[6], 2, 5)
+        bottom_grid_layout.addWidget(buttons_list[7], 2, 6)
+        bottom_grid_layout.addWidget(buttons_list[9], 2, 7)
+        bottom_grid_layout.addWidget(buttons_list[10], 2, 8)
+        bottom_grid_layout.addWidget(buttons_list[11], 2, 9)
+        bottom_grid_layout.addWidget(buttons_list[12], 2, 10)
 
-        bottom_grid_layout.addWidget(boutons_liste[22], 3, 3)
-        bottom_grid_layout.addWidget(boutons_liste[23], 3, 4)
-        bottom_grid_layout.addWidget(boutons_liste[2], 3, 5)
-        bottom_grid_layout.addWidget(boutons_liste[21], 3, 6)
-        bottom_grid_layout.addWidget(boutons_liste[1], 3, 7)
-        bottom_grid_layout.addWidget(boutons_liste[13], 3, 8)
+        bottom_grid_layout.addWidget(buttons_list[22], 3, 3)
+        bottom_grid_layout.addWidget(buttons_list[23], 3, 4)
+        bottom_grid_layout.addWidget(buttons_list[2], 3, 5)
+        bottom_grid_layout.addWidget(buttons_list[21], 3, 6)
+        bottom_grid_layout.addWidget(buttons_list[1], 3, 7)
+        bottom_grid_layout.addWidget(buttons_list[13], 3, 8)
 
-        answer.returnPressed.connect(lambda: input_enter(label_word, self.word, answer, top_grid_layout))
+        bottom_grid_layout.addWidget(score_button, 4, 10)
+        bottom_grid_layout.addWidget(definition_word_button, 4, 9)
+        shadow(score_button)
+        shadow(definition_word_button)
+        button_state(score_button, False)
+        score = Score()
+        window = Window()
 
-        picture = Pictures(liste_images, errors)
-        picture.affichage(top_grid_layout)
-        # top_grid_layout.addWidget(label_word, 1, 2)
-        # top_grid_layout.addWidget(answer, 2, 2)
+        score_button.clicked.connect(lambda: score_button_click(score))
+        answer.returnPressed.connect(lambda: input_enter(label_word, self.word, answer, top_grid_layout, answer, score_button))
+        definition_word_button.clicked.connect(lambda: defintion_word_button_click(window, self.word))
+
+        picture = Pictures(pictures_list, errors)
+        picture.display(top_grid_layout)
         top_grid_layout.addItem(top_layout_right, 1, 2)
         top_layout_right.addWidget(label_word)
         top_layout_right.addWidget(answer)
 
-        # top_grid_layout.addWidget(top_grid_layout_right)
-        # top_grid_layout_right.addWidget(label_word, 1, 1)
-        # top_grid_layout_right.addWidget(answer, 2, 1)
+        hangman_layout.addRow(top_grid_layout)
+        hangman_layout.addRow(label_space)
+        hangman_layout.addRow(label_space)
+        hangman_layout.addRow(bottom_grid_layout)
+        hangman_layout.addRow(label_time)
 
-        pendu_layout.addRow(top_grid_layout)
-        pendu_layout.addRow(label_space)
-        pendu_layout.addRow(label_space)
-        pendu_layout.addRow(bottom_grid_layout)
-        # pendu_layout.addRow(answer)
-        window.setLayout(pendu_layout)
-
-        # plateau = self.game(self.plateau, boutons_liste)
-        # label_word.setText(plateau)
-
-        pendu_layout.addRow(top_grid_layout)
-        pendu_layout.addRow(label_space)
-        pendu_layout.addRow(bottom_grid_layout)
-        window.setLayout(pendu_layout)
-
-        # plateau = self.game(self.plateau, boutons_liste)
-
-        window.show()
-        sys.exit(app.exec())
-
-
-words_list = read_file(WORDFILE)
-word = random_word(words_list)
-print(word)
-plateau = affichage(len(word), word)
-ihm = UserInterface(word, plateau)
-
-
-def main():
-    ihm.layout()
-
-
-if __name__ == main():
-    main()
+        self.window.setLayout(hangman_layout)
+        self.window.show()

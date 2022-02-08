@@ -1,21 +1,34 @@
 pseudo du joueur pour afficher à la fin tableau des scores
 afficher date pour savoir à quelle date le joueur l'a fait
-score en fonction de mot, durée, nombre d'essais restants
+score_layout en fonction de mot, durée, nombre d'essais restants
 le tout dans une base de données qui ne s'efface pas (regarder du côté de json)
 pseudo special pour admins lol
 peut etre definir timer avec un temps maximal (en fonction de la len du mot)
 faire dessins du pendu (peut etre canvas ou manim communioty edition pour le faire en full python)
 radio button pour choisir si on veut jouer tout seul ou a deux (message box)
 utiliser comboBox pour generer differentes langues
-
 tonInput.returnPressed.connect(submit_clicked)
 
+recuperer score_layout : fixer limite, recup temps, calculer moyenne
+analyse frequentielle
+bouton restart
 
 
-    def score(self, temps, mot, essais_restants):
-        score = temps + len(mot) + essais_restants
-        return score
+1er layout : tout seul ou a deux
+    si a deux, on ouvre le pendu
+    si tout seul, 2nd layout
+2eme layout : login + difficulté (choisir langue)
+3eme layout : pendu
+4eme layout : score_layout
+
+
+
+    def score_layout(self, temps, mot, essais_restants):
+        score_layout = temps + len(mot) + essais_restants
+        return score_layout
 
 
 lire : json.load(file)
 ecrire : json.dump(data, file, indent=4)
+
+victoire ou défaite {pseudo du joueur}

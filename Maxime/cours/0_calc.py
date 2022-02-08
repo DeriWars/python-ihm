@@ -1,6 +1,7 @@
-
-
-from projet_JM.all_imports import *
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 operateurs = {type(0):{'+':int.__add__,'-':int.__sub__,'x':int.__mul__},
                    type(0.0):{'+':float.__add__,'-':float.__sub__,'x':float.__mul__,'/':float.__truediv__}}

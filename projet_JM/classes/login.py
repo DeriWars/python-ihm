@@ -1,67 +1,72 @@
-from projet_JM.all_imports import *
-import json
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from UserInterface import *
+from json_data import *
 
-FILENAME = "../data/database.json"
-data = None
+user_pseudo = ""
+
+
+def connect_button_click(ihm, window, username):
+    """
+    Function which control the click of the connect button
+    :param ihm: a UserInterface object
+    :param window: the window to hide
+    :param username: the username of the player
+    """
+    global user_pseudo
+    ihm.layout()
+    window.hide()
+    read_json_file()
+    load_file(username)
+    user_pseudo = username
+    if len(user_pseudo) == 0:
+        user_pseudo = "unknow player"
+
+
+class ConnectButton(QPushButton):
+    """
+    Class for create the connect button and which connects it to the good function
+    """
+    def __init__(self, label, ihm, window, input_user):
+        super().__init__(label)
+        self.clicked.connect(lambda: connect_button_click(ihm, window, input_user.text()))
 
 
 class Login:
-    def __init__(self, username, score=0):
-        self.username = username
-        self.score = score
+    """
+    Class that manages the login layout
+    """
+    def __init__(self, ihm):
+        self.window = None
+        self.ihm = ihm
 
     def layout(self):
-        app = QApplication(sys.argv)
-        window = QWidget()
-        window.setWindowTitle("Login || By Personne73 // maxgiant_")
-        window.resize(450, 200)
+        self.window = QWidget()
+        self.window.setWindowTitle("Login || By Personne73 // maxgiant_")
+        self.window.resize(450, 200)
+        self.window.setStyleSheet("background : #D2E1E1")
 
-        label_text = QLabel(window)
-        label_text.setText("Essai d'affichage du texte")
+        label_text = QLabel(self.window)
+        label_text.setText("Entrez un pseudo puis connectez vous")
         label_text.setAlignment(Qt.AlignCenter)
+        label_text.setFont(QFont("Times", 10))
 
         label_user = QLabel("Pseudo")
+        label_user.setFont(QFont("Times", 9))
         input_user = QLineEdit()
-        # input_user.setMaximumSize(250, 50)
-
+        input_user.setFont(QFont("Times", 10))
         label_space = QLabel()
 
         login_layout = QFormLayout()
+
+        connect_button = ConnectButton("Se connecter", self.ihm, self.window, input_user)
+
         login_layout.addRow(label_text)
         login_layout.addRow(label_space)
         login_layout.addRow(label_user, input_user)
+        login_layout.addWidget(connect_button)
 
-        bouton_connect = QPushButton(window)
-        bouton_connect.setText("Se connecter")
-        bouton_connect.move(150, 100)
-
-        # bouton_connect.setGeometry(120, 120, 115, 40)
-
-        window.setLayout(login_layout)
-
-        """
-        revoir self
-        def readfile(filename, username):
-            with open(filename, mode='r', encoding='utf8') as file:
-                pass
-        def loadfile(filename, username):
-            with open(filename, mode='w', encoding='utf8') as file:
-                data = json.load(file)
-                data[self.username] = 0
-                json.dump(data, file, indent=4)
-        def bouton_connect_clicked():
-            login_name = input_user.text()
-            loadfile(FILENAME, login_name)
-        bouton_connect.clicked.connect(bouton_connect_clicked)
-        """
-        window.show()
-        sys.exit(app.exec())
-
-
-def main():
-    user = Login("tresor", 0)
-    user.layout()
-
-
-if __name__ == main():
-    main()
+        self.window.setLayout(login_layout)
+        self.window.show()
