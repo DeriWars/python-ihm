@@ -36,7 +36,7 @@ class Register(Window):
         submit.clicked.connect(self.add_password)
         
         cancel = QPushButton("Annuler")
-        cancel.clicked.connect(self.show_manager)
+        cancel.clicked.connect(self.reset)
         
         layout.addRow(title)
         layout.addRow("Site d'origine", self.origin)
@@ -58,10 +58,16 @@ class Register(Window):
         if passwords.get(self.username) is None:
             passwords[self.username] = []
         
-        passwords[self.username].append({"origin": self.origin.text(), "username": self.username_if.text(), "password": str(self.manager.fernet.encrypt(self.password.text()))})
+        passwords[self.username].append({"origin": self.origin.text(), "username": self.username_if.text(), "password": str(self.windows.get('manager').fernet.encrypt(self.password.text()))})
         
         with open("./data/passwords.json", "w", encoding="utf8") as f:
             json.dump(passwords, f, indent=4)
         
         info_box("Mot de passe enregistré", "Votre nouveau mot de passe a été enregistré avec succès.")
-        self.show_manager()
+        self.reset()
+        self.switch_window("solo_window")
+    
+    def reset(self):
+        self.password.setText("")
+        self.origin.setText("")
+        self.username_if.setText("")

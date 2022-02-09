@@ -11,8 +11,10 @@ from system.window.window import GandalfWindow
 
 from system.auto_installer import auto_install_package
 
+import sys
+
 def main():
-    auto_install_package(["pyqt5", "beautifulsoup4", "requests", "pyperclip", "requests_html"])
+    auto_install_package(["pyqt5", "pyperclip"])
     
     app = QApplication([])
     
@@ -23,20 +25,21 @@ def main():
     register = Register()
     tray = Tray(login, pm, pg, register)
     solo_window = SoloWindow()
-    main_window = GandalfWindow(login, tray)
+    main_window = GandalfWindow(tray)
 
-    login.set_app_windows(main_window, login, signup, pm, pg, register, solo_window, tray)
-    signup.set_app_windows(main_window, login, signup, pm, pg, register, solo_window, tray)
-    pm.set_app_windows(main_window, login, signup, pm, pg, register, solo_window, tray)
-    pg.set_app_windows(main_window, login, signup, pm, pg, register, solo_window, tray)
-    register.set_app_windows(main_window, login, signup, pm, pg, register, solo_window, tray)
-    solo_window.set_app_windows(main_window, login, signup, pm, pg, register, solo_window, tray)
+    login.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
+    signup.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
+    pm.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
+    pg.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
+    register.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
+    solo_window.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
+    main_window.set_app_windows([login, signup, solo_window])
     
     solo_window.create_widgets()
     
     main_window.modify_window(login.title, login.width, login.height)
     main_window.show()
-    app.exec_()
+    sys.exit(app.exec_())
 
 if __name__ == "__main__":
     main()
