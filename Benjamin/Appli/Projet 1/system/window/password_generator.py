@@ -47,16 +47,12 @@ class PasswordGenerator(Window):
         h_layout.addWidget(copy_password)
         layout.addRow(h_layout)
         
-        back_button = QPushButton("Retour")
-        back_button.clicked.connect(self.back)
-        layout.addRow(back_button)
-        
         self.setLayout(layout)
     
     def generate_password_clicked(self):
         from random import choices
         from string import ascii_uppercase, ascii_lowercase, digits, punctuation
-        CHARACTERS = ascii_uppercase + ascii_lowercase + digits + punctuation
+        CHARACTERS = ascii_uppercase * 2 + ascii_lowercase * 2 + digits + punctuation
         self.password = "".join(choices(CHARACTERS, k=self.password_length))
         self.generated_password.setText(self.password)
 
@@ -67,10 +63,4 @@ class PasswordGenerator(Window):
     def change_length_value(self):
         self.password_length = self.change_length.value()
         self.length.setText(str(self.password_length))
-    
-    def back(self):
-        if self.manager is not None:
-            self.hide()
-            self.manager.show()
-        else:
-            error_box("Erreur", "Aucune fenêtre de gestion n'est disponible.")
+        self.generate_password_clicked()

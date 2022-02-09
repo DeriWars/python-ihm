@@ -101,7 +101,7 @@ class PasswordManager(Window):
         copy_password.clicked.connect(lambda: self.copy_password(password))
         
         show_password = QRadioButton("Afficher")
-        show_password.clicked.connect(lambda: self.show_password(show_password, password_field))
+        show_password.clicked.connect(lambda: self.show_password(password_field))
         
         h_layout.addWidget(password_field)
         h_layout.addWidget(show_password)
@@ -132,7 +132,7 @@ class PasswordManager(Window):
         copy(password)
         info_box("Mot de passe copié !", "Le mot de passe a été copier dans le presse papier.")
     
-    def show_password(self, button, password_field):
+    def show_password(self, password_field):
         password_field.setEchoMode(QLineEdit.Normal if password_field.echoMode() == QLineEdit.Password else QLineEdit.Password)
     
     def delete_password(self, identifier, username, password):
