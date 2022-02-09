@@ -30,7 +30,11 @@ def get_users():
     from json_data import data
     database_dict = data
     from login import user_pseudo
-    current_player = user_pseudo
+    if user_pseudo != "":
+        current_player = user_pseudo
+    else:
+        current_player = "unknow player"
+        print("je passe")
     """from start import difficulty_level, word
     from UserInterface import errors
     data[current_player] = get_score(difficulty_level, word, errors)"""

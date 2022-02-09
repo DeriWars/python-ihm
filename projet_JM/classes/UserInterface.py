@@ -1,18 +1,9 @@
 import string
-from time import sleep
-import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
 from pendu import *
 from bouton import *
 from pictures import *
 from score import *
 from PyQt5.QtCore import QTime, QTimer
-from PyQt5.QtWebEngineWidgets import *
-import time
-import datetime
-from web import *
 
 
 plate = ""
@@ -21,7 +12,7 @@ buttons_list = []
 pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                  "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                  "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
-DURATION_INT = 10
+
 
 
 def game(button, label_word, top_grid_layout, input, word, score_button):
@@ -97,9 +88,9 @@ def score_button_click(score: Score):
     score.score_layout()
 
 
-def defintion_word_button_click(window: Window, word):
+"""def defintion_word_button_click(window: Window, word):
     window.__init__()
-    window.get_definition(word)
+    window.get_definition(word)"""
 
 
 
@@ -202,11 +193,11 @@ class UserInterface:
         shadow(definition_word_button)
         button_state(score_button, False)
         score = Score()
-        window = Window()
+        #window = Window()
 
         score_button.clicked.connect(lambda: score_button_click(score))
         answer.returnPressed.connect(lambda: input_enter(label_word, self.word, answer, top_grid_layout, answer, score_button))
-        definition_word_button.clicked.connect(lambda: defintion_word_button_click(window, self.word))
+        #definition_word_button.clicked.connect(lambda: defintion_word_button_click(window, self.word))
 
         picture = Pictures(pictures_list, errors)
         picture.display(top_grid_layout)

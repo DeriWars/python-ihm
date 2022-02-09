@@ -212,7 +212,7 @@ web.load(QUrl(URL))
 web.show()
 
 sys.exit(app.exec_())"""
-import sys
+"""import sys
 # importing Widgtes
 from PyQt5.QtWidgets import *
 # importing Engine Widgets
@@ -295,3 +295,9 @@ QApplication.setApplicationName('TechVidvan Web Browser')
 window = Window()
 # executing created app
 MyApp.exec_()
+"""
+from time import *
+time1 = time()
+sleep(5)
+time2 = time()
+print(time2-time1)

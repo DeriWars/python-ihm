@@ -31,4 +31,10 @@ bouton restart
 lire : json.load(file)
 ecrire : json.dump(data, file, indent=4)
 
-victoire ou défaite {pseudo du joueur}
+
+
+# TODO :
+      - Faire un bouton rejouer
+      - Connecter le bouton du dictionnaire
+      - Faire un random user
+      - Refaire les scores
