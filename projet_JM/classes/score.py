@@ -115,3 +115,4 @@ class Score(QScrollArea):
         self.setWidget(self.window)
         self.setWidgetResizable(True)
         self.show()
+

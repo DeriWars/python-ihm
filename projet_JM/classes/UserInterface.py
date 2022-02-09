@@ -14,6 +14,7 @@ pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                  "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                  "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
+
 def game(button, label_word, top_grid_layout, input, word, score_button, def_word_button):
     """
     Function that manages the hangman game
@@ -151,7 +152,7 @@ class UserInterface:
         label_word.setAlignment(Qt.AlignCenter)
 
         for i in string.ascii_lowercase:
-            buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button))
+            buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button, definition_word_button))
 
         bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
         bottom_grid_layout.addWidget(buttons_list[25], 1, 2)
