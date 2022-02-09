@@ -3,6 +3,7 @@ from pendu import *
 from bouton import *
 from pictures import *
 from score import *
+from webdefinitions import *
 from PyQt5.QtCore import QTime, QTimer
 
 
@@ -13,9 +14,7 @@ pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                  "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                  "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
-
-
-def game(button, label_word, top_grid_layout, input, word, score_button):
+def game(button, label_word, top_grid_layout, input, word, score_button, def_word_button):
     """
     Function that manages the hangman game
     :param score_button: score button
@@ -36,13 +35,13 @@ def game(button, label_word, top_grid_layout, input, word, score_button):
     error_state(top_grid_layout, pictures_list, errors)
 
     if errors == len(pictures_list) - 1:
-        lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
+        lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button)
 
     if "_" not in plate:
-        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
+        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button)
 
 
-def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, score_button):
+def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, score_button, def_word_button):
     """
     Function that manages the input pressed
     :param score_button: score button
@@ -54,7 +53,7 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, sco
     """
     global errors
     if answer.text() == word:
-        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button)
+        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button)
     elif answer.text() != word:
         errors += 1
         print("les erreurs :", errors)
@@ -88,12 +87,8 @@ def score_button_click(score: Score):
     score.score_layout()
 
 
-"""def defintion_word_button_click(window: Window, word):
-    window.__init__()
-    window.get_definition(word)"""
-
-
-
+def definition_button_click(web_def, word):
+    web_def.definition_word(word)
 
 
 class UserInterface:
@@ -108,8 +103,8 @@ class UserInterface:
         self.window = None
         self.word = word
         self.plate = plate
+
     def timer(self, label_time, label_word, input, score_button):
-        
         """self.time = self.time.addSecs(1)
         label_time.setText(self.time.toString("hh:mm:ss"))
         if self.time.toString("hh:mm:ss") == "00:00:05":
@@ -192,12 +187,14 @@ class UserInterface:
         shadow(score_button)
         shadow(definition_word_button)
         button_state(score_button, False)
+        button_state(definition_word_button, False)
         score = Score()
-        #window = Window()
 
         score_button.clicked.connect(lambda: score_button_click(score))
-        answer.returnPressed.connect(lambda: input_enter(label_word, self.word, answer, top_grid_layout, answer, score_button))
-        #definition_word_button.clicked.connect(lambda: defintion_word_button_click(window, self.word))
+        answer.returnPressed.connect(lambda: input_enter(label_word, self.word, answer, top_grid_layout, answer, score_button, definition_word_button))
+
+        web_def = WebDef()
+        definition_word_button.clicked.connect(lambda: definition_button_click(web_def, self.word))
 
         picture = Pictures(pictures_list, errors)
         picture.display(top_grid_layout)
