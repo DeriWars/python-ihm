@@ -35,8 +35,6 @@ def get_users():
     from UserInterface import errors
     data[current_player] = get_score(difficulty_level, word, errors)"""
 
-    print(user_pseudo)
-
 
 def score_calculator():
     pass

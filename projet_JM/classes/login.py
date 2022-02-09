@@ -18,11 +18,13 @@ def connect_button_click(ihm, window, username):
     global user_pseudo
     ihm.layout()
     window.hide()
+    if username == "":
+        user_pseudo = "unknow player"
+        username = user_pseudo
+    else:
+        user_pseudo = username
     read_json_file()
     load_file(username)
-    user_pseudo = username
-    if len(user_pseudo) == 0:
-        user_pseudo = "unknow player"
 
 
 class ConnectButton(QPushButton):

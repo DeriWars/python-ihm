@@ -17,7 +17,6 @@ STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
 LISTE_ACCENTS = list(STRING_ACCENTS)
 
 
-
 def dico(liste):
     """
     Function which do a dictionary associating letter of alphabets to its frequency
@@ -92,7 +91,7 @@ def change_display(plate, word, player_letter):
     return plate
 
 
-def win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button):
+def win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button):
     """
     Function that change the label by the win text
     :param label_word: the label to change
@@ -110,9 +109,10 @@ def win_label(label_word, input, buttons_list, word, disable_input, button_state
     disable_buttons(buttons_list)
     disable_input(input)
     button_state(score_button, True)
+    button_state(def_word_button, True)
 
 
-def lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button):
+def lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button):
     """
     Function that change the label by the lose text
     :param label_word: the label to change
@@ -129,6 +129,7 @@ def lose_label(label_word, input, buttons_list, word, disable_input, button_stat
     disable_buttons(buttons_list)
     disable_input(input)
     button_state(score_button, True)
+    button_state(def_word_button, True)
 
 
 def difficulty_analysis(filename, difficulty: str):
