@@ -32,7 +32,7 @@ class LoginPage(Window):
         submit.clicked.connect(self.submit_clicked)
         
         signup_btn = QPushButton("Créer un compte")
-        signup_btn.clicked.connect(self.signup_clicked)
+        signup_btn.clicked.connect(lambda: self.switch_window("signup"))
         
         layout.addRow(title)
         layout.addRow("Nom d'utilisateur", self.user)
@@ -45,17 +45,13 @@ class LoginPage(Window):
     
     def submit_clicked(self):
         if USERS.is_valid_user(self.user.text(), self.password.text()):
-            self.set_user_name(self.user.text())
-            self.manager.set_user_name(self.user.text())
-            self.register.set_user_name(self.user.text())
-            self.tray.set_user_name(self.user.text())
-            self.password.setText("")
-            self.show_manager()
+            self.set_username(self.user.text())
+            print(self.username)
+            self.switch_window("manager")
         else:
+            self.reset()
             error_box("Nom d'utilisateur ou mot de passe incorrect", "Veuillez vérifier votre nom d'utilisateur et votre mot de passe.")
-    
-    def showEvent(self, event):
-        self.manager.set_user_name(None)
-        self.register.set_user_name(None)
-        self.tray.set_user_name(None)
-        return super().showEvent(event)
+
+    def reset(self):
+        self.user.setText("")
+        self.password.setText("")

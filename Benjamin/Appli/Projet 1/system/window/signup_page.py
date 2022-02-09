@@ -65,7 +65,7 @@ class SignupPage(Window):
         
     def login_clicked(self):
         self.reset()
-        self.disconnect()
+        self.switch_window("login")
         
     def reset(self):
         self.password.setText("")

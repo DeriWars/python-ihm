@@ -5,11 +5,14 @@ QPushButton {
     margin: 3px;
     border: 1px solid #000;
     border-radius: 10px;
+    font-size: 16px;
 }
 
-
-
 QPushButton:hover {
+    background-color: #ededed;
+}
+
+QPushButton:pressed {
     background-color: #dcdcdc;
 }
 
@@ -18,6 +21,8 @@ QPushButton:hover {
 QRadioButton {
     padding: 4px;
     margin: 3px;
+    background-color: #fefefe;
+    font-size: 16px;
 }
 
 
@@ -25,6 +30,8 @@ QRadioButton {
 QLabel {
     padding: 2px;
     margin: 5px;
+    background-color: #fefefe;
+    font-size: 16px;
 }
 
 QLabel#title {
@@ -41,6 +48,7 @@ QLineEdit {
     color: #000;
     border-bottom: 1px solid #000;
     border-radius: 3px;
+    font-size: 16px;
 }
 
 QLineEdit:hover {
@@ -49,9 +57,4 @@ QLineEdit:hover {
 
 QLineEdit:focus {
     border-bottom: 2px solid #33F;
-}
-
-QWidget {
-    background-color: #FEFEFE;
-    border-radius: 5px;
 }
