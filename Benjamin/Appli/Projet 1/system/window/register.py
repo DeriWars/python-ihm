@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import *
 
 from system.window.window import Window
 from system.message_box import info_box, error_box
-from system.window.style import Style
 
 class Register(Window):
     def __init__(self):
@@ -18,22 +17,20 @@ class Register(Window):
         
         self.origin = QLineEdit()
         self.origin.setPlaceholderText("Site d'origine")
-        self.origin.setMaxLength(50)
         self.origin.setToolTip("Site d'origine")
-        self.origin.setStyleSheet(Style.QLineEdit)
         
         self.username_if = QLineEdit()
         self.username_if.setPlaceholderText("Nom d'utilisateur")
         self.username_if.setMaxLength(50)
         self.username_if.setToolTip("Nom d'utilisateur")
-        self.username_if.setStyleSheet(Style.QLineEdit)
 
         self.password = QLineEdit()
         self.password.setPlaceholderText("Mot de passe")
         self.password.setMaxLength(50)
         self.password.setEchoMode(QLineEdit.Password)
         self.password.setToolTip("Mot de passe")
-        self.password.setStyleSheet(Style.QLineEdit)
+        
+        self.password.returnPressed.connect(self.add_password)
         
         submit = QPushButton("Enregistrer")
         submit.clicked.connect(self.add_password)
@@ -48,7 +45,7 @@ class Register(Window):
         layout.addRow(submit)
         layout.addRow(cancel)
         
-        self.central_widget.setLayout(layout)
+        self.setLayout(layout)
     
     def add_password(self):
         if self.origin.text() == "" or self.username_if.text() == "" or self.password.text() == "":
@@ -61,7 +58,7 @@ class Register(Window):
         if passwords.get(self.username) is None:
             passwords[self.username] = []
         
-        passwords[self.username].append({"origin": self.origin.text(), "username": self.username_if.text(), "password": self.password.text()})
+        passwords[self.username].append({"origin": self.origin.text(), "username": self.username_if.text(), "password": str(self.manager.fernet.encrypt(self.password.text()))})
         
         with open("./data/passwords.json", "w", encoding="utf8") as f:
             json.dump(passwords, f, indent=4)

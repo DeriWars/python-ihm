@@ -3,14 +3,13 @@ from PyQt5.QtWidgets import *
 from system.window.window import Window
 from system.message_box import error_box
 from system.sql import UserDatabase
-from system.window.style import Style
 
 USERS = UserDatabase("./data/users.db")
 
 # create a class for our main window
 class SignupPage(Window):
     def __init__(self):
-        super().__init__("Gandalf - Création de compte (by Pékul)", 550, 220, False)
+        super().__init__("Gandalf - Création de compte (by Pékul)", 550, 280)
         self.create_widgets()
     
     def create_widgets(self):
@@ -22,14 +21,12 @@ class SignupPage(Window):
         self.user.setMaxLength(20)
         self.user.setPlaceholderText("Nom d'utilisateur")
         self.user.setToolTip("Nom d'utilisateur")
-        self.user.setStyleSheet(Style.QLineEdit)
         
         self.password = QLineEdit()
         self.password.setEchoMode(QLineEdit.Password)
         self.password.setMaxLength(30)
         self.password.setPlaceholderText("Mot de passe")
         self.password.setToolTip("Mot de passe")
-        self.password.setStyleSheet(Style.QLineEdit)
         
         self.confirm_password = QLineEdit()
         self.confirm_password.setEchoMode(QLineEdit.Password)
@@ -37,7 +34,6 @@ class SignupPage(Window):
         self.confirm_password.setPlaceholderText("Confirmer le mot de passe")
         self.confirm_password.setToolTip("Confirmer le mot de passe")
         self.confirm_password.returnPressed.connect(self.submit_clicked)
-        self.confirm_password.setStyleSheet(Style.QLineEdit)
         
         submit = QPushButton("Créer un compte")
         submit.clicked.connect(self.submit_clicked)
@@ -53,7 +49,7 @@ class SignupPage(Window):
         layout.addRow(submit)
         
         layout.setSpacing(5)
-        self.central_widget.setLayout(layout)
+        self.setLayout(layout)
     
     def submit_clicked(self):
         if USERS.get_user(self.user.text()) != None:
@@ -68,11 +64,10 @@ class SignupPage(Window):
         self.login_clicked()
         
     def login_clicked(self):
-        self.hide_and_reset()
+        self.reset()
         self.disconnect()
         
-    def hide_and_reset(self):
-        self.hide()
+    def reset(self):
         self.password.setText("")
         self.confirm_password.setText("")
         self.user.setText("")
