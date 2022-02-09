@@ -9,7 +9,7 @@ from login import *
 difficulty_level = "Niveau 1"
 word = ""
 liste_char = ['@', '#', '&', 'é', '(', '§', 'è', '!', 'ç', 'à', ')', '^', '¨', '*', '$']
-
+ihm = None
 
 def level_button_connect(button):
     """
@@ -35,9 +35,11 @@ def solo_button_click(window):
     Function which indicate what to do when the solo connect button is pressed
     :param window: the window to hide
     """
+    global ihm
     choose_word()
     plate = display(word)
-    ihm = UserInterface(word, plate)
+    errors = 0
+    ihm = UserInterface(word, plate, errors)
     user = Login(ihm)
     user.layout()
     window.hide()

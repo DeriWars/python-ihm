@@ -2,26 +2,38 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from json_data import read_json_file
-
+from json_data import read_json_file, load_file
+from timer import get_time
 
 database_dict = {}
 current_player = ""
 
 
-def get_score(difficulty_level: str, word: str, errors: int):
+def get_score(difficulty_level: str, word: str, ihm):
     score = 0
+    print(ihm.errors)
+
+    time1 = ihm.time
+    from pendu import time2
+
+    final_time = get_time(time1, time2)
+    print(final_time)
     if difficulty_level == "Niveau 1":
-        score = 100 + len(word) * 10 - errors*10
+        score = 100 + len(word) * 10 - ihm.errors*10 - final_time
     elif difficulty_level == "Niveau 2":
-        score = 200 + len(word) * 10 - errors*10
+        score = 200 + len(word) * 10 - ihm.errors*10 - final_time
     elif difficulty_level == "Niveau 3":
-        score = 300 + len(word) * 10 - errors*10
-    if errors == 0:
+        score = 300 + len(word) * 10 - ihm.errors*10 - final_time
+
+    print(ihm.errors)
+    if ihm.errors == 0:
         score += 500
-    elif errors == 11:
+        print(1)
+    elif ihm.errors > 11:
         score = 0
-    return score
+        print("je passe")
+
+    return round(score)
 
 
 def get_users():
@@ -72,6 +84,8 @@ class Score(QScrollArea):
 
         # TODO : vertical bar to separate username and score
         get_users()
+        load_file(current_player)
+
         label_pseudos_tab = QWidget()
         label_pseudos_layout = QFormLayout()
         label_scores_tab = QWidget()

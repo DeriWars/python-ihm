@@ -19,8 +19,8 @@ def load_file(username):
     """
 
     with open(file_json, "w", encoding="utf8") as file:
-        from UserInterface import errors
+        from start import ihm
         from start import difficulty_level, word
         from score import get_score
-        data[username] = get_score(difficulty_level, word, errors)
+        data[username] = get_score(difficulty_level, word, ihm)
         json.dump(data, file, indent=4)

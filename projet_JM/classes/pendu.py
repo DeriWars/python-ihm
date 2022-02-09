@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from string import ascii_lowercase
 from random import *
 from bouton import disable_buttons
+from timer import start_time
 
 FRENCH = [8.173, 0.901, 3.345, 3.669, 16.734, 1.066, 0.866, 0.737, 7.579, 0.613, 0.049, 5.456, 2.968, 7.095, 5.819,
           2.521, 1.362, 6.693, 7.948, 7.244, 6.429, 1.838, 0.074, 0.427, 0.128, 0.326]
@@ -15,6 +16,7 @@ WORDFILE = "../data/mots.txt"
 
 STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
 LISTE_ACCENTS = list(STRING_ACCENTS)
+time2 = 0
 
 
 def dico(liste):
@@ -110,6 +112,8 @@ def win_label(label_word, input, buttons_list, word, disable_input, button_state
     disable_input(input)
     button_state(score_button, True)
     button_state(def_word_button, True)
+    global time2
+    time2 = start_time()
 
 
 def lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button):
@@ -130,6 +134,8 @@ def lose_label(label_word, input, buttons_list, word, disable_input, button_stat
     disable_input(input)
     button_state(score_button, True)
     button_state(def_word_button, True)
+    global time2
+    time2 = start_time()
 
 
 def difficulty_analysis(filename, difficulty: str):
