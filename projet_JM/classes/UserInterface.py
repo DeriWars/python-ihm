@@ -5,9 +5,7 @@ from pictures import *
 from score import *
 from webdefinitions import *
 from PyQt5.QtCore import QTime, QTimer
-from login import *
 from timer import start_time
-from replay import Replay
 
 plate = ""
 buttons_list = []
@@ -57,10 +55,13 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, sco
         return
     if answer.text() == word:
         win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button, replay_button)
-    elif answer.text() != word:
+    if answer.text() != word:
         ihm.errors += 1
         answer.clear()
         label_word.setText(plate)
+    if ihm.errors == len(pictures_list) - 1:
+        lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button,
+                   replay_button)
     error_state(top_grid_layout, pictures_list, ihm.errors)
 
 
@@ -93,8 +94,11 @@ def definition_button_click(web_def, word):
     web_def.definition_word(word)
 
 
-def replay_button_click(restart: Replay):
-    restart.replay_layout()
+def replay_button_click(old_ihm):
+    from start import Start
+    starter = Start()
+    starter.start_layout()
+    old_ihm.hide()
 
 
 class UserInterface:
@@ -192,8 +196,7 @@ class UserInterface:
         web_def = WebDef()
         definition_word_button.clicked.connect(lambda: definition_button_click(web_def, self.word))
 
-        restart = Replay(self.window)
-        replay_button.clicked.connect(lambda: replay_button_click(restart))
+        replay_button.clicked.connect(lambda: replay_button_click(self.window))
 
         picture = Pictures(pictures_list, self.errors)
         picture.display(top_grid_layout)

@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from pendu import *
 from UserInterface import *
-from login import *
+from login import Login
 
 difficulty_level = "Niveau 1"
 word = ""
@@ -52,6 +52,7 @@ def duo_button_click(input, window):
     :param window: the window to hide
     """
     global word, duo_mode, ihm
+
     if isinstance(input.text(), str):
         if input.text() != "":
             word = input.text()
