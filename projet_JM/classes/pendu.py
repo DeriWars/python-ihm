@@ -12,8 +12,7 @@ FRENCH = [8.173, 0.901, 3.345, 3.669, 16.734, 1.066, 0.866, 0.737, 7.579, 0.613,
 
 TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüýÿž', 'aaaaaceeeeiiiinooooosuuuuyyz')
 
-WORDFILE = "../data/liste_francais.txt"
-#"../data/mots.txt"
+WORDFILE = "../data/mots.txt"
 
 STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
 LISTE_ACCENTS = list(STRING_ACCENTS)
@@ -40,9 +39,11 @@ def read_file(filename):
     """
     words_to_ban = []
     list_to_analyze = []
-    with open(filename, "r", encoding="windows-1252") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         words = file.read().split()
     for word in words:
+        if 4 > len(word) or 15 < len(word):
+            words_to_ban.append(word)
         for char in word:
             if char in LISTE_ACCENTS or char in ascii_uppercase:
                 words_to_ban.append(word.replace(' ', ''))
@@ -56,16 +57,7 @@ def read_file(filename):
     return list_to_analyze
 
 
-def random_word(data):
-    """
-    Function which choose a random word in the data
-    :param data: a list of words
-    :return: one word sorted among the data
-    """
-    word = data[randint(0, len(data) - 1)]
-    if 4 > len(word) > 15:
-        random_word(data)
-    return word
+
 
 
 def display(word):
