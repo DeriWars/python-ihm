@@ -1,26 +1,27 @@
 import json
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from system.message_box import error_box
+from system.utils.message_box import error_box
 
-def get_stylesheet():
-    with open("./stylesheet.css", "r", encoding="utf8") as f:
+def get_stylesheet(stylesheet_name = "base"):
+    with open(f"./css/{stylesheet_name}.css", "r", encoding="utf8") as f:
         return f.read()
 
 class GandalfWindow(QStackedWidget):
     def __init__(self, tray):
         super().__init__()
         self.tray = tray
+        self.width, self.height = 0, 0
         self.create_menu()
         self.windows = []
         
     def create_menu(self):
         menu = QMenuBar()
         file_menu = menu.addMenu("&Fichier")
-        file_menu.addAction("&Déconnexion", lambda: self.get_current_window().switch_window("login"))
-        file_menu.addAction("&Quitter", QApplication.quit)
+        file_menu.addAction(QIcon("./images/logout.png"), "&Déconnexion", lambda: self.get_current_window().switch_window("login"))
+        file_menu.addAction(QIcon("./images/quit.png"), "&Quitter", QApplication.quit)
         manager_menu = menu.addMenu("&Gestionnaire")
-        manager_menu.addAction("&Réinitialiser", lambda: self.reset_manager())
+        manager_menu.addAction(QIcon("./images/cancel.png"), "&Réinitialiser", lambda: self.reset_manager())
         self.layout().setMenuBar(menu)
     
     def set_app_windows(self, windows):
@@ -33,12 +34,25 @@ class GandalfWindow(QStackedWidget):
     def modify_window(self, title, width, height):
         self.setWindowTitle(title)
         self.setParent(None)
-        self.resize(width, height)
-        self.setMinimumSize(width, height)
+        
+        if self.width != width or self.height != height:
+            self.width, self.height = width, height
+            self.setMinimumSize(width, height)
+            self.resize(width, height)
+            
+            
+            rectangle = self.frameGeometry()
+            centerPoint = QDesktopWidget().availableGeometry().center()
+            rectangle.moveCenter(centerPoint)
+            self.move(rectangle.topLeft())
+            
         self.setWindowIcon(QIcon('./images/icon.png'))
+        
+        
     
     def switch_window(self, window):
         self.setCurrentWidget(window)
+        self.modify_window(window.title, window.width, window.height)
     
     def get_current_window(self):
         return self.windows[self.currentIndex()]
@@ -80,7 +94,7 @@ class Window(QWidget):
     def __init__(self, title, width, height):
         super().__init__()
                 
-        self.title = title
+        self.title = title + " (Gandalf • 2022.02.10 • par Pékul)"
         self.width = width
         self.height = height
         
@@ -103,15 +117,18 @@ class Window(QWidget):
     def reset_all(self):
         for name, window in self.windows.items():
             window.reset()
+            window.set_username(None)
     
     def switch_window(self, window_name):
         next_window = self.windows.get(window_name, None) if window_name in 'login signup' else self.windows.get('solo_window', None)
+        
+        if next_window is self:
+            return
         
         if next_window is not None:
             self.app.get_current_window().reset()
             
             next_window.update()
-            self.app.modify_window(next_window.title, next_window.width, next_window.height)
             self.app.switch_window(next_window)
             
             if window_name == 'login':

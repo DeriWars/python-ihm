@@ -1,13 +1,14 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 
-from system.window.window import Window
-from system.message_box import error_box
+from system.window.window import Window, get_stylesheet
+from system.utils.message_box import error_box
 
 # create a class for our main window
 class PasswordGenerator(Window):
     def __init__(self):
-        super().__init__("Gandalf - Générateur (by Pékul)", 500, 180)
+        super().__init__("Générateur", 500, 180)
         self.create_widgets()
         
         self.password_length = 16
@@ -17,6 +18,7 @@ class PasswordGenerator(Window):
         layout = QFormLayout()
         
         title = QLabel("GENERER UN MOT DE PASSE")
+        title.setStyleSheet(get_stylesheet("title"))
         layout.addRow(title)
         
         self.generated_password = QLineEdit("")
@@ -39,12 +41,15 @@ class PasswordGenerator(Window):
         h_layout = QHBoxLayout()
         generate_password = QPushButton("Générer le mot de passe")
         generate_password.clicked.connect(self.generate_password_clicked)
+        generate_password.setStyleSheet(get_stylesheet("validation_button"))
+        generate_password.setIcon(QIcon("./images/generate.png"))
         
         copy_password = QPushButton("Copier")
         copy_password.clicked.connect(self.copy_password_clicked)
+        copy_password.setIcon(QIcon("./images/copy.png"))
         
-        h_layout.addWidget(generate_password)
         h_layout.addWidget(copy_password)
+        h_layout.addWidget(generate_password)
         layout.addRow(h_layout)
         
         self.setLayout(layout)

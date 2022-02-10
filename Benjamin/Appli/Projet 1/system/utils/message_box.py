@@ -4,7 +4,7 @@ def box(icon, name, description, details=None, callback=None):
     box = QMessageBox()
     
     box.setIcon(icon)
-    box.setWindowTitle("Password manager - by Pékul")
+    box.setWindowTitle("Gandalf (2022.02.10 • par Pékul)")
     box.setText(name)
     box.setInformativeText(description)
     box.setStandardButtons(QMessageBox.Ok)

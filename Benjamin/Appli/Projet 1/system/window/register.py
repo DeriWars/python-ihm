@@ -1,19 +1,23 @@
 import json
+from re import sub
 
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QIcon
 
-from system.window.window import Window
-from system.message_box import info_box, error_box
+from system.window.window import Window, get_stylesheet
+from system.utils.message_box import info_box, error_box
+from system.utils.strength_verificator import strength_level
 
 class Register(Window):
     def __init__(self):
-        super().__init__("Gandalf - Enregister (by Pékul)", 550, 270)
+        super().__init__("Enregister", 550, 270)
         self.create_widget()
     
     def create_widget(self):
         layout = QFormLayout()
         
         title = QLabel("ENREGISTRER")
+        title.setStyleSheet(get_stylesheet("title"))
         
         self.origin = QLineEdit()
         self.origin.setPlaceholderText("Site d'origine")
@@ -29,23 +33,52 @@ class Register(Window):
         self.password.setMaxLength(50)
         self.password.setEchoMode(QLineEdit.Password)
         self.password.setToolTip("Mot de passe")
-        
         self.password.returnPressed.connect(self.add_password)
+        self.password.textChanged.connect(self.verify_password)
         
-        submit = QPushButton("Enregistrer")
-        submit.clicked.connect(self.add_password)
+        self.password_strength = QLabel("Très faible")
+        self.password_strength.setStyleSheet("color: #800;")
+        
+        h_layout = QHBoxLayout()
         
         cancel = QPushButton("Annuler")
         cancel.clicked.connect(self.reset)
+        cancel.setIcon(QIcon("./images/cancel.png"))
+        h_layout.addWidget(cancel)
+        
+        submit = QPushButton("Enregistrer")
+        submit.clicked.connect(self.add_password)
+        submit.setStyleSheet(get_stylesheet("validation_button"))
+        submit.setIcon(QIcon("./images/save.png"))
+        h_layout.addWidget(submit)
         
         layout.addRow(title)
         layout.addRow("Site d'origine", self.origin)
         layout.addRow("Nom d'utilisateur", self.username_if)
         layout.addRow("Mot de passe", self.password)
-        layout.addRow(submit)
-        layout.addRow(cancel)
+        layout.addRow("Force", self.password_strength)
+        layout.addRow(h_layout)
         
         self.setLayout(layout)
+    
+    def verify_password(self):
+        strength = strength_level(self.password.text())
+        
+        if strength <= 2:
+            self.password_strength.setText("Très faible")
+            self.password_strength.setStyleSheet("color: #B00;")
+        elif strength <= 4:
+            self.password_strength.setText("Faible")
+            self.password_strength.setStyleSheet("color: #800;")
+        elif strength <= 6:
+            self.password_strength.setText("Moyen")
+            self.password_strength.setStyleSheet("color: #000;")
+        elif strength <= 8:
+            self.password_strength.setText("Fort")
+            self.password_strength.setStyleSheet("color: #090;")
+        else:
+            self.password_strength.setText("Très fort")
+            self.password_strength.setStyleSheet("color: #090;")
     
     def add_password(self):
         if self.origin.text() == "" or self.username_if.text() == "" or self.password.text() == "":

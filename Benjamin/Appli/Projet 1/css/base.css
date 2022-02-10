@@ -56,5 +56,15 @@ QLineEdit:hover {
 }
 
 QLineEdit:focus {
-    border-bottom: 2px solid #33F;
+    border-bottom: 2px solid #0084ff;
+}
+
+
+
+
+QScrollArea {
+    background-color: #fefefe;
+    border: 1px solid #000;
+    border-radius: 3px;
+    font-size: 16px;
 }

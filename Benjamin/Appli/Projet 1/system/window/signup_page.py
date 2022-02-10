@@ -1,21 +1,23 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QIcon
 
-from system.window.window import Window
-from system.message_box import error_box
-from system.sql import UserDatabase
+from system.window.window import Window, get_stylesheet
+from system.utils.message_box import error_box
+from system.utils.sql import UserDatabase
 
 USERS = UserDatabase("./data/users.db")
 
 # create a class for our main window
 class SignupPage(Window):
     def __init__(self):
-        super().__init__("Gandalf - Création de compte (by Pékul)", 550, 280)
+        super().__init__("Création de compte", 550, 280)
         self.create_widgets()
     
     def create_widgets(self):
         layout = QFormLayout()
         
         title = QLabel("CREER UN COMPTE")
+        title.setStyleSheet(get_stylesheet("title"))
         
         self.user = QLineEdit()
         self.user.setMaxLength(20)
@@ -35,18 +37,23 @@ class SignupPage(Window):
         self.confirm_password.setToolTip("Confirmer le mot de passe")
         self.confirm_password.returnPressed.connect(self.submit_clicked)
         
-        submit = QPushButton("Créer un compte")
-        submit.clicked.connect(self.submit_clicked)
+        h_layout = QHBoxLayout()
         
         login_btn = QPushButton("Se connecter")
         login_btn.clicked.connect(self.login_clicked)
+        h_layout.addWidget(login_btn)
+        
+        submit = QPushButton("Créer un compte")
+        submit.clicked.connect(self.submit_clicked)
+        submit.setStyleSheet(get_stylesheet("validation_button"))
+        submit.setIcon(QIcon("./images/login.png"))
+        h_layout.addWidget(submit)
         
         layout.addRow(title)
         layout.addRow("Nom d'utilisateur", self.user)
         layout.addRow("Mot de passe", self.password)
         layout.addRow("Confirmer", self.confirm_password)
-        layout.addRow(login_btn)
-        layout.addRow(submit)
+        layout.addRow(h_layout)
         
         layout.setSpacing(5)
         self.setLayout(layout)
