@@ -1,15 +1,37 @@
 import sys
 # importing Widgets
-from PyQt5.QtWidgets import QWidget, QGridLayout
+from PyQt5.QtWidgets import *
 # pip install PyQTWebEngine
 from PyQt5.QtWebEngineWidgets import *
 from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import *
+from bs4 import BeautifulSoup
+import requests as req
+
+
+def get_definition_string(word):
+    try:
+        resp = req.get(f"http://larousse.fr/dictionnaires/francais/{word}")
+        soup = BeautifulSoup(resp.text, "html.parser")
+        return soup.find_all('p', class_="def")[0].text
+    except:
+        return "Veuillez vous connecter à internet."
+
+
+def button_clicked(word):
+    """
+     Function that allows the creation of the window
+     :param word: the word that the player needs to guess
+     """
+    import webbrowser
+    webbrowser.open(f"https://www.larousse.fr/dictionnaires/francais/{word}")
 
 
 class WebDef:
     """
     Class for create a window with the definition of the word chosen
     """
+
     def __init__(self):
         self.window = None
 
@@ -18,12 +40,13 @@ class WebDef:
         Function that allows the creation of the window
         :param word: the word that the player needs to guess
         """
-        self.window = QWidget()
-        self.window.resize(1000, 1000)
-        self.window.setWindowTitle(f"Définiton du mot {word}")
-        browser = QWebEngineView()
-        browser.setUrl(QUrl(f"https://www.larousse.fr/dictionnaires/francais/{word}"))
-        layout = QGridLayout()
-        layout.addWidget(browser)
-        self.window.setLayout(layout)
-        self.window.show()
+        self.box = QMessageBox()
+        self.box.resize(1000, 1000)
+        self.box.setWindowTitle(f"Définiton du mot {word}")
+        self.box.setIcon(QMessageBox.Question)
+        self.box.setText(f"La définition du mot '{word}' est : ")
+        self.box.setInformativeText(get_definition_string(word))
+        more = QPushButton("En savoir plus")
+        self.box.addButton(more, QMessageBox.YesRole)
+        more.clicked.connect(lambda: button_clicked(word))
+        self.box.show()
