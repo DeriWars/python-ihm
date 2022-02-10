@@ -1,4 +1,5 @@
 import json
+
 file_json = "../data/database.json"
 data = {}
 
@@ -20,5 +21,7 @@ def load_file(username):
     with open(file_json, "w", encoding="utf8") as file:
         from start import ihm, difficulty_level, word
         from score import get_score
+        print(1)
         data[username] = get_score(difficulty_level, word, ihm)
+        print(2)
         json.dump(data, file, indent=4)
