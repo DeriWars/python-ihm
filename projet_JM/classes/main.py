@@ -1,5 +1,3 @@
-from UserInterface import *
-from login import *
 from start import *
 
 

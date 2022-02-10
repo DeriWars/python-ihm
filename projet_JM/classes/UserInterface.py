@@ -4,7 +4,6 @@ from bouton import *
 from pictures import *
 from score import *
 from webdefinitions import *
-from PyQt5.QtCore import QTime, QTimer
 from timer import start_time
 
 plate = ""
