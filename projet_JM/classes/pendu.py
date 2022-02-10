@@ -12,7 +12,8 @@ FRENCH = [8.173, 0.901, 3.345, 3.669, 16.734, 1.066, 0.866, 0.737, 7.579, 0.613,
 
 TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüýÿž', 'aaaaaceeeeiiiinooooosuuuuyyz')
 
-WORDFILE = "../data/mots.txt"
+WORDFILE = "../data/liste_francais.txt"
+#"../data/mots.txt"
 
 STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
 LISTE_ACCENTS = list(STRING_ACCENTS)
@@ -39,7 +40,7 @@ def read_file(filename):
     """
     words_to_ban = []
     list_to_analyze = []
-    with open(filename, "r", encoding="utf8") as file:
+    with open(filename, "r", encoding="windows-1252") as file:
         words = file.read().split()
     for word in words:
         for char in word:
@@ -171,9 +172,9 @@ def difficulty_analysis(filename, difficulty: str):
         sort_dictionary[word] = round(total)
         if sort_dictionary[word] > 8:
             easy_list.append(word)
-        elif 8 > sort_dictionary[word] > 6:
+        elif 8 > sort_dictionary[word] > 4:
             medium_list.append(word)
-        elif 6 > sort_dictionary[word] > 0:
+        elif 4 > sort_dictionary[word] > 0:
             hard_list.append(word)
 
     if difficulty == "Niveau 1":

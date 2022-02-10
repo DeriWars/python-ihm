@@ -19,7 +19,7 @@ def connect_button_click(ihm, window, username):
     ihm.layout()
     window.hide()
     if username == "":
-        user_pseudo = "unknow player"
+        user_pseudo = "unknow play"
         username = user_pseudo
     else:
         user_pseudo = username
@@ -49,7 +49,7 @@ class Login:
         Function that create the login window
         """
         self.window = QWidget()
-        self.window.setWindowTitle("Login || By Personne73 // maxgiant_")
+        self.window.setWindowTitle("Login")
         self.window.resize(450, 200)
         self.window.setStyleSheet("background : #D2E1E1")
 

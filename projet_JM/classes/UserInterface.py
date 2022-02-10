@@ -112,19 +112,6 @@ class UserInterface:
         self.plate = plate
         self.errors = errors
 
-    def timer(self, label_time, label_word, input, score_button):
-        """self.time = self.time.addSecs(1)
-        label_time.setText(self.time.toString("hh:mm:ss"))
-        if self.time.toString("hh:mm:ss") == "00:00:05":
-            lose_label(label_word, input, buttons_list, self.word, disable_input, button_state, score_button)
-            self.time = self.time.addSecs(-1)
-            # self.time.stop()
-            print(self.time.toString("hh:mm:ss"))
-        elif label_word.text() == f"\n---- Victoire du joueur ----\nLe bon mot était : {self.word}" or label_word.text() == f"\n---- GAME OVER ---- \nLe bon mot était : {self.word}":
-            # self.time.stop()
-            self.time = self.time.addSecs(-1)
-            print(self.time.toString("hh:mm:ss"))"""
-
     def layout(self):
         self.window = QWidget()
         self.window.resize(1200, 600)
