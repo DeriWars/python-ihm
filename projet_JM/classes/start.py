@@ -27,7 +27,7 @@ def choose_word():
     global word
     words_list = difficulty_analysis(WORDFILE, difficulty_level)
     word = choice(words_list)
-    # print(word)
+    print(word)
 
 
 def solo_button_click(window):

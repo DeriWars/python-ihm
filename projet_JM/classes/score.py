@@ -17,7 +17,6 @@ def get_score(difficulty_level: str, word: str, ihm):
     :return: the score
     """
     score = 0
-    print(ihm.errors)
 
     time1 = ihm.time
     from pendu import time2
@@ -31,13 +30,10 @@ def get_score(difficulty_level: str, word: str, ihm):
         elif difficulty_level == "Niveau 3":
             score = 300 + len(word) * 10 - ihm.errors*10 - final_time
 
-        print(ihm.errors)
         if ihm.errors == 0:
             score += 500
-            print(1)
         elif ihm.errors > 11:
             score = 0
-            print("je passe")
 
     return round(score)
 
