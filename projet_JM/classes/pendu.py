@@ -1,9 +1,5 @@
-import sys
-from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
 from string import ascii_lowercase, ascii_uppercase
-from random import *
 from bouton import disable_buttons
 from timer import start_time
 
@@ -55,9 +51,6 @@ def read_file(filename):
     for word in list(words_set):
         list_to_analyze.append(word.lower())
     return list_to_analyze
-
-
-
 
 
 def display(word):

@@ -1,11 +1,4 @@
-import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from pendu import *
-from UserInterface import *
 from login import *
-from random import *
 
 difficulty_level = "Niveau 1"
 word = ""
