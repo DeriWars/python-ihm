@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 from pendu import *
 
 
-def yes_button_click(old_ihm):
+def yes_button_click(old_ihm, replay_layout):
     from start import choose_word
     from UserInterface import UserInterface
     choose_word()
@@ -14,6 +14,11 @@ def yes_button_click(old_ihm):
     errors = 0
     ihm = UserInterface(word, plate, errors)
     ihm.layout()
+    """from start import Start
+    starter = Start()
+    starter.start_layout()"""
+    old_ihm.hide()
+    replay_layout.hide()
 
 
 def no_button_click():
@@ -57,7 +62,7 @@ class Replay:
         yes_button = QCheckBox("Oui")
         no_button = QCheckBox("Non")
 
-        yes_button.clicked.connect(lambda: yes_button_click(self.old_ihm))
+        yes_button.clicked.connect(lambda: yes_button_click(self.old_ihm, self.window))
         no_button.clicked.connect(lambda: no_button_click())
 
         answer_box.addWidget(yes_button)
