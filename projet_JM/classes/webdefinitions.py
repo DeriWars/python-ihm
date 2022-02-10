@@ -1,7 +1,9 @@
 import sys
-# importing Widgtes
+# importing Widgets
 from PyQt5.QtWidgets import *
 # importing Engine Widgets
+# is it necessary to install QTWebEngine with
+# pip install PyQTWebEngine
 from PyQt5.QtWebEngineWidgets import *
 # importing QtCore to use Qurl
 from PyQt5.QtCore import *
@@ -9,7 +11,7 @@ from PyQt5.QtCore import *
 
 class WebDef:
     def __init__(self):
-        pass
+        self.window = None
 
     def definition_word(self, word: str):
         self.window = QWidget()

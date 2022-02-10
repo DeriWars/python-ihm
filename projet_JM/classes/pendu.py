@@ -95,7 +95,7 @@ def change_display(plate, word, player_letter):
     return plate
 
 
-def win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button):
+def win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button, replay_button):
     """
     Function that change the label by the win text
     :param label_word: the label to change
@@ -106,19 +106,22 @@ def win_label(label_word, input, buttons_list, word, disable_input, button_state
     :param button_state: a function
     :param score_button: a function
     """
+    global time2
     from login import user_pseudo
     label_word.setFont(QFont("Times", 40))
     label_word.setText(f"\n---- Victoire de {user_pseudo} ----\n"
                        f"Le bon mot était : {word}")
     disable_buttons(buttons_list)
     disable_input(input)
-    button_state(score_button, True)
     button_state(def_word_button, True)
-    global time2
+    button_state(replay_button, True)
+    from start import duo_mode
+    if not duo_mode:
+        button_state(score_button, True)
     time2 = start_time()
 
 
-def lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button):
+def lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button, replay_button):
     """
     Function that change the label by the lose text
     :param label_word: the label to change
@@ -129,14 +132,17 @@ def lose_label(label_word, input, buttons_list, word, disable_input, button_stat
     :param button_state: a function
     :param score_button: a function
     """
+    global time2
     label_word.setFont(QFont("Times", 40))
     label_word.setText("\n---- GAME OVER ---- \n"
                        f"Le bon mot était : {word}")
     disable_buttons(buttons_list)
     disable_input(input)
-    button_state(score_button, True)
     button_state(def_word_button, True)
-    global time2
+    button_state(replay_button, True)
+    from start import duo_mode
+    if not duo_mode:
+        button_state(score_button, True)
     time2 = start_time()
 
 

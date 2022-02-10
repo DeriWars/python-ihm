@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 
-
 def shadow(widget, color=None, radius=10):
     """
     Function to add some shadow to the buttons
@@ -23,7 +22,7 @@ def shadow(widget, color=None, radius=10):
     widget.setGraphicsEffect(shade)
 
 
-def button_click(button, label_word, top_grid_layout, game, input, word, score_button, def_word_button, ihm):
+def button_click(button, label_word, top_grid_layout, game, input, word, score_button, def_word_button, replay_button, ihm):
     """
     Function to define what to do when a button is pressed
     :param button: a button
@@ -35,7 +34,7 @@ def button_click(button, label_word, top_grid_layout, game, input, word, score_b
     :param score_button: the score button
     """
     button.setEnabled(False)
-    game(button, label_word, top_grid_layout, input, word, score_button, def_word_button, ihm)
+    game(button, label_word, top_grid_layout, input, word, score_button, def_word_button, replay_button, ihm)
     if button.text() in word:
         button.setStyleSheet("background-color : #7CF96F")
     else:
@@ -55,7 +54,7 @@ class Button(QPushButton):
     """
     Class for create the alphabet buttons and which connects them to the right function
     """
-    def __init__(self, label, label_word, top_grid_layout, game, input, word, score_button, def_word_button, ihm):
+    def __init__(self, label, label_word, top_grid_layout, game, input, word, score_button, def_word_button, replay_button, ihm):
         super().__init__(label)
-        self.clicked.connect(lambda: button_click(self, label_word, top_grid_layout, game, input, word, score_button, def_word_button, ihm))
+        self.clicked.connect(lambda: button_click(self, label_word, top_grid_layout, game, input, word, score_button, def_word_button, replay_button, ihm))
         shadow(self)

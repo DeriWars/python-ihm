@@ -15,9 +15,9 @@ def get_score(difficulty_level: str, word: str, ihm):
 
     time1 = ihm.time
     from pendu import time2
-
     final_time = get_time(time1, time2)
     print(final_time)
+
     if difficulty_level == "Niveau 1":
         score = 100 + len(word) * 10 - ihm.errors*10 - final_time
     elif difficulty_level == "Niveau 2":
@@ -43,20 +43,12 @@ def get_users():
     database_dict = data
     from login import user_pseudo
     current_player = user_pseudo
-    """from start import difficulty_level, word
-    from UserInterface import errors
-    data[current_player] = get_score(difficulty_level, word, errors)"""
-
-
-def score_calculator():
-    pass
 
 
 class Score(QScrollArea):
     """
     CLass that manages the scoreboard layout
     """
-
     def __init__(self):
         super(Score, self).__init__()
         self.window = None
@@ -129,4 +121,3 @@ class Score(QScrollArea):
         self.setWidget(self.window)
         self.setWidgetResizable(True)
         self.show()
-

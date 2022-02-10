@@ -10,6 +10,8 @@ difficulty_level = "Niveau 1"
 word = ""
 liste_char = ['@', '#', '&', 'é', '(', '§', 'è', '!', 'ç', 'à', ')', '^', '¨', '*', '$']
 ihm = None
+duo_mode = False
+
 
 def level_button_connect(button):
     """
@@ -50,14 +52,19 @@ def duo_button_click(input, window):
     Function which indicate what to do when the duo connect button is pressed
     :param window: the window to hide
     """
-    global word
+    global word, duo_mode
     if isinstance(input.text(), str):
-        word = input.text()
+        if input.text() != "":
+            word = input.text()
+        else:
+            choose_word()
     else:
         duo_button_click(input, window)
     plate = display(word)
-    ihm = UserInterface(word, plate)
+    errors = 0
+    ihm = UserInterface(word, plate, errors)
     ihm.layout()
+    duo_mode = True
     window.hide()
 
 
@@ -66,7 +73,7 @@ class Start:
     Class that manages the starting layout
     """
     def __init__(self):
-        pass
+        self.window = None
 
     def start_layout(self):
         self.window = QTabWidget()
@@ -128,4 +135,3 @@ class Start:
         self.window.addTab(solo_tab, "Jouer seul")
         self.window.addTab(duo_tab, "Jouer à deux")
         self.window.show()
-

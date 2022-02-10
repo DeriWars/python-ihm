@@ -7,15 +7,15 @@ from webdefinitions import *
 from PyQt5.QtCore import QTime, QTimer
 from login import *
 from timer import start_time
+
 plate = ""
-# errors = 0
 buttons_list = []
 pictures_list = ["pendu_0.png", "pendu_1.png", "pendu_2.png", "pendu_3.png",
                  "pendu_4.png", "pendu_5.png", "pendu_6.png", "pendu_7.png", "pendu_8.png",
                  "pendu_9.png", "pendu_10.png", "pendu_11.png", "pendu_12.png"]
 
 
-def game(button, label_word, top_grid_layout, input, word, score_button, def_word_button, ihm):
+def game(button, label_word, top_grid_layout, input, word, score_button, def_word_button, replay_button, ihm):
     """
     Function that manages the hangman game
     :param score_button: score button
@@ -36,13 +36,13 @@ def game(button, label_word, top_grid_layout, input, word, score_button, def_wor
     error_state(top_grid_layout, pictures_list, ihm.errors)
 
     if ihm.errors == len(pictures_list) - 1:
-        lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button)
+        lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button, replay_button)
 
     if "_" not in plate:
-        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button)
+        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button, replay_button)
 
 
-def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, score_button, def_word_button, ihm):
+def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, score_button, def_word_button, replay_button, ihm):
     """
     Function that manages the input pressed
     :param score_button: score button
@@ -52,11 +52,12 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, sco
     :param top_grid_layout:
     :param input: the input line
     """
+    if answer.text() == "":
+        return
     if answer.text() == word:
-        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button)
+        win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button, replay_button)
     elif answer.text() != word:
         ihm.errors += 1
-        print("les erreurs :", ihm.errors)
         answer.clear()
         label_word.setText(plate)
     error_state(top_grid_layout, pictures_list, ihm.errors)
@@ -100,6 +101,7 @@ class UserInterface:
         :param word: the word generated
         :param plate: the plate generated
         """
+        self.time = None
         self.window = None
         self.word = word
         self.plate = plate
@@ -140,13 +142,13 @@ class UserInterface:
         answer.setDisabled(False)
         definition_word_button = QPushButton("Definition")
         score_button = QPushButton("Score")
-
+        replay_button = QPushButton("Rejouer")
 
         label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
 
         for i in string.ascii_lowercase:
-            buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button, definition_word_button, self))
+            buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button, definition_word_button, replay_button, self))
 
         bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
         bottom_grid_layout.addWidget(buttons_list[25], 1, 2)
@@ -179,16 +181,21 @@ class UserInterface:
 
         bottom_grid_layout.addWidget(score_button, 4, 10)
         bottom_grid_layout.addWidget(definition_word_button, 4, 9)
-        shadow(definition_word_button)
+        bottom_grid_layout.addWidget(replay_button, 4, 8)
         shadow(score_button)
+        shadow(definition_word_button)
+        shadow(replay_button)
+
         button_state(score_button, False)
         button_state(definition_word_button, False)
-        score = Score()
+        button_state(replay_button, False)
 
+        score = Score()
         score_button.clicked.connect(lambda: score_button_click(score))
+
         answer.returnPressed.connect(
             lambda: input_enter(label_word, self.word, answer, top_grid_layout, answer, score_button,
-                                definition_word_button, self))
+                                definition_word_button, replay_button, self))
 
         web_def = WebDef()
         definition_word_button.clicked.connect(lambda: definition_button_click(web_def, self.word))
