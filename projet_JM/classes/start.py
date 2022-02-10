@@ -13,6 +13,11 @@ ihm = None
 duo_mode = False
 
 
+def set_duo_mode():
+    global duo_mode
+    duo_mode = False
+
+
 def level_button_connect(button):
     """
     Function that permit to set the difficulty level when a button is click

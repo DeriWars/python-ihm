@@ -95,10 +95,14 @@ def definition_button_click(web_def, word):
 
 
 def replay_button_click(old_ihm):
-    """from start import Start
+    from start import Start, set_duo_mode
+    global buttons_list
     starter = Start()
+    set_duo_mode()
+    reset_buttons(buttons_list)
     starter.start_layout()
-    old_ihm.hide()"""
+    buttons_list = []
+    old_ihm.close()
 
 
 class UserInterface:
@@ -132,7 +136,7 @@ class UserInterface:
         label_word.setText(plate)
         top_grid_layout = QGridLayout()
         top_layout_right = QVBoxLayout()
-        bottom_grid_layout = QGridLayout()
+        self.bottom_grid_layout = QGridLayout()
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
         answer.setDisabled(False)
@@ -146,7 +150,7 @@ class UserInterface:
         for i in string.ascii_lowercase:
             buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button, definition_word_button, replay_button, self))
 
-        bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
+        """bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
         bottom_grid_layout.addWidget(buttons_list[25], 1, 2)
         bottom_grid_layout.addWidget(buttons_list[4], 1, 3)
         bottom_grid_layout.addWidget(buttons_list[17], 1, 4)
@@ -173,11 +177,12 @@ class UserInterface:
         bottom_grid_layout.addWidget(buttons_list[2], 3, 5)
         bottom_grid_layout.addWidget(buttons_list[21], 3, 6)
         bottom_grid_layout.addWidget(buttons_list[1], 3, 7)
-        bottom_grid_layout.addWidget(buttons_list[13], 3, 8)
+        bottom_grid_layout.addWidget(buttons_list[13], 3, 8)"""
+        buttons_position(self.bottom_grid_layout, buttons_list)
 
-        bottom_grid_layout.addWidget(score_button, 4, 10)
-        bottom_grid_layout.addWidget(definition_word_button, 4, 9)
-        bottom_grid_layout.addWidget(replay_button, 4, 8)
+        self.bottom_grid_layout.addWidget(score_button, 4, 10)
+        self.bottom_grid_layout.addWidget(definition_word_button, 4, 9)
+        self.bottom_grid_layout.addWidget(replay_button, 4, 8)
         shadow(score_button)
         shadow(definition_word_button)
         shadow(replay_button)
@@ -207,7 +212,7 @@ class UserInterface:
         hangman_layout.addRow(top_grid_layout)
         hangman_layout.addRow(label_space)
         hangman_layout.addRow(label_space)
-        hangman_layout.addRow(bottom_grid_layout)
+        hangman_layout.addRow(self.bottom_grid_layout)
         hangman_layout.addRow(label_time)
 
         self.window.setLayout(hangman_layout)
