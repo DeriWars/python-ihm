@@ -7,6 +7,7 @@ from webdefinitions import *
 from PyQt5.QtCore import QTime, QTimer
 from login import *
 from timer import start_time
+from replay import Replay
 
 plate = ""
 buttons_list = []
@@ -90,6 +91,10 @@ def score_button_click(score: Score):
 
 def definition_button_click(web_def, word):
     web_def.definition_word(word)
+
+
+def replay_button_click(restart: Replay):
+    restart.replay_layout()
 
 
 class UserInterface:
@@ -199,6 +204,9 @@ class UserInterface:
 
         web_def = WebDef()
         definition_word_button.clicked.connect(lambda: definition_button_click(web_def, self.word))
+
+        restart = Replay()
+        replay_button.clicked.connect(lambda: replay_button_click(restart))
 
         picture = Pictures(pictures_list, self.errors)
         picture.display(top_grid_layout)

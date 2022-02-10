@@ -52,7 +52,7 @@ def duo_button_click(input, window):
     Function which indicate what to do when the duo connect button is pressed
     :param window: the window to hide
     """
-    global word, duo_mode
+    global word, duo_mode, ihm
     if isinstance(input.text(), str):
         if input.text() != "":
             word = input.text()

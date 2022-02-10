@@ -10,6 +10,13 @@ current_player = ""
 
 
 def get_score(difficulty_level: str, word: str, ihm):
+    """
+    Function to calculate the score of the current player
+    :param difficulty_level: the difficulty
+    :param word: the word to guess
+    :param ihm: the hangman interface
+    :return: the score
+    """
     score = 0
     print(ihm.errors)
 
@@ -37,6 +44,9 @@ def get_score(difficulty_level: str, word: str, ihm):
 
 
 def get_users():
+    """
+    Function to get the current user and a dict of all users
+    """
     global database_dict, current_player
     read_json_file()
     from json_data import data
