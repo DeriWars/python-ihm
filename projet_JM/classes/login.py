@@ -59,7 +59,7 @@ class Login:
         """
         self.window = QWidget()
         self.window.setWindowTitle("Login")
-        self.window.resize(450, 200)
+        self.window.resize(450, 120)
         self.window.setStyleSheet("background : #D2E1E1")
 
         label_text = QLabel(self.window)
