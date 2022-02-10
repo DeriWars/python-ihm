@@ -4,10 +4,7 @@ from bouton import *
 from pictures import *
 from score import *
 from webdefinitions import *
-from PyQt5.QtCore import QTime, QTimer
-from login import *
 from timer import start_time
-from replay import Replay
 
 plate = ""
 buttons_list = []
@@ -57,10 +54,13 @@ def input_enter(label_word, word, answer: QLineEdit, top_grid_layout, input, sco
         return
     if answer.text() == word:
         win_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button, replay_button)
-    elif answer.text() != word:
+    if answer.text() != word:
         ihm.errors += 1
         answer.clear()
         label_word.setText(plate)
+    if ihm.errors == len(pictures_list) - 1:
+        lose_label(label_word, input, buttons_list, word, disable_input, button_state, score_button, def_word_button,
+                   replay_button)
     error_state(top_grid_layout, pictures_list, ihm.errors)
 
 
@@ -90,11 +90,20 @@ def score_button_click(score: Score):
 
 
 def definition_button_click(web_def, word):
-    web_def.definition_word(word)
+    """web_def.definition_word(word)"""
+    import webbrowser
+    webbrowser.open(f"https://www.larousse.fr/dictionnaires/francais/{word}")
 
 
-def replay_button_click(restart: Replay):
-    restart.replay_layout()
+def replay_button_click(old_ihm):
+    from start import Start, set_duo_mode
+    global buttons_list
+    starter = Start()
+    set_duo_mode()
+    reset_buttons(buttons_list)
+    starter.start_layout()
+    buttons_list = []
+    old_ihm.close()
 
 
 class UserInterface:
@@ -112,19 +121,6 @@ class UserInterface:
         self.plate = plate
         self.errors = errors
 
-    def timer(self, label_time, label_word, input, score_button):
-        """self.time = self.time.addSecs(1)
-        label_time.setText(self.time.toString("hh:mm:ss"))
-        if self.time.toString("hh:mm:ss") == "00:00:05":
-            lose_label(label_word, input, buttons_list, self.word, disable_input, button_state, score_button)
-            self.time = self.time.addSecs(-1)
-            # self.time.stop()
-            print(self.time.toString("hh:mm:ss"))
-        elif label_word.text() == f"\n---- Victoire du joueur ----\nLe bon mot était : {self.word}" or label_word.text() == f"\n---- GAME OVER ---- \nLe bon mot était : {self.word}":
-            # self.time.stop()
-            self.time = self.time.addSecs(-1)
-            print(self.time.toString("hh:mm:ss"))"""
-
     def layout(self):
         self.window = QWidget()
         self.window.resize(1200, 600)
@@ -141,7 +137,7 @@ class UserInterface:
         label_word.setText(plate)
         top_grid_layout = QGridLayout()
         top_layout_right = QVBoxLayout()
-        bottom_grid_layout = QGridLayout()
+        self.bottom_grid_layout = QGridLayout()
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
         answer.setDisabled(False)
@@ -155,7 +151,7 @@ class UserInterface:
         for i in string.ascii_lowercase:
             buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button, definition_word_button, replay_button, self))
 
-        bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
+        """bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
         bottom_grid_layout.addWidget(buttons_list[25], 1, 2)
         bottom_grid_layout.addWidget(buttons_list[4], 1, 3)
         bottom_grid_layout.addWidget(buttons_list[17], 1, 4)
@@ -182,11 +178,12 @@ class UserInterface:
         bottom_grid_layout.addWidget(buttons_list[2], 3, 5)
         bottom_grid_layout.addWidget(buttons_list[21], 3, 6)
         bottom_grid_layout.addWidget(buttons_list[1], 3, 7)
-        bottom_grid_layout.addWidget(buttons_list[13], 3, 8)
+        bottom_grid_layout.addWidget(buttons_list[13], 3, 8)"""
+        buttons_position(self.bottom_grid_layout, buttons_list)
 
-        bottom_grid_layout.addWidget(score_button, 4, 10)
-        bottom_grid_layout.addWidget(definition_word_button, 4, 9)
-        bottom_grid_layout.addWidget(replay_button, 4, 8)
+        self.bottom_grid_layout.addWidget(score_button, 4, 10)
+        self.bottom_grid_layout.addWidget(definition_word_button, 4, 9)
+        self.bottom_grid_layout.addWidget(replay_button, 4, 8)
         shadow(score_button)
         shadow(definition_word_button)
         shadow(replay_button)
@@ -205,8 +202,7 @@ class UserInterface:
         web_def = WebDef()
         definition_word_button.clicked.connect(lambda: definition_button_click(web_def, self.word))
 
-        restart = Replay(self.window)
-        replay_button.clicked.connect(lambda: replay_button_click(restart))
+        replay_button.clicked.connect(lambda: replay_button_click(self.window))
 
         picture = Pictures(pictures_list, self.errors)
         picture.display(top_grid_layout)
@@ -217,7 +213,7 @@ class UserInterface:
         hangman_layout.addRow(top_grid_layout)
         hangman_layout.addRow(label_space)
         hangman_layout.addRow(label_space)
-        hangman_layout.addRow(bottom_grid_layout)
+        hangman_layout.addRow(self.bottom_grid_layout)
         hangman_layout.addRow(label_time)
 
         self.window.setLayout(hangman_layout)

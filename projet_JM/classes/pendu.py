@@ -1,9 +1,5 @@
-import sys
-from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
 from string import ascii_lowercase, ascii_uppercase
-from random import *
 from bouton import disable_buttons
 from timer import start_time
 
@@ -39,9 +35,11 @@ def read_file(filename):
     """
     words_to_ban = []
     list_to_analyze = []
-    with open(filename, "r", encoding="utf8") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         words = file.read().split()
     for word in words:
+        if 4 > len(word) or 15 < len(word):
+            words_to_ban.append(word)
         for char in word:
             if char in LISTE_ACCENTS or char in ascii_uppercase:
                 words_to_ban.append(word.replace(' ', ''))
@@ -53,18 +51,6 @@ def read_file(filename):
     for word in list(words_set):
         list_to_analyze.append(word.lower())
     return list_to_analyze
-
-
-def random_word(data):
-    """
-    Function which choose a random word in the data
-    :param data: a list of words
-    :return: one word sorted among the data
-    """
-    word = data[randint(0, len(data) - 1)]
-    if 4 > len(word) > 15:
-        random_word(data)
-    return word
 
 
 def display(word):
@@ -171,9 +157,9 @@ def difficulty_analysis(filename, difficulty: str):
         sort_dictionary[word] = round(total)
         if sort_dictionary[word] > 8:
             easy_list.append(word)
-        elif 8 > sort_dictionary[word] > 6:
+        elif 8 > sort_dictionary[word] > 4:
             medium_list.append(word)
-        elif 6 > sort_dictionary[word] > 0:
+        elif 4 > sort_dictionary[word] > 0:
             hard_list.append(word)
 
     if difficulty == "Niveau 1":
