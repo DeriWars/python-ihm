@@ -11,9 +11,9 @@ import requests as req
 
 def get_definition_string(word):
     try:
-        resp = req.get(f"http://larousse.fr/dictionnaires/francais/{word}")
+        resp = req.get(f"https://www.cnrtl.fr/definition/{word}")
         soup = BeautifulSoup(resp.text, "html.parser")
-        return soup.find_all('p', class_="def")[0].text
+        return soup.find_all('span', class_="tlf_cdefinition")[0].text
     except:
         return "Veuillez vous connecter à internet."
 
