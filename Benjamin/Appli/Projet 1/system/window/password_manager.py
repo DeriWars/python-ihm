@@ -77,7 +77,7 @@ class PasswordManager(Window):
         connect_button.clicked.connect(lambda: self.connect(identifier, username, password))
         h_layout.addWidget(connect_button)
         
-        layout.addRow("Origine", h_layout)
+        layout.addRow("Site d'origine", h_layout)
         
         h_layout = QHBoxLayout()
         
