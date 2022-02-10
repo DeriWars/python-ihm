@@ -25,20 +25,21 @@ def get_score(difficulty_level: str, word: str, ihm):
     final_time = get_time(time1, time2)
     print(final_time)
 
-    if difficulty_level == "Niveau 1":
-        score = 100 + len(word) * 10 - ihm.errors*10 - final_time
-    elif difficulty_level == "Niveau 2":
-        score = 200 + len(word) * 10 - ihm.errors*10 - final_time
-    elif difficulty_level == "Niveau 3":
-        score = 300 + len(word) * 10 - ihm.errors*10 - final_time
+    if final_time > 0:
+        if difficulty_level == "Niveau 1":
+            score = 100 + len(word) * 10 - ihm.errors*10 - final_time
+        elif difficulty_level == "Niveau 2":
+            score = 200 + len(word) * 10 - ihm.errors*10 - final_time
+        elif difficulty_level == "Niveau 3":
+            score = 300 + len(word) * 10 - ihm.errors*10 - final_time
 
-    print(ihm.errors)
-    if ihm.errors == 0:
-        score += 500
-        print(1)
-    elif ihm.errors > 11:
-        score = 0
-        print("je passe")
+        print(ihm.errors)
+        if ihm.errors == 0:
+            score += 500
+            print(1)
+        elif ihm.errors > 11:
+            score = 0
+            print("je passe")
 
     return round(score)
 

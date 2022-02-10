@@ -205,7 +205,7 @@ class UserInterface:
         web_def = WebDef()
         definition_word_button.clicked.connect(lambda: definition_button_click(web_def, self.word))
 
-        restart = Replay()
+        restart = Replay(self)
         replay_button.clicked.connect(lambda: replay_button_click(restart))
 
         picture = Pictures(pictures_list, self.errors)
