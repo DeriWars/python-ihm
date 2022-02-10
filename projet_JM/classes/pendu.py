@@ -45,7 +45,7 @@ def read_file(filename):
     for word in words:
         for char in word:
             if char in LISTE_ACCENTS or char in ascii_uppercase:
-                words_to_ban.append(word.lower().replace(' ', ''))
+                words_to_ban.append(word.replace(' ', ''))
 
     set_words = set(words)
     set_words_to_ban = set(words_to_ban)
