@@ -90,9 +90,7 @@ def score_button_click(score: Score):
 
 
 def definition_button_click(web_def, word):
-    """web_def.definition_word(word)"""
-    import webbrowser
-    webbrowser.open(f"https://www.larousse.fr/dictionnaires/francais/{word}")
+    web_def.definition_word(word)
 
 
 def replay_button_click(old_ihm):
