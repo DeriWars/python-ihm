@@ -1,4 +1,6 @@
 import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 # importing Widgets
 from PyQt5.QtWidgets import *
 # pip install PyQTWebEngine
@@ -34,6 +36,7 @@ class WebDef:
 
     def __init__(self):
         self.window = None
+        self.box = None
 
     def definition_word(self, word: str):
         """
@@ -50,3 +53,5 @@ class WebDef:
         self.box.addButton(more, QMessageBox.YesRole)
         more.clicked.connect(lambda: button_clicked(word))
         self.box.show()
+
+#soup.find_all('p', class_="def")[0].text
