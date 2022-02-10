@@ -8,7 +8,6 @@ from login import *
 
 difficulty_level = "Niveau 1"
 word = ""
-liste_char = ['@', '#', '&', 'é', '(', '§', 'è', '!', 'ç', 'à', ')', '^', '¨', '*', '$']
 ihm = None
 duo_mode = False
 

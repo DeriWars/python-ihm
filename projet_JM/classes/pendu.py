@@ -25,7 +25,6 @@ def dico(liste):
     :param liste: a list
     :return: a dico
     """
-
     d = dict()
     for index, letter in enumerate(ascii_lowercase):
         d[letter] = liste[index]
@@ -36,7 +35,7 @@ def read_file(filename):
     """
     Function that read the specify file and sort it
     :param filename: the file to read
-    :return: a list of the word in the file
+    :return: a list of the words in the file sorted
     """
     words_to_ban = []
     list_to_analyze = []
@@ -60,7 +59,7 @@ def random_word(data):
     """
     Function which choose a random word in the data
     :param data: a list of words
-    :return: one word among the data
+    :return: one word sorted among the data
     """
     word = data[randint(0, len(data) - 1)]
     if 4 > len(word) > 15:
@@ -150,7 +149,7 @@ def difficulty_analysis(filename, difficulty: str):
     """
     Function which return a list of word depending on the difficulty choose by the player
     :param filename: the file to read
-    :param difficulty: the difficulty choose
+    :param difficulty: the difficulty chosen
     :return: a list of word depending on the difficulty
     """
     dictionary = dico(FRENCH)

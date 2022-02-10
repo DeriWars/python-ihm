@@ -45,6 +45,9 @@ class Login:
         self.ihm = ihm
 
     def layout(self):
+        """
+        Function that create the login window
+        """
         self.window = QWidget()
         self.window.setWindowTitle("Login || By Personne73 // maxgiant_")
         self.window.resize(450, 200)

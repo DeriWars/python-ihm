@@ -24,6 +24,10 @@ class Pictures:
         self.index = index
 
     def display(self, widget):
+        """
+        Function that display the pictures
+        :param widget: the widget used
+        """
         name = self.liste[self.index]
         pixmap = QPixmap(f"../images/{name}")
         picture_label = QLabel()

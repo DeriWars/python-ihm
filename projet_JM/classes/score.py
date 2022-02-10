@@ -23,7 +23,6 @@ def get_score(difficulty_level: str, word: str, ihm):
     time1 = ihm.time
     from pendu import time2
     final_time = get_time(time1, time2)
-    print(final_time)
 
     if final_time > 0:
         if difficulty_level == "Niveau 1":
@@ -65,6 +64,9 @@ class Score(QScrollArea):
         self.window = None
 
     def score_layout(self):
+        """
+        Function that shows the scoreboard at the end of the game
+        """
         self.window = QWidget()
         self.resize(600, 600)
         self.window.setWindowTitle("Tableau des scores")
@@ -85,7 +87,6 @@ class Score(QScrollArea):
         label_score.setFont(QFont("Times", 25))
         label_score.setAlignment(Qt.AlignCenter)
 
-        # TODO : vertical bar to separate username and score
         get_users()
         load_file(current_player)
 
@@ -97,6 +98,7 @@ class Score(QScrollArea):
         label_list = []
         label_scores_list = []
 
+        # allows sorting in descending order by the score the dict
         e = sorted(database_dict.items(), key=lambda x: x[1], reverse=True)
         for username, score in dict(e).items():
             label_scores_list.append(QLabel(str(score)))
