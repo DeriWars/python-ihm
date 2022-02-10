@@ -9,12 +9,13 @@ from system.window.tray import Tray
 from system.window.solo_window import SoloWindow
 from system.window.window import GandalfWindow
 
-from system.auto_installer import auto_install_package
+from system.utils.auto_installer import auto_install_package
 
 import sys
 
 def main():
-    auto_install_package(["pyqt5", "pyperclip"])
+    try: auto_install_package(["pyqt5", "pyperclip"])
+    except Exception as e: print(e)
     
     app = QApplication([])
     
@@ -23,7 +24,7 @@ def main():
     pm = PasswordManager()
     pg = PasswordGenerator()
     register = Register()
-    tray = Tray(login, pm, pg, register)
+    tray = Tray()
     solo_window = SoloWindow()
     main_window = GandalfWindow(tray)
 
@@ -34,6 +35,7 @@ def main():
     register.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
     solo_window.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
     main_window.set_app_windows([login, signup, solo_window])
+    tray.set_app_windows(main_window, login, signup, pm, pg, register, solo_window)
     
     solo_window.create_widgets()
     

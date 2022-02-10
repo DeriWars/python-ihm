@@ -3,16 +3,17 @@ import webbrowser
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 
-from system.window.window import Window
-from system.message_box import info_box
+from system.window.window import Window, get_stylesheet
+from system.utils.message_box import info_box
 
-from system.encryption import Encryption
+from system.utils.encryption import Encryption
 
 # create a class for our main window
 class PasswordManager(Window):
     def __init__(self):
-        super().__init__("Gandalf (by Pékul)", 1000, 550)
+        super().__init__("Manager", 1000, 550)
         self.fernet = Encryption(6666666)
         self.create_widget()
         self.update()
@@ -22,6 +23,7 @@ class PasswordManager(Window):
         layout.setSpacing(10)
         
         title = QLabel("GESTIONNAIRE DE MOT DE PASSE")
+        title.setStyleSheet(get_stylesheet("title"))
         layout.addRow(title)
         
         self.scroll_bar = QScrollArea()
@@ -109,6 +111,8 @@ class PasswordManager(Window):
         
         delete_password = QPushButton("Supprimer")
         delete_password.clicked.connect(lambda: self.delete_password(identifier, username, password))
+        delete_password.setStyleSheet(get_stylesheet("delete_button"))
+        delete_password.setIcon(QIcon("./images/delete.png"))
         
         layout.addRow("Mot de passe", h_layout)
         layout.addRow(delete_password)

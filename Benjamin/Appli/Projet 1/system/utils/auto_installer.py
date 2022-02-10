@@ -1,8 +1,7 @@
-from pip._internal.utils.misc import get_installed_distributions
-
-import os
-
 def auto_install_package(needed_package):
+    from pip._internal.utils.misc import get_installed_distributions
+    import os
+    
     installed_packages = get_installed_distributions()
     installed_packages_name = [package.project_name.lower() for package in installed_packages]
     package_to_install = []
