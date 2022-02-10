@@ -95,10 +95,10 @@ def definition_button_click(web_def, word):
 
 
 def replay_button_click(old_ihm):
-    from start import Start
+    """from start import Start
     starter = Start()
     starter.start_layout()
-    old_ihm.hide()
+    old_ihm.hide()"""
 
 
 class UserInterface:

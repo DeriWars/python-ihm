@@ -10,7 +10,7 @@ user_pseudo = ""
 adjectives_list = ["Happy", "Sad", "Depressed", "Calm", "Playful", "Lucky", "Short", "Tall", "Big", "Little", "Good",
                    "Great", "Bad", "Best", "New", "Young", "Old", "Same", "Full", "Fresh", "Pink", "Orange", "Yellow",
                    "Pink", "Brown", "Gold", "Silver", "Sarcastic", "Bold", "Smart", "Involved", "Political", "Dynamic",
-                   "Energetic"]
+                   "Energetic", "Unknown", "Random"]
 names_list = ["Cat", "Dog", "Keyboard", "Mouse", "Computer", "Car", "Squirrel", "Phone", "Octane", "Player", "Gamer",
               "Tree", "Eagle", "Banana", "Orange", "Apple", "Pineapple", "Ball", "Book", "Mask", "Calendar"]
 
