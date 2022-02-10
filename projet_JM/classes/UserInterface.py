@@ -138,8 +138,9 @@ class UserInterface:
         answer = QLineEdit()
         answer.setMaximumSize(600, 20)
         answer.setDisabled(False)
-        score_button = QPushButton("Score")
         definition_word_button = QPushButton("Definition")
+        score_button = QPushButton("Score")
+
 
         label_word.setFont(QFont("Times", 50))
         label_word.setAlignment(Qt.AlignCenter)
@@ -178,8 +179,8 @@ class UserInterface:
 
         bottom_grid_layout.addWidget(score_button, 4, 10)
         bottom_grid_layout.addWidget(definition_word_button, 4, 9)
-        shadow(score_button)
         shadow(definition_word_button)
+        shadow(score_button)
         button_state(score_button, False)
         button_state(definition_word_button, False)
         score = Score()

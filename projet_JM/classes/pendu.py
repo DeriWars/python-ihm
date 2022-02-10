@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from string import ascii_lowercase
+from string import ascii_lowercase, ascii_uppercase
 from random import *
 from bouton import disable_buttons
 from timer import start_time
@@ -34,24 +34,26 @@ def dico(liste):
 
 def read_file(filename):
     """
-    Function that read the specify file
+    Function that read the specify file and sort it
     :param filename: the file to read
     :return: a list of the word in the file
     """
     words_to_ban = []
-
+    list_to_analyze = []
     with open(filename, "r", encoding="utf8") as file:
         words = file.read().split()
     for word in words:
         for char in word:
-            if char in LISTE_ACCENTS:
+            if char in LISTE_ACCENTS or char in ascii_uppercase:
                 words_to_ban.append(word.lower().replace(' ', ''))
 
     set_words = set(words)
     set_words_to_ban = set(words_to_ban)
     words_set = set_words - set_words_to_ban
 
-    return list(words_set)
+    for word in list(words_set):
+        list_to_analyze.append(word.lower())
+    return list_to_analyze
 
 
 def random_word(data):

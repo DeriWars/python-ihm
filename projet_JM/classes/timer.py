@@ -6,10 +6,5 @@ def start_time():
     return start_timer
 
 
-def end_time():
-    end_timer = time()
-    return end_timer
-
-
 def get_time(time1, time2):
     return time2 - time1
