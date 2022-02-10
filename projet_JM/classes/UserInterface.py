@@ -90,9 +90,7 @@ def score_button_click(score: Score):
 
 
 def definition_button_click(web_def, word):
-    """web_def.definition_word(word)"""
-    import webbrowser
-    webbrowser.open(f"https://www.larousse.fr/dictionnaires/francais/{word}")
+    web_def.definition_word(word)
 
 
 def replay_button_click(old_ihm):
@@ -151,34 +149,6 @@ class UserInterface:
         for i in string.ascii_lowercase:
             buttons_list.append(Button(i, label_word, top_grid_layout, game, answer, self.word, score_button, definition_word_button, replay_button, self))
 
-        """bottom_grid_layout.addWidget(buttons_list[0], 1, 1)
-        bottom_grid_layout.addWidget(buttons_list[25], 1, 2)
-        bottom_grid_layout.addWidget(buttons_list[4], 1, 3)
-        bottom_grid_layout.addWidget(buttons_list[17], 1, 4)
-        bottom_grid_layout.addWidget(buttons_list[19], 1, 5)
-        bottom_grid_layout.addWidget(buttons_list[24], 1, 6)
-        bottom_grid_layout.addWidget(buttons_list[20], 1, 7)
-        bottom_grid_layout.addWidget(buttons_list[8], 1, 8)
-        bottom_grid_layout.addWidget(buttons_list[14], 1, 9)
-        bottom_grid_layout.addWidget(buttons_list[15], 1, 10)
-
-        bottom_grid_layout.addWidget(buttons_list[16], 2, 1)
-        bottom_grid_layout.addWidget(buttons_list[18], 2, 2)
-        bottom_grid_layout.addWidget(buttons_list[3], 2, 3)
-        bottom_grid_layout.addWidget(buttons_list[5], 2, 4)
-        bottom_grid_layout.addWidget(buttons_list[6], 2, 5)
-        bottom_grid_layout.addWidget(buttons_list[7], 2, 6)
-        bottom_grid_layout.addWidget(buttons_list[9], 2, 7)
-        bottom_grid_layout.addWidget(buttons_list[10], 2, 8)
-        bottom_grid_layout.addWidget(buttons_list[11], 2, 9)
-        bottom_grid_layout.addWidget(buttons_list[12], 2, 10)
-
-        bottom_grid_layout.addWidget(buttons_list[22], 3, 3)
-        bottom_grid_layout.addWidget(buttons_list[23], 3, 4)
-        bottom_grid_layout.addWidget(buttons_list[2], 3, 5)
-        bottom_grid_layout.addWidget(buttons_list[21], 3, 6)
-        bottom_grid_layout.addWidget(buttons_list[1], 3, 7)
-        bottom_grid_layout.addWidget(buttons_list[13], 3, 8)"""
         buttons_position(self.bottom_grid_layout, buttons_list)
 
         self.bottom_grid_layout.addWidget(score_button, 4, 10)
