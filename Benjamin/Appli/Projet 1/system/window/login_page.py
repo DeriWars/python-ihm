@@ -53,7 +53,6 @@ class LoginPage(Window):
     def submit_clicked(self):
         if USERS.is_valid_user(self.user.text(), self.password.text()):
             self.set_username(self.user.text())
-            print(self.username)
             self.switch_window("manager")
         else:
             self.reset()
