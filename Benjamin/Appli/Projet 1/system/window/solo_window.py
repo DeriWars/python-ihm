@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 
 class SoloWindow(Window):
     def __init__(self):
-        super().__init__("Manager", 1000, 550)
+        super().__init__("Manager", 1100, 600)
     
     def create_widgets(self):
         h_layout = QHBoxLayout()

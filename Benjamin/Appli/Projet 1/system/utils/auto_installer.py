@@ -10,6 +10,9 @@ def auto_install_package(needed_package):
         if not installed_packages_name.__contains__(package.lower()):
             package_to_install.append(package)
 
+    if len(package_to_install) == 0:
+        return
+
     result = str(input(f"Vous avez besoin de {len(package_to_install)} paquets à installer.\nVoulez-vous les installer automatiquement ? (y/n) "))
 
     if result.lower() == 'y':
