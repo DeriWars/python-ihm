@@ -1,4 +1,4 @@
-from UserInterface import *
+from userinterface import *
 from json_data import *
 from random import *
 
