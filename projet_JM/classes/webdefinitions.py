@@ -1,12 +1,4 @@
-import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-# importing Widgets
 from PyQt5.QtWidgets import *
-# pip install PyQTWebEngine
-from PyQt5.QtWebEngineWidgets import *
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import *
 from bs4 import BeautifulSoup
 import requests as req
 
