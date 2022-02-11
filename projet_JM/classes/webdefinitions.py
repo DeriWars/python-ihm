@@ -44,11 +44,12 @@ class WebDef:
         :param word: the word that the player needs to guess
         """
         self.box = QMessageBox()
-        self.box.resize(1000, 1000)
+        #self.box.resize(1000, 1000)
         self.box.setWindowTitle(f"Définiton du mot {word}")
         self.box.setIcon(QMessageBox.Question)
         self.box.setText(f"La définition du mot '{word}' est : ")
         self.box.setInformativeText(get_definition_string(word))
+        self.box.addButton(QPushButton("Ok"), QMessageBox.YesRole)
         more = QPushButton("En savoir plus")
         self.box.addButton(more, QMessageBox.YesRole)
         more.clicked.connect(lambda: button_clicked(word))
