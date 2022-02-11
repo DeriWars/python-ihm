@@ -6,8 +6,6 @@ from timer import start_time
 FRENCH = [8.173, 0.901, 3.345, 3.669, 16.734, 1.066, 0.866, 0.737, 7.579, 0.613, 0.049, 5.456, 2.968, 7.095, 5.819,
           2.521, 1.362, 6.693, 7.948, 7.244, 6.429, 1.838, 0.074, 0.427, 0.128, 0.326]
 
-TRANSTABLE = str.maketrans('áàâãäçèéêëìíîïñòóôõöšùúûüýÿž', 'aaaaaceeeeiiiinooooosuuuuyyz')
-
 WORDFILE = "../data/mots.txt"
 
 STRING_ACCENTS = 'áàâãäçèéêëìíîïñòóôõöšùúûüýÿž'
@@ -157,9 +155,9 @@ def difficulty_analysis(filename, difficulty: str):
         sort_dictionary[word] = round(total)
         if sort_dictionary[word] > 8:
             easy_list.append(word)
-        elif 8 > sort_dictionary[word] > 4:
+        elif 8 > sort_dictionary[word] > 6:
             medium_list.append(word)
-        elif 4 > sort_dictionary[word] > 0:
+        elif 6 > sort_dictionary[word] > 0:
             hard_list.append(word)
 
     if difficulty == "Niveau 1":
