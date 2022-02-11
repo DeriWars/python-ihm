@@ -2,6 +2,7 @@ import sys
 from start import *
 import sys
 
+
 def main():
     """
     The main function of the hangman game
