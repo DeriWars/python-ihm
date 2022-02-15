@@ -99,6 +99,7 @@ class Window(QWidget):
         self.height = height
         
         self.username = None
+        self.key = None
         
         self.set_app_windows(None, None, None, None, None, None, None)
         self.setStyleSheet(get_stylesheet())
@@ -136,9 +137,10 @@ class Window(QWidget):
         else:
             error_box("Erreur", f"Impossible de vous rediriez vers la fenêtre '{window_name}'.")
     
-    def set_username(self, username):
+    def set_username(self, username, key=None):
         for name, window in self.windows.items():
             window.username = username
+            window.key = "".join(str(ord(x)) for x in key) if key != None else None
     
     def create_widgets(self):
         pass

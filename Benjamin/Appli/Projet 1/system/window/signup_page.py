@@ -5,6 +5,8 @@ from system.window.window import Window, get_stylesheet
 from system.utils.message_box import error_box
 from system.utils.sql import UserDatabase
 
+from hashlib import sha256
+
 USERS = UserDatabase("./data/users.db")
 
 # create a class for our main window
@@ -67,7 +69,7 @@ class SignupPage(Window):
             error_box("Mot de passe incorrect", "Les mots de passe ne correspondent pas.")
             return
         
-        USERS.add_user(self.user.text(), self.password.text())        
+        USERS.add_user(self.user.text(), sha256(self.password.text().encode('utf-8')).hexdigest())        
         self.login_clicked()
         
     def login_clicked(self):

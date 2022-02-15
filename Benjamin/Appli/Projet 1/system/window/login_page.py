@@ -5,6 +5,8 @@ from system.window.window import Window, get_stylesheet
 from system.utils.message_box import error_box
 from system.utils.sql import UserDatabase
 
+from hashlib import sha256
+
 USERS = UserDatabase("./data/users.db")
 
 # create a class for our main window
@@ -51,8 +53,8 @@ class LoginPage(Window):
         self.setLayout(layout)
     
     def submit_clicked(self):
-        if USERS.is_valid_user(self.user.text(), self.password.text()):
-            self.set_username(self.user.text())
+        if USERS.is_valid_user(self.user.text(), sha256(self.password.text().encode('utf-8')).hexdigest()):
+            self.set_username(self.user.text(), self.password.text())
             self.switch_window("manager")
         else:
             self.reset()

@@ -1,11 +1,8 @@
 from random import Random
 
-class Encryption():
-    def __init__(self, key):
-        self.key = key
-    
-    def encrypt(self, text):
-        random = Random(self.key)
+class Encryption():    
+    def encrypt(self, text, key):
+        random = Random(key)
         encrypted_text = ""
         
         for char in text:
@@ -14,8 +11,8 @@ class Encryption():
             
         return encrypted_text
 
-    def decrypt(self, text):
-        random = Random(self.key)
+    def decrypt(self, text, key):
+        random = Random(key)
         decrypted_text = ""
         
         for char in text:

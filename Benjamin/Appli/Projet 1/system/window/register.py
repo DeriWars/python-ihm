@@ -91,7 +91,7 @@ class Register(Window):
         if passwords.get(self.username) is None:
             passwords[self.username] = []
         
-        passwords[self.username].append({"origin": self.origin.text(), "username": self.username_if.text(), "password": str(self.windows.get('manager').fernet.encrypt(self.password.text()))})
+        passwords[self.username].append({"origin": self.origin.text(), "username": self.username_if.text(), "password": str(self.windows.get('manager').fernet.encrypt(self.password.text(), self.key))})
         
         with open("./data/passwords.json", "w", encoding="utf8") as f:
             json.dump(passwords, f, indent=4)

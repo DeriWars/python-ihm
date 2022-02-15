@@ -14,7 +14,7 @@ from system.utils.encryption import Encryption
 class PasswordManager(Window):
     def __init__(self):
         super().__init__("Manager", 1000, 550)
-        self.fernet = Encryption(6666666)
+        self.fernet = Encryption()
         self.create_widget()
         self.update()
 
@@ -49,7 +49,7 @@ class PasswordManager(Window):
             self.clear_layout(self.scroll_area)
             
             for password in passwords:
-                row = self.create_password_item(password["origin"], password["username"], self.fernet.decrypt(password["password"]))
+                row = self.create_password_item(password["origin"], password["username"], self.fernet.decrypt(password["password"], self.key))
                 self.scroll_area.addRow(row)
     
     def clear_layout(self, layout):
